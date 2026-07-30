@@ -42,11 +42,11 @@
         </div>
         <div>
           <dt>Tools</dt>
-          <dd>Python, pandas, scikit-learn</dd>
+          <dd>Python, pandas, scikit-learn, PowerPoint</dd>
         </div>
         <div>
           <dt>Timeline</dt>
-          <dd>Ongoing</dd>
+          <dd>July 2026 – present</dd>
         </div>
         <div>
           <dt>Repo</dt>
@@ -91,14 +91,24 @@
 
     <h2>Approach</h2>
     <p>
-      Replace this with what you actually did. A good version names the data,
-      the cleaning decisions you had to make, and one thing that surprised you.
+      Three stages, each one feeding the next. Add the specifics — which
+      dataset, how many transactions, what date range — once you've locked them.
     </p>
     <ul>
-      <li><strong>Cohort analysis</strong> — group customers by first-purchase month, track what share buys again at 30 / 60 / 90 days.</li>
-      <li><strong>RFM segmentation</strong> — recency, frequency, monetary value, to find natural customer groups rather than assuming them.</li>
-      <li><strong>Classification</strong> — model repeat purchase, then read feature importance as a hypothesis generator, not as an answer.</li>
+      <li><strong>Feature engineering</strong> — roll transaction-level data up to the customer level and build features that describe <em>behavior after the first order</em>, not just totals: time to second purchase, category breadth, order value trajectory.</li>
+      <li><strong>Logistic regression</strong> — model repeat purchase and validate it properly. I chose logistic over a black-box model on purpose: the coefficients have to be legible to a non-technical reader, because the output of this project is an argument, not a prediction service.</li>
+      <li><strong>Opportunity sizing</strong> — for each customer segment, estimate how much retention is actually available to win, so the recommendation is ranked by impact rather than by effect size.</li>
     </ul>
+
+    <div class="callout">
+      <span class="callout-label">Deliverables</span>
+      <p>
+        A two-page product requirements document and a five-slide executive
+        deck, ranking retention initiatives by expected impact against
+        implementation cost — each with the metric that would tell you it
+        worked. The notebook is the evidence; the deck is the deliverable.
+      </p>
+    </div>
 
     <div class="note">
       Add your data cleaning notes here — returns, cancelled orders, guest

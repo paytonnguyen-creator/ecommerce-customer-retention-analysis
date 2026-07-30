@@ -37,9 +37,5 @@ It goes live at `https://paytonnguyen-creator.github.io/ecommerce-customer-reten
 
 ### Before you share the link
 
-Search `index.html` for these and fix them:
-
-- **LinkedIn** — the hero link points at `#contact`; swap in your real URL.
-- **Résumé** — drop a PDF at `assets/resume.pdf` or delete that link.
-- **Coursework** — the class list is a guess. Replace with what you've taken.
-- **Graduation date** — there's a comment in the Education block where it goes.
+- **Résumé** — the hero links to `assets/resume.pdf`, which doesn't exist yet, so that link is currently dead. Export your resume to PDF and drop it there, or delete the link. Before you do: your resume has your phone number on it, and anything on a GitHub Pages site is public and gets scraped. Consider making a web version with the number stripped.
+- **Graduation date** — the site says *Expected May 2028*. Your resume says *December 2028*. Pick one; recruiters see both documents.

@@ -225,18 +225,19 @@ h1 {
 .case-link:hover { text-decoration: underline; }
 
 /* ── Background columns ────────────────────────────────────────────── */
-.cols {
-  display: grid; gap: 2.5rem 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-}
+.cols { display: grid; gap: 2.5rem 2.75rem; }
+@media (min-width: 620px)  { .cols { grid-template-columns: 1fr 1fr; } }
+/* uneven tracks: the prose columns need more room than the tag lists */
+@media (min-width: 1020px) { .cols { grid-template-columns: 1.15fr 1fr .8fr 1.15fr; } }
 .col-title {
   font-family: var(--mono); font-size: .72rem;
   letter-spacing: .13em; text-transform: uppercase;
   color: var(--ink-faint); margin: 0 0 1rem;
   padding-bottom: .65rem; border-bottom: 1px solid var(--rule);
 }
-.edu-school { font-family: var(--serif); font-size: 1.15rem; margin: 0 0 .3rem; }
-.edu-detail { color: var(--ink-soft); font-size: .935rem; margin: 0 0 1rem; }
+.edu-school { font-family: var(--serif); font-size: 1.08rem; margin: 0 0 .25rem; }
+.edu-school + .edu-detail + .edu-school { margin-top: 1.35rem; }
+.edu-detail { color: var(--ink-soft); font-size: .9rem; margin: 0 0 1rem; }
 .muted { color: var(--ink-soft); }
 .small { font-size: .9rem; }
 .col p:last-child { margin-bottom: 0; }
