@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-commerce customer retention — Payton Nguyen</title>
+<meta name="description" content="Case study: identifying what separates one-time buyers from repeat customers, and turning that into a product recommendation.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="nav-mark" href="index.html">PN</a>
+    <nav aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#approach">Approach</a>
+      <a href="index.html#background">Background</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <header class="cs-head">
+    <div class="wrap">
+      <a class="back" href="index.html#work">← All work</a>
+      <p class="eyebrow">Case study · In progress</p>
+      <h1>What makes an e-commerce customer come back?</h1>
+      <p class="lede">
+        A retention analysis on transaction-level data — separating the signals
+        a business can act on from the ones it can only observe.
+      </p>
+
+      <dl class="facts">
+        <div>
+          <dt>Role</dt>
+          <dd>Solo — framing, analysis, recommendation</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Python, pandas, scikit-learn</dd>
+        </div>
+        <div>
+          <dt>Timeline</dt>
+          <dd>Ongoing</dd>
+        </div>
+        <div>
+          <dt>Repo</dt>
+          <dd><a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis">GitHub →</a></dd>
+        </div>
+      </dl>
+    </div>
+  </header>
+
+  <!--
+    ═══ HOW TO USE THIS TEMPLATE ═══
+    Keep the section order — it's the argument structure recruiters look for.
+    Replace the placeholder text under each heading with your real work.
+    Delete the grey .note boxes once a section has real content.
+  -->
+
+  <article class="prose">
+
+    <h2>The question behind the question</h2>
+    <p>
+      "Improve retention" isn't a question — it's a wish. The decision a
+      retention analysis is actually supposed to inform is narrower: where
+      should the next unit of effort go? Onboarding? Discounting? Product
+      breadth? Each has a different cost, and the data has to earn the choice.
+    </p>
+    <p>
+      So I framed it as: <strong>among customers who look identical at the
+      moment of first purchase, what happens next that predicts whether they
+      buy again — and which of those things is under the company's
+      control?</strong>
+    </p>
+
+    <div class="callout">
+      <span class="callout-label">Why this framing matters</span>
+      <p>
+        Plenty of variables predict retention without being usable. High
+        lifetime spend predicts repeat purchase, but you can't <em>assign</em>
+        someone high lifetime spend. Splitting predictors into observable vs.
+        actionable was the decision that shaped the whole analysis.
+      </p>
+    </div>
+
+    <h2>Approach</h2>
+    <p>
+      Replace this with what you actually did. A good version names the data,
+      the cleaning decisions you had to make, and one thing that surprised you.
+    </p>
+    <ul>
+      <li><strong>Cohort analysis</strong> — group customers by first-purchase month, track what share buys again at 30 / 60 / 90 days.</li>
+      <li><strong>RFM segmentation</strong> — recency, frequency, monetary value, to find natural customer groups rather than assuming them.</li>
+      <li><strong>Classification</strong> — model repeat purchase, then read feature importance as a hypothesis generator, not as an answer.</li>
+    </ul>
+
+    <div class="note">
+      Add your data cleaning notes here — returns, cancelled orders, guest
+      checkouts, duplicate customer IDs. Recruiters read this section to find
+      out whether you understand that real data is messy. Being specific about
+      what you threw out and why is worth more than a high accuracy score.
+    </div>
+
+    <h2>What the data said</h2>
+    <p>
+      Write your findings as claims, not as chart captions. "Customers who
+      bought a second item within 21 days retained at 3× the rate" is a claim.
+      "Here is a bar chart of retention by cohort" is not.
+    </p>
+
+    <div class="table-scroll">
+      <table>
+        <caption class="visually-hidden">Placeholder findings table</caption>
+        <thead>
+          <tr><th>Finding</th><th>Evidence</th><th>Confidence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Placeholder finding one</td><td>What in the data supports it</td><td>High / medium / low</td></tr>
+          <tr><td>Placeholder finding two</td><td>What in the data supports it</td><td>High / medium / low</td></tr>
+          <tr><td>Placeholder finding three</td><td>What in the data supports it</td><td>High / medium / low</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>What I tried to rule out</h3>
+    <p>
+      State the alternative explanation you tested and couldn't dismiss. This
+      is the paragraph that separates a student project from analyst work —
+      almost nobody writes it, and everybody senior notices when you do.
+    </p>
+
+    <h2>Recommendation</h2>
+    <p>
+      One recommendation. What you'd do, what it costs, and what you're
+      trading away by doing it instead of the obvious alternative.
+    </p>
+
+    <div class="callout">
+      <span class="callout-label">How you'd know it worked</span>
+      <p>
+        Name the metric, the timeframe, and the number that would make you
+        admit you were wrong. Pre-committing to a disconfirming result is the
+        whole game.
+      </p>
+    </div>
+
+    <h2>What I'd do differently</h2>
+    <p>
+      Be honest here. The limitation you name yourself is a limitation nobody
+      gets to catch you on in an interview.
+    </p>
+
+    <p style="margin-top:3rem">
+      <a class="back" href="index.html#work">← All work</a>
+    </p>
+
+  </article>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span>© <span id="year">2026</span> Payton Nguyen</span>
+    <span class="muted">Built and hosted on GitHub Pages</span>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
