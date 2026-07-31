@@ -56,27 +56,57 @@
     Sits above the scrim so the silhouette stays crisp.
   -->
   <div class="skyline" aria-hidden="true">
-    <svg viewBox="0 0 1440 420">
-      <!-- far ridge -->
-      <path fill="#012247" d="M0 420V300Q180 274 360 292T720 286T1080 302T1440 282V420Z"/>
+    <svg viewBox="0 0 1440 460" role="img">
+      <defs>
+        <!-- sunset over the Bay, contained to the horizon so it reads warm
+             rather than washing the whole sky olive -->
+        <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#0d3a6b" stop-opacity="0"/>
+          <stop offset="55%"  stop-color="#8a5f2a" stop-opacity=".45"/>
+          <stop offset="78%"  stop-color="#c8892c" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#f0b23c" stop-opacity=".62"/>
+        </linearGradient>
+        <linearGradient id="bay" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#123f6d"/>
+          <stop offset="100%" stop-color="#0a2547"/>
+        </linearGradient>
+      </defs>
 
-      <!-- Sather Tower, drawn before the near ridge so its base is hidden -->
-      <path fill="#01142a" fill-rule="evenodd" d="
-        M980 38 L1012 98 L1012 152 L1018 152 L1018 166 L1004 166 L1004 400
-        L956 400 L956 166 L942 166 L942 152 L948 152 L948 98 Z
-        M958 110 L968 110 L968 148 L958 148 Z
-        M975 110 L985 110 L985 148 L975 148 Z
-        M992 110 L1002 110 L1002 148 L992 148 Z
+      <!-- horizon glow, then the Bay -->
+      <rect x="0" y="150" width="1440" height="150" fill="url(#dusk)"/>
+      <rect x="0" y="286" width="1440" height="46" fill="url(#bay)"/>
+
+      <!-- far ridge across the Bay -->
+      <path fill="#0a2a4e" d="M0 292V262Q120 244 240 256T480 250T720 262T960 248T1200 258T1440 246V292Z"/>
+
+      <!-- mid ridge -->
+      <path fill="#07203c" d="M0 332V300Q180 276 360 296T720 288T1080 304T1440 284V332Z"/>
+
+      <!-- Sather Tower, behind the near ridge so its base is hidden -->
+      <path fill="#03101f" fill-rule="evenodd" d="
+        M980 44 L1012 104 L1012 158 L1018 158 L1018 172 L1004 172 L1004 420
+        L956 420 L956 172 L942 172 L942 158 L948 158 L948 104 Z
+        M958 116 L968 116 L968 154 L958 154 Z
+        M975 116 L985 116 L985 154 L975 154 Z
+        M992 116 L1002 116 L1002 154 L992 154 Z
       "/>
+      <!-- campus rooflines flanking the tower -->
+      <g fill="#04162a">
+        <path d="M846 372v-42h44v-14h34v14h44v42z"/>
+        <path d="M1064 372v-34h38l16-16 16 16h34v34z"/>
+        <path d="M296 374v-30h30v-12h26v12h30v30z"/>
+      </g>
 
       <!-- near ridge and treeline -->
-      <path fill="#010e1d" d="M0 420V360Q240 336 480 353T960 346T1440 358V420Z"/>
-      <g fill="#010e1d">
-        <path d="M236 356c8-28 14-40 20-40s12 12 20 40z"/>
-        <path d="M290 358c7-23 12-33 17-33s10 10 17 33z"/>
-        <path d="M612 356c7-25 12-36 18-36s11 11 18 36z"/>
-        <path d="M1140 352c9-29 15-41 22-41s13 12 22 41z"/>
-        <path d="M1198 356c7-24 12-34 17-34s10 10 17 34z"/>
+      <path fill="#020d19" d="M0 460V376Q220 350 440 370T880 362T1180 378T1440 366V460Z"/>
+      <g fill="#020d19">
+        <path d="M188 372c9-30 16-43 22-43s13 13 22 43z"/>
+        <path d="M240 374c8-25 13-36 18-36s11 11 18 36z"/>
+        <path d="M556 370c8-27 14-39 20-39s13 12 21 39z"/>
+        <path d="M604 374c7-24 12-34 17-34s11 10 18 34z"/>
+        <path d="M1156 368c10-32 17-45 24-45s14 13 24 45z"/>
+        <path d="M1214 372c8-26 13-37 18-37s11 11 19 37z"/>
+        <path d="M1268 375c7-22 11-31 16-31s9 9 16 31z"/>
       </g>
     </svg>
   </div>
