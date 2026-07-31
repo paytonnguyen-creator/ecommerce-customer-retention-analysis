@@ -34,12 +34,12 @@
   <div class="hero-inner">
     <div class="hero-left">
       <!--
-        PORTRAIT: save a square headshot as assets/portrait.jpg, then delete the
-        <span> below and uncomment the <img>. The circle shows your initials
-        until you do. (Left commented so the page never requests a missing file.)
+        PORTRAIT: reads assets/portrait.jpg. If that file is missing the image
+        removes itself and the circle falls back to initials — no broken icon.
+        Framing too high or low? Adjust object-position on .portrait img in v2.css.
       -->
       <div class="portrait">
-        <!-- <img src="assets/portrait.jpg" alt="Payton Nguyen"> -->
+        <img src="assets/portrait.jpg" alt="Payton Nguyen" onerror="this.remove()">
         <span class="portrait-fallback" aria-hidden="true">PN</span>
       </div>
 
