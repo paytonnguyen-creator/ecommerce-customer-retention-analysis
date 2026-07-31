@@ -14,7 +14,11 @@
   --bg:       #ffffff;
   --bg-soft:  #f4f5f7;
   --line:     #e2e4e8;
-  --night:    #0d131d;
+
+  /* UC Berkeley official colors */
+  --berkeley: #003262;
+  --gold:     #fdb515;
+  --night:    #011a33;
 
   --sans: "Avenir Next", Avenir, "Segoe UI Variable Display", "Segoe UI",
           system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -101,7 +105,7 @@ a:hover { color: var(--blue-dk); }
   letter-spacing: .16em; text-transform: uppercase;
   transition: color .28s ease;
 }
-.nav nav a:hover, .nav nav a.is-active { color: #8fc0f0; }
+.nav nav a:hover, .nav nav a.is-active { color: var(--gold); }
 .nav.is-solid nav a { color: var(--body); }
 .nav.is-solid nav a:hover, .nav.is-solid nav a.is-active { color: var(--blue); }
 
@@ -142,6 +146,7 @@ a:hover { color: var(--blue-dk); }
 
 /* ── Hero ──────────────────────────────────────────────────────────── */
 .hero {
+  border-bottom: 4px solid var(--gold);
   position: relative;
   min-height: 100vh;   /* fallback for browsers without svh */
   min-height: 100svh;  /* avoids the mobile URL-bar jump */
@@ -150,22 +155,27 @@ a:hover { color: var(--blue-dk); }
 }
 
 /*
-  No photo required: the backdrop is layered CSS gradients — a dusk sky
-  fading into a dark foreground. To use a real photo instead, set
-  background-image on .hero-bg and keep the ::after scrim for legibility.
+  Berkeley Blue sky with a California Gold glow low on the horizon. No photo
+  required — but if assets/hero.jpg exists it layers on top of this gradient
+  and the ::after scrim keeps the text readable over it either way.
 */
 .hero-bg {
   position: absolute; inset: 0;
   background:
-    radial-gradient(120% 80% at 22% 12%, rgba(63,93,138,.85) 0%, transparent 60%),
-    radial-gradient(90% 60% at 78% 18%, rgba(86,124,170,.55) 0%, transparent 65%),
-    radial-gradient(70% 50% at 50% 100%, rgba(8,12,20,.9) 0%, transparent 70%),
-    linear-gradient(180deg, #26374e 0%, #16202e 45%, #0b111a 100%);
+    radial-gradient(120% 80% at 20% 8%, rgba(0,74,140,.85) 0%, transparent 62%),
+    radial-gradient(85% 55% at 82% 14%, rgba(23,101,168,.5) 0%, transparent 66%),
+    linear-gradient(180deg, #014a86 0%, #003262 42%, #011a33 100%);
+  background-color: var(--berkeley);
+}
+.hero-photo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
 }
 .hero-bg::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, rgba(8,12,20,.55) 0%, rgba(8,12,20,.2) 35%, rgba(8,12,20,.82) 100%);
+    linear-gradient(180deg, rgba(1,20,40,.55) 0%, rgba(1,20,40,.2) 38%, rgba(1,16,32,.8) 100%);
 }
 
 .hero-inner {
@@ -213,7 +223,7 @@ a:hover { color: var(--blue-dk); }
 }
 .caret {
   display: inline-block; width: 3px; height: 1.15em;
-  background: #8fc0f0; margin-left: .12em;
+  background: var(--gold); margin-left: .12em;
   animation: blink 1.05s steps(2, start) infinite;
 }
 @keyframes blink { 50% { opacity: 0; } }
@@ -309,7 +319,7 @@ a:hover { color: var(--blue-dk); }
   background: #fff; border: 1px solid var(--line); border-radius: 14px;
   padding: 1.75rem 1.6rem;
 }
-.step-n { font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: var(--blue); }
+.step-n { font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: #b07f06; }
 .steps h3 { margin: .6rem 0 .6rem; font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em; }
 .steps p { margin: 0; font-size: .93rem; color: var(--body); line-height: 1.6; }
 

@@ -38,7 +38,15 @@
 
 <!-- ── HERO ───────────────────────────────────────────────────────────── -->
 <section class="hero" id="home">
-  <div class="hero-bg" aria-hidden="true"></div>
+  <!--
+    BANNER: optional. Drop a wide campus/landscape photo at assets/hero.jpg and
+    it layers over the Berkeley Blue gradient; if the file is absent the image
+    removes itself and the gradient shows through. Use a photo you have the
+    rights to — a stock or press image of campus is someone else's copyright.
+  -->
+  <div class="hero-bg" aria-hidden="true">
+    <img class="hero-photo" src="assets/hero.jpg" alt="" onerror="this.remove()">
+  </div>
 
   <div class="hero-inner">
     <div class="hero-left">

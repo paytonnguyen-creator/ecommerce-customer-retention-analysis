@@ -17,6 +17,12 @@ assets/portrait.jpg  hero photo (see below)
 assets/resume.pdf linked from the hero, the skills section and contact
 ```
 
+### The hero banner
+
+The hero is Berkeley Blue (`#003262`) with a California Gold rule along the bottom — no image file needed.
+
+To put a real photo behind it, save a wide landscape shot as `assets/hero.jpg`; it layers over the gradient automatically, and the dark scrim on top keeps the text readable. If the file isn't there the image removes itself and the gradient shows. **Use a photo you actually have the rights to** — campus shots from the university's site or a stock library are someone else's copyright, and this page is public.
+
 ### Your photo
 
 The hero circle reads `assets/portrait.jpg`. If that file is missing the image removes itself and the circle falls back to your initials — nothing breaks either way. To change the picture, just overwrite that file.
