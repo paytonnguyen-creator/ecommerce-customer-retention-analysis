@@ -35,7 +35,8 @@ It goes live at `https://paytonnguyen-creator.github.io/ecommerce-customer-reten
 2. In `index.html`, find the `HOW TO ADD A PROJECT` comment in the Selected work section, copy one `<article class="case">` block, and point its links at your new file.
 3. Delete the dashed "Planned" placeholder cards once you have real projects.
 
-### Before you share the link
+### Updating the résumé
 
-- **Résumé** — the hero links to `assets/resume.pdf`, which doesn't exist yet, so that link is currently dead. Export your resume to PDF and drop it there, or delete the link. Before you do: your resume has your phone number on it, and anything on a GitHub Pages site is public and gets scraped. Consider making a web version with the number stripped.
-- **Graduation date** — the site says *Expected May 2028*. Your resume says *December 2028*. Pick one; recruiters see both documents.
+Replace `assets/resume.pdf` with a new export under the same filename and both links pick it up automatically.
+
+One thing to know: the PDF has your phone number on it, and once Pages is on, that file is publicly reachable and gets scraped by bots. That's a normal tradeoff for a portfolio site — just make it knowingly. If you'd rather not, export a copy with the number removed and use that one here.
