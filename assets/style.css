@@ -178,6 +178,15 @@ a:hover { color: var(--blue-dk); }
     linear-gradient(180deg, rgba(1,20,40,.55) 0%, rgba(1,20,40,.2) 38%, rgba(1,16,32,.8) 100%);
 }
 
+/* Above the scrim (z-index 1) but below the hero content (z-index 2). */
+/* height:auto keeps the viewBox aspect, so the tower never gets clipped the
+   way a fixed height plus preserveAspectRatio="slice" would clip it. */
+.skyline {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  pointer-events: none;
+}
+.skyline svg { display: block; width: 100%; height: auto; }
+
 .hero-inner {
   position: relative; z-index: 2;
   width: min(1280px, calc(100% - 3rem)); margin-inline: auto;
@@ -283,7 +292,12 @@ a:hover { color: var(--blue-dk); }
   .hero-inner { flex-direction: column; padding: 6.5rem 0 4.5rem; gap: 2.5rem; }
   .hero-actions { width: 100%; align-items: center; }
   .ghost-btn { min-width: min(20rem, 100%); }
-  .rail { position: static; flex-direction: row; justify-content: center; padding-bottom: 2.5rem; }
+  /* stays absolute: as a static element it becomes a flex sibling of
+     .hero-inner and lands beside the name instead of below the buttons */
+  .rail {
+    left: 0; right: 0; bottom: 1.5rem;
+    flex-direction: row; justify-content: center; gap: 2rem;
+  }
   /* the scroll cue would land above the buttons here, and phones don't need it */
   .continue { display: none; }
 }

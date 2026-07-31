@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://paytonnguyen-creator.github.io/ecommerce-customer-retention-analysis/">
 <meta name="twitter:card" content="summary">
 
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v=3">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230d131d'/><text x='50' y='69' font-size='44' font-weight='bold' font-family='Helvetica,Arial,sans-serif' fill='%23ffffff' text-anchor='middle'>PN</text></svg>">
 </head>
 <body>
@@ -48,6 +48,37 @@
     <!-- Uncomment once assets/hero.jpg exists (kept off so the live page
          doesn't request a missing file on every load): -->
     <!-- <img class="hero-photo" src="assets/hero.jpg" alt=""> -->
+  </div>
+
+  <!--
+    Campanile skyline. Drawn here as original vector art rather than a campus
+    photograph, which would be someone else's copyright on a public page.
+    Sits above the scrim so the silhouette stays crisp.
+  -->
+  <div class="skyline" aria-hidden="true">
+    <svg viewBox="0 0 1440 420">
+      <!-- far ridge -->
+      <path fill="#012247" d="M0 420V300Q180 274 360 292T720 286T1080 302T1440 282V420Z"/>
+
+      <!-- Sather Tower, drawn before the near ridge so its base is hidden -->
+      <path fill="#01142a" fill-rule="evenodd" d="
+        M980 38 L1012 98 L1012 152 L1018 152 L1018 166 L1004 166 L1004 400
+        L956 400 L956 166 L942 166 L942 152 L948 152 L948 98 Z
+        M958 110 L968 110 L968 148 L958 148 Z
+        M975 110 L985 110 L985 148 L975 148 Z
+        M992 110 L1002 110 L1002 148 L992 148 Z
+      "/>
+
+      <!-- near ridge and treeline -->
+      <path fill="#010e1d" d="M0 420V360Q240 336 480 353T960 346T1440 358V420Z"/>
+      <g fill="#010e1d">
+        <path d="M236 356c8-28 14-40 20-40s12 12 20 40z"/>
+        <path d="M290 358c7-23 12-33 17-33s10 10 17 33z"/>
+        <path d="M612 356c7-25 12-36 18-36s11 11 18 36z"/>
+        <path d="M1140 352c9-29 15-41 22-41s13 12 22 41z"/>
+        <path d="M1198 356c7-24 12-34 17-34s10 10 17 34z"/>
+      </g>
+    </svg>
   </div>
 
   <div class="hero-inner">
@@ -385,6 +416,6 @@
   <span>Built and hosted on GitHub Pages</span>
 </footer>
 
-<script src="assets/main.js"></script>
+<script src="assets/main.js?v=3"></script>
 </body>
 </html>

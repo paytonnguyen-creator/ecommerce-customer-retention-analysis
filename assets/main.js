@@ -67,7 +67,8 @@ if (typed) {
 
       let wait = deleting ? 40 : 75;
       if (!deleting && ci === line.length) { deleting = true; wait = 2100; }
-      else if (deleting && ci === 0) { deleting = false; li = (li + 1) % lines.length; wait = 400; }
+      // short blank gap — a long one reads as a broken/empty hero
+      else if (deleting && ci === 0) { deleting = false; li = (li + 1) % lines.length; wait = 180; }
       setTimeout(tick, wait);
     };
     tick();
