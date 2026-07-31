@@ -53,6 +53,11 @@ a:hover { color: var(--blue-dk); }
 
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 3px; }
 
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -88,6 +93,8 @@ a:hover { color: var(--blue-dk); }
 .nav.is-solid .monogram { color: var(--ink); }
 
 .nav nav { display: flex; gap: 2rem; }
+/* seven items get tight between the breakpoint and full desktop width */
+@media (max-width: 1150px) { .nav nav { gap: 1.35rem; } }
 .nav nav a {
   color: rgba(255,255,255,.88); text-decoration: none;
   font-size: .78rem; font-weight: 600;
@@ -135,7 +142,9 @@ a:hover { color: var(--blue-dk); }
 
 /* ── Hero ──────────────────────────────────────────────────────────── */
 .hero {
-  position: relative; min-height: 100svh;
+  position: relative;
+  min-height: 100vh;   /* fallback for browsers without svh */
+  min-height: 100svh;  /* avoids the mobile URL-bar jump */
   display: flex; align-items: center;
   overflow: hidden; color: #fff;
 }
