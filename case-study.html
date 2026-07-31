@@ -8,18 +8,20 @@
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
-<body>
+<body class="sub-page">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="nav-mark" href="index.html">PN</a>
+<header class="nav is-solid" id="nav">
+  <div class="nav-inner">
+    <a class="monogram" href="index.html" aria-label="Home">PN</a>
     <nav aria-label="Primary">
-      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
       <a href="index.html#approach">Approach</a>
+      <a href="index.html#work">Work</a>
       <a href="index.html#background">Background</a>
       <a href="index.html#contact">Contact</a>
     </nav>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Menu"><span></span></button>
   </div>
 </header>
 
@@ -28,9 +30,9 @@
   <header class="cs-head">
     <div class="wrap">
       <a class="back" href="index.html#work">← All work</a>
-      <p class="eyebrow">Case study · In progress</p>
+      <p class="cs-kicker">Case study · In progress</p>
       <h1>What makes an e-commerce customer come back?</h1>
-      <p class="lede">
+      <p class="cs-lede">
         A retention analysis on transaction-level data — separating the signals
         a business can act on from the ones it can only observe.
       </p>
@@ -50,7 +52,7 @@
         </div>
         <div>
           <dt>Repo</dt>
-          <dd><a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis">GitHub →</a></dd>
+          <dd><a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis" target="_blank" rel="noopener">GitHub →</a></dd>
         </div>
       </dl>
     </div>
@@ -60,10 +62,10 @@
     ═══ HOW TO USE THIS TEMPLATE ═══
     Keep the section order — it's the argument structure recruiters look for.
     Replace the placeholder text under each heading with your real work.
-    Delete the grey .note boxes once a section has real content.
+    Delete the .note boxes once a section has real content.
   -->
 
-  <article class="prose">
+  <article class="cs-body">
 
     <h2>The question behind the question</h2>
     <p>
@@ -94,7 +96,7 @@
       Three stages, each one feeding the next. Add the specifics — which
       dataset, how many transactions, what date range — once you've locked them.
     </p>
-    <ul>
+    <ul class="hollow">
       <li><strong>Feature engineering</strong> — roll transaction-level data up to the customer level and build features that describe <em>behavior after the first order</em>, not just totals: time to second purchase, category breadth, order value trajectory.</li>
       <li><strong>Logistic regression</strong> — model repeat purchase and validate it properly. I chose logistic over a black-box model on purpose: the coefficients have to be legible to a non-technical reader, because the output of this project is an argument, not a prediction service.</li>
       <li><strong>Opportunity sizing</strong> — for each customer segment, estimate how much retention is actually available to win, so the recommendation is ranked by impact rather than by effect size.</li>
@@ -126,7 +128,6 @@
 
     <div class="table-scroll">
       <table>
-        <caption class="visually-hidden">Placeholder findings table</caption>
         <thead>
           <tr><th>Finding</th><th>Evidence</th><th>Confidence</th></tr>
         </thead>
@@ -166,7 +167,7 @@
       gets to catch you on in an interview.
     </p>
 
-    <p style="margin-top:3rem">
+    <p class="cs-foot-link">
       <a class="back" href="index.html#work">← All work</a>
     </p>
 
@@ -175,10 +176,8 @@
 </main>
 
 <footer class="foot">
-  <div class="wrap foot-inner">
-    <span>© <span id="year">2026</span> Payton Nguyen</span>
-    <span class="muted">Built and hosted on GitHub Pages</span>
-  </div>
+  <span>© <span id="year">2026</span> Payton Nguyen</span>
+  <span>Built and hosted on GitHub Pages</span>
 </footer>
 
 <script src="assets/main.js"></script>
