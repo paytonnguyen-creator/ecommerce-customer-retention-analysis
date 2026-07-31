@@ -49,6 +49,7 @@ outputs/figures/           SVG charts, embedded directly in the case study
 docs/PRD.md                the product requirements document
 docs/cdnow-retention-executive-deck.pptx   five-slide executive summary
 docs/WALKTHROUGH.md        the argument in presentation order, and the hard questions
+analysis/build_deck.js     regenerates the deck; every figure read from metrics.json
 ```
 
 ## Method notes
