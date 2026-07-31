@@ -26,9 +26,9 @@
     <nav aria-label="Primary">
       <a href="#home" class="is-active">Home</a>
       <a href="#about">About</a>
+      <a href="#work">Projects</a>
       <a href="#approach">Approach</a>
       <a href="#skills">Skills</a>
-      <a href="#work">Projects</a>
       <a href="#background">Background</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -211,15 +211,55 @@
   </div>
 </section>
 
+
+
+
+<!-- ── WORK ───────────────────────────────────────────────────────────── -->
+<section class="sec sec-alt" id="work">
+  <div class="wrap">
+    <h2 class="sec-title">Projects</h2>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="sec-sub">
+      Written up as case studies rather than repos — the question, what the
+      data actually said, and the recommendation I'd defend in a room.
+    </p>
+
+    <!--
+      ═══ HOW TO ADD A PROJECT ═══
+      Copy the <article class="proj"> block below, change the title, tagline
+      and bullets, then point its link at a new copy of case-study.html.
+    -->
+
+    <div class="projects">
+
+      <article class="proj">
+        <h3><a href="case-study.html">Why 62% of customers never came back</a></h3>
+        <div class="rule rule-left" aria-hidden="true"></div>
+        <p class="proj-tag">Should the next unit of retention effort go into a model that predicts who returns, or a treatment applied to everyone?</p>
+        <ul class="hollow">
+          <li>Analysed the real CDNOW transaction log — 23,570 customers, 67,591 orders — chosen for a cohort design where the repeat window is fully observed for every customer.</li>
+          <li>Found the first order barely predicts return (hold-out AUC 0.576), and that the largest apparent lever collapsed by 82% under statistical control — so it was rejected rather than recommended.</li>
+          <li>Recommended a timed second-purchase program over a propensity model, with the opportunity sized and explicit kill criteria in a PRD.</li>
+          <li>Tech: Python, pandas, scikit-learn</li>
+        </ul>
+        <a class="proj-link" href="case-study.html">Read the case study →</a>
+      </article>
+
+
+
+    </div>
+  </div>
+</section>
 <!-- ── APPROACH ───────────────────────────────────────────────────────── -->
-<section class="sec sec-alt" id="approach">
+<section class="sec" id="approach">
   <div class="wrap">
     <h2 class="sec-title">How I work through a problem.</h2>
     <div class="rule" aria-hidden="true"></div>
     <p class="sec-sub">
-      The same four beats every time — a habit borrowed from research method:
-      say what would prove you wrong before you look. Analysis isn't finished
-      until it changes what someone does.
+      The case study above follows four beats, and so does everything else I
+      work on — a habit borrowed from research method: say what would prove you
+      wrong before you look. Analysis isn't finished until it changes what
+      someone does.
     </p>
 
     <ol class="steps">
@@ -246,9 +286,8 @@
     </ol>
   </div>
 </section>
-
 <!-- ── SKILLS ─────────────────────────────────────────────────────────── -->
-<section class="sec" id="skills">
+<section class="sec sec-alt" id="skills">
   <div class="wrap">
     <h2 class="sec-title">Skills</h2>
     <div class="rule" aria-hidden="true"></div>
@@ -317,44 +356,6 @@
     </div>
   </div>
 </section>
-
-<!-- ── WORK ───────────────────────────────────────────────────────────── -->
-<section class="sec sec-alt" id="work">
-  <div class="wrap">
-    <h2 class="sec-title">Projects</h2>
-    <div class="rule" aria-hidden="true"></div>
-    <p class="sec-sub">
-      Written up as case studies rather than repos — the question, what the
-      data actually said, and the recommendation I'd defend in a room.
-    </p>
-
-    <!--
-      ═══ HOW TO ADD A PROJECT ═══
-      Copy the <article class="proj"> block below, change the title, tagline
-      and bullets, then point its link at a new copy of case-study.html.
-    -->
-
-    <div class="projects">
-
-      <article class="proj">
-        <h3><a href="case-study.html">Why 62% of customers never came back</a></h3>
-        <div class="rule rule-left" aria-hidden="true"></div>
-        <p class="proj-tag">Should the next unit of retention effort go into a model that predicts who returns, or a treatment applied to everyone?</p>
-        <ul class="hollow">
-          <li>Analysed the real CDNOW transaction log — 23,570 customers, 67,591 orders — chosen for a cohort design where the repeat window is fully observed for every customer.</li>
-          <li>Found the first order barely predicts return (hold-out AUC 0.576), and that the largest apparent lever collapsed by 82% under statistical control — so it was rejected rather than recommended.</li>
-          <li>Recommended a timed second-purchase program over a propensity model, with the opportunity sized and explicit kill criteria in a PRD.</li>
-          <li>Tech: Python, pandas, scikit-learn</li>
-        </ul>
-        <a class="proj-link" href="case-study.html">Read the case study →</a>
-      </article>
-
-
-
-    </div>
-  </div>
-</section>
-
 <!-- ── BACKGROUND ─────────────────────────────────────────────────────── -->
 <section class="sec" id="background">
   <div class="wrap">
@@ -371,6 +372,12 @@
           B.A. Cognitive Science, Minor in Data Science<br>
           Expected May 2028
         </p>
+
+        <p class="org">Occidental College</p>
+        <p class="org-note">GPA 4.00</p>
+
+        <p class="org">Irvine Valley College</p>
+        <p class="org-note">Primary transfer institution · GPA 3.89</p>
 
         <p class="org-note" style="margin-top:1.4rem">
           The pairing is deliberate: cognitive science supplies the hypotheses
