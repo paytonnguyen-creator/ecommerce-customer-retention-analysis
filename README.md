@@ -1,6 +1,6 @@
 # E-commerce customer retention analysis
 
-**[Read the case study →](https://paytonnguyen-creator.github.io/ecommerce-customer-retention-analysis/case-study.html)** · **[PRD →](docs/PRD.md)** · **[Executive deck →](docs/cdnow-retention-executive-deck.pptx)** · **[Walkthrough →](docs/WALKTHROUGH.md)**
+**[Read the case study →](https://paytonnguyen-creator.github.io/case-study.html)** · **[PRD →](docs/PRD.md)** · **[Executive deck →](docs/cdnow-retention-executive-deck.pptx)** · **[Walkthrough →](docs/WALKTHROUGH.md)**
 
 A retention analysis on the real CDNOW transaction log — 23,570 customers, 67,591 orders, Q1 1997 acquisition cohort followed through June 1998.
 
@@ -78,20 +78,8 @@ analysis/build_deck.js     regenerates the deck (node; needs `npm i pptxgenjs`)
 
 ---
 
-## Portfolio site
+## The site
 
-This repo also hosts my portfolio site, deployed to GitHub Pages by `.github/workflows/pages.yml` on every push to `main`.
+The write-up lives on my personal site, **[paytonnguyen-creator.github.io](https://paytonnguyen-creator.github.io/)**, which is its own repository. This repo is the analysis: pipeline, data, figures, PRD, deck and walkthrough. The charts are generated here and copied across.
 
-```
-index.html         home page
-case-study.html    the write-up above, presented for a non-technical reader
-assets/style.css   all styling; colors in :root
-assets/main.js     typewriter, scroll-spy nav, mobile menu
-assets/portrait.png, assets/resume.pdf
-```
-
-Preview locally with `python3 -m http.server 8000`.
-
-**Photo:** the hero circle reads `assets/portrait.png`; if the file is missing the image removes itself and the circle falls back to initials. Framing is set by `object-position` on `.portrait img`.
-
-**Hero banner:** Berkeley Blue with a hand-drawn Campanile skyline — no image file. To use a photo instead, save a wide shot as `assets/hero.jpg` and uncomment the `BANNER` line in `index.html`. Use one you have the rights to.
+`index.html` and `case-study.html` here are redirect stubs, so links shared before the move still resolve.
