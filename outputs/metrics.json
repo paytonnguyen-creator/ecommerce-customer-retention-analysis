@@ -164,6 +164,21 @@
   },
   "opportunity": [
     {
+      "lever": "Raise the 1997-02 acquisition cohort to the best month's quality",
+      "verdict": "not worth pursuing",
+      "customers": 8476,
+      "current_rate": 0.3719,
+      "benchmark_rate": 0.3782,
+      "uplift_pp": 0.63,
+      "capture_rate": 0.25,
+      "basis": "gap between best and worst month is under 1pp",
+      "effort": "High",
+      "effort_note": "Acquisition mix change",
+      "incremental_repeaters": 13.3492,
+      "value_per_repeater": 89.8237,
+      "annual_value": 1199.075
+    },
+    {
       "lever": "Timed second-purchase nudge to every first-time buyer",
       "verdict": "recommended",
       "customers": 14743,
@@ -172,6 +187,8 @@
       "uplift_pp": 3.0,
       "capture_rate": 1.0,
       "basis": "assumed 3pp lift, to be proven or killed by a holdout test",
+      "effort": "Low",
+      "effort_note": "Lifecycle email on an existing trigger; no new data model",
       "incremental_repeaters": 442.29,
       "value_per_repeater": 89.8237,
       "annual_value": 39728.1408
@@ -185,6 +202,8 @@
       "uplift_pp": 12.8747,
       "capture_rate": 0.25,
       "basis": "first-order value keeps its sign and size when controlled",
+      "effort": "Medium",
+      "effort_note": "Merchandising and recommendation changes on the storefront",
       "incremental_repeaters": 204.8357,
       "value_per_repeater": 89.8237,
       "annual_value": 18399.1089
@@ -198,6 +217,8 @@
       "uplift_pp": 15.0155,
       "capture_rate": 0.25,
       "basis": "raw gap is real; the causal reading is not",
+      "effort": "Medium",
+      "effort_note": "Not proposed - the mechanism did not survive control",
       "incremental_repeaters": 447.462,
       "value_per_repeater": 89.8237,
       "annual_value": 40192.708

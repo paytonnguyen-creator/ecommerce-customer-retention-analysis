@@ -230,20 +230,27 @@
       <table>
         <caption class="visually-hidden">Levers considered, with verdicts</caption>
         <thead>
-          <tr><th>Lever</th><th>Population</th><th>Value</th><th>Verdict</th></tr>
+          <tr><th>Lever</th><th>Population</th><th>Impact</th><th>Effort</th><th>Verdict</th></tr>
         </thead>
         <tbody>
-          <tr><td>Timed second-purchase nudge</td><td>14,743</td><td>≈ $39.7k</td><td>Recommended</td></tr>
-          <tr><td>Lift bottom-quartile first baskets</td><td>6,364</td><td>≈ $18.4k</td><td>Recommended</td></tr>
-          <tr><td>Get more titles into the first order</td><td>11,920</td><td>≈ $40.2k</td><td>Rejected — confounded</td></tr>
-          <tr><td>Fix the weakest acquisition month</td><td>8,476</td><td>≈ $1.2k</td><td>Not worth pursuing</td></tr>
+          <tr><td>Timed second-purchase nudge</td><td>14,743</td><td>≈ $39.7k</td><td>Low</td><td>Recommended</td></tr>
+          <tr><td>Lift bottom-quartile first baskets</td><td>6,364</td><td>≈ $18.4k</td><td>Medium</td><td>Recommended</td></tr>
+          <tr><td>Get more titles into the first order</td><td>11,920</td><td>≈ $40.2k</td><td>Medium</td><td>Rejected — confounded</td></tr>
+          <tr><td>Fix the weakest acquisition month</td><td>8,476</td><td>≈ $1.2k</td><td>High</td><td>Not worth pursuing</td></tr>
         </tbody>
       </table>
     </div>
     <p>
-      Note that the rejected row is the <em>largest</em> number in the table.
-      Ranking levers by size alone would have picked it, which is the whole
-      reason the control step exists.
+      Effort is a judgment, not a computation — nothing in a transaction log
+      tells you what a program costs to build — so it's recorded explicitly
+      rather than folded silently into the ranking. It matters here: the
+      top lever is both the highest impact <em>and</em> the lowest effort,
+      because it rides an existing email trigger and needs no new data model.
+    </p>
+    <p>
+      Note also that the rejected row carries the second-largest number in the
+      table. Ranking levers by size alone would have picked it, which is the
+      whole reason the control step exists.
     </p>
 
     <div class="callout">
@@ -259,9 +266,11 @@
     </div>
 
     <p>
-      The full write-up lives in the
-      <a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis/blob/main/docs/PRD.md" target="_blank" rel="noopener">product requirements document</a>,
-      with scope, guardrails and the kill criteria.
+      Two deliverables carry this further: the
+      <a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis/blob/main/docs/PRD.md" target="_blank" rel="noopener">product requirements document</a>
+      with scope, guardrails and kill criteria, and a
+      <a href="docs/cdnow-retention-executive-deck.pptx">five-slide executive deck</a>
+      for the version of this conversation that happens in a room.
     </p>
 
     <h2>What I'd do differently</h2>

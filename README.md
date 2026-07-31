@@ -1,6 +1,6 @@
 # E-commerce customer retention analysis
 
-**[Read the case study →](https://paytonnguyen-creator.github.io/ecommerce-customer-retention-analysis/case-study.html)** · **[PRD →](docs/PRD.md)**
+**[Read the case study →](https://paytonnguyen-creator.github.io/ecommerce-customer-retention-analysis/case-study.html)** · **[PRD →](docs/PRD.md)** · **[Executive deck →](docs/cdnow-retention-executive-deck.pptx)** · **[Walkthrough →](docs/WALKTHROUGH.md)**
 
 A retention analysis on the real CDNOW transaction log — 23,570 customers, 67,591 orders, Q1 1997 acquisition cohort followed through June 1998.
 
@@ -47,6 +47,8 @@ data/                      the extracted transaction log
 outputs/metrics.json       every number the case study quotes
 outputs/figures/           SVG charts, embedded directly in the case study
 docs/PRD.md                the product requirements document
+docs/cdnow-retention-executive-deck.pptx   five-slide executive summary
+docs/WALKTHROUGH.md        the argument in presentation order, and the hard questions
 ```
 
 ## Method notes
@@ -55,6 +57,7 @@ docs/PRD.md                the product requirements document
 - **Logistic regression over a boosted tree,** deliberately. The output is an argument someone non-technical has to be able to check; coefficients are legible in a way feature importances are not. The cost is a little accuracy.
 - **`avg_price` is excluded from the joint model** — it's `value / cds`, a deterministic function of two other predictors, and including all three makes the coefficients meaningless. It's reported on its own instead.
 - **Same-day rows are rolled up into single orders.** 2,068 rows collapse. Skipping this would inflate the repeat rate by counting one basket as two purchase decisions.
+- **Implementation cost is a judgment, not a computation.** Nothing in a transaction log says what a program costs to build, so effort is recorded explicitly per lever rather than folded silently into the ranking — a reader can disagree with the estimate instead of the arithmetic.
 - **Opportunity sizing is deliberately conservative** — a 25% capture rate, because benchmark groups differ from target groups in ways beyond the lever itself. The 3pp lift on the headline recommendation is *assumed, not measured*, and flagged as the thing the holdout exists to prove or kill.
 
 ---

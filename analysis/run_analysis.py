@@ -246,7 +246,39 @@ def size_opportunity(feat: pd.DataFrame) -> pd.DataFrame:
         "basis": "raw gap is real; the causal reading is not",
     })
 
+    # LEVER 4 -- checked and dismissed on size. Acquisition month is an obvious
+    # suspect (a promo-heavy cohort would show up here), so it is measured
+    # rather than assumed away. The three months span 37.2%-37.8%: there is
+    # nothing to win, and saying so is worth more than leaving it untested.
+    by_cohort = feat.groupby("cohort_month")["repeated"].agg(["mean", "size"])
+    worst, best = by_cohort["mean"].idxmin(), by_cohort["mean"].max()
+    rows.append({
+        "lever": f"Raise the {worst} acquisition cohort to the best month's quality",
+        "verdict": "not worth pursuing",
+        "customers": int(by_cohort.loc[worst, "size"]),
+        "current_rate": float(by_cohort.loc[worst, "mean"]),
+        "benchmark_rate": float(best),
+        "uplift_pp": (best - by_cohort.loc[worst, "mean"]) * 100,
+        "capture_rate": CAPTURE,
+        "basis": "gap between best and worst month is under 1pp",
+    })
+
+    # Implementation cost is a JUDGMENT, not a computation -- nothing in a
+    # transaction log tells you what a program costs to build. It is recorded
+    # explicitly so the impact/cost ranking is auditable rather than implied,
+    # and so a reader can disagree with the estimate rather than the arithmetic.
+    EFFORT = {
+        "Timed second-purchase nudge to every first-time buyer":
+            ("Low", "Lifecycle email on an existing trigger; no new data model"),
+        "Lift bottom-quartile first baskets toward the top quartile":
+            ("Medium", "Merchandising and recommendation changes on the storefront"),
+        "Get a 2nd and 3rd title into the first order":
+            ("Medium", "Not proposed - the mechanism did not survive control"),
+    }
+
     out = pd.DataFrame(rows)
+    out["effort"] = out.lever.map(lambda l: EFFORT.get(l, ("High", "Acquisition mix change"))[0])
+    out["effort_note"] = out.lever.map(lambda l: EFFORT.get(l, ("High", "Acquisition mix change"))[1])
     out["incremental_repeaters"] = out.customers * (out.uplift_pp / 100) * out.capture_rate
     out["value_per_repeater"] = repeat_value
     out["annual_value"] = out.incremental_repeaters * repeat_value
