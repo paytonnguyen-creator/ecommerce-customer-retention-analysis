@@ -8,12 +8,29 @@ This repo also hosts my portfolio site.
 
 Plain HTML and CSS — no build step, no npm, no framework. Edit a file, commit, push, and it's live.
 
+There are currently **two designs of the same content**, so they can be compared before picking one:
+
+| | Look |
+|---|---|
+| `index.html` | Editorial. Light, serif headlines, quiet. Reads like a written argument. |
+| `v2.html` | Full-bleed dark hero with portrait and typewriter, 3×3 skills cards, two-column projects. |
+
+Once one wins, rename it to `index.html` and delete the other along with its CSS/JS.
+
 ```
-index.html        home page (hero, approach, work, background, contact)
-case-study.html   case study template — copy this for each new project
-assets/style.css  all styling; colors live in :root at the top
-assets/main.js    footer year + sticky nav border. That's it.
+index.html        v1 home page
+v2.html           v2 home page
+case-study.html   case study template — shared by both, copy per project
+assets/style.css  v1 styling; colors live in :root at the top
+assets/main.js    v1 script (footer year, nav border)
+assets/v2.css     v2 styling; colors in :root
+assets/v2.js      v2 script (typewriter, scroll-spy, mobile menu)
+assets/resume.pdf linked from both
 ```
+
+### v2 only: adding your photo
+
+The hero circle shows your initials until you add a picture. Save a square headshot as `assets/portrait.jpg`, then in `v2.html` find the `PORTRAIT` comment, uncomment the `<img>` line and delete the `<span>` below it.
 
 ### Preview it locally
 
