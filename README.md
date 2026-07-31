@@ -28,6 +28,19 @@ It was chosen for its cohort design: every customer was acquired inside one thre
 
 The data is from 1997. The timing and concentration patterns are structural; 1997 channel tactics are not transferable and none are proposed.
 
+### Provenance and verification
+
+Nothing here is hand-entered. Every number quoted on the site, in the PRD, in the walkthrough and on the deck is read from `outputs/metrics.json`, which is produced by `run_analysis.py`.
+
+| Check | Result |
+|---|---|
+| Upstream `CDNOW_master.txt` SHA-256 | `eff6889ed364c5199d6eacbbeb7a6d55…` |
+| Transactions / customers | 69,659 / 23,570 — matches the published dataset |
+| Date range | 1997-01-01 → 1998-06-30 — matches the published dataset |
+| Rebuild from scratch | `data/` and `outputs/` deleted and regenerated: `metrics.json` and every SVG byte-identical |
+
+To verify yourself: delete `data/` and `outputs/`, rerun the two commands above, and diff. The figures use a fixed `svg.hashsalt` and no embedded timestamp, so identical inputs give byte-identical files.
+
 ## Running it
 
 ```bash

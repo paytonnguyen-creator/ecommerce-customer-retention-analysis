@@ -392,6 +392,8 @@ a:hover { color: var(--blue-dk); }
 .proj h3 a { color: inherit; text-decoration: none; }
 .proj h3 a:hover { color: var(--blue); }
 .proj-tag { margin: 0 0 1.5rem; color: var(--blue); font-weight: 600; font-size: 1.02rem; line-height: 1.5; }
+/* a lone project fills the grid's single column, so cap the reading measure */
+.proj-tag, .proj .hollow, .proj h3 { max-width: 68ch; }
 .proj-ghost { opacity: .72; }
 .proj-ghost .proj-tag { color: var(--faint); }
 
