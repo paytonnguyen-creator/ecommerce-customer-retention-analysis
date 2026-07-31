@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://paytonnguyen-creator.github.io/ecommerce-customer-retention-analysis/">
 <meta name="twitter:card" content="summary">
 
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/style.css?v=5">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230d131d'/><text x='50' y='69' font-size='44' font-weight='bold' font-family='Helvetica,Arial,sans-serif' fill='%23ffffff' text-anchor='middle'>PN</text></svg>">
 </head>
 <body>
@@ -292,13 +292,13 @@
     <div class="projects">
 
       <article class="proj">
-        <h3><a href="case-study.html">E-commerce user retention analytics &amp; product strategy</a></h3>
+        <h3><a href="case-study.html">Why 62% of customers never came back</a></h3>
         <div class="rule rule-left" aria-hidden="true"></div>
-        <p class="proj-tag">What separates a one-time buyer from a repeat customer — and which of those differences is under the company's control?</p>
+        <p class="proj-tag">Should the next unit of retention effort go into a model that predicts who returns, or a treatment applied to everyone?</p>
         <ul class="hollow">
-          <li>Engineered customer-level features from transaction data that describe behavior <em>after</em> the first order, not just totals.</li>
-          <li>Built and validated a logistic regression to isolate the behaviors most predictive of repeat purchase, then sized the opportunity within each segment.</li>
-          <li>Translated findings into a two-page PRD and a five-slide executive deck ranking initiatives by expected impact against implementation cost.</li>
+          <li>Analysed the real CDNOW transaction log — 23,570 customers, 67,591 orders — chosen for a cohort design where the repeat window is fully observed for every customer.</li>
+          <li>Found the first order barely predicts return (hold-out AUC 0.576), and that the largest apparent lever collapsed by 82% under statistical control — so it was rejected rather than recommended.</li>
+          <li>Recommended a timed second-purchase program over a propensity model, with the opportunity sized and explicit kill criteria in a PRD.</li>
           <li>Tech: Python, pandas, scikit-learn</li>
         </ul>
         <a class="proj-link" href="case-study.html">Read the case study →</a>
@@ -416,6 +416,6 @@
   <span>Built and hosted on GitHub Pages</span>
 </footer>
 
-<script src="assets/main.js?v=4"></script>
+<script src="assets/main.js?v=5"></script>
 </body>
 </html>

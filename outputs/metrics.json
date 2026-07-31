@@ -1,0 +1,206 @@
+{
+  "source": {
+    "dataset": "CDNOW transaction log",
+    "description": "Real purchases by a 1/10 sample of customers whose first order fell in Q1 1997, followed to 30 June 1998.",
+    "customers": 23570,
+    "orders": 67591,
+    "horizon_days": 180,
+    "fully_observed": true
+  },
+  "cleaning": {
+    "rows_raw": 69659,
+    "rows_after_same_day_rollup": 67591,
+    "same_day_lines_merged": 2068,
+    "zero_value_orders": 80,
+    "customers": 23570,
+    "orders": 67591
+  },
+  "headline": {
+    "repeat_rate_180d": 0.3745014849384811,
+    "one_and_done_share": 0.6254985150615189,
+    "median_days_to_second": 57.0,
+    "revenue_share_top_20pct": 67.77738296984491,
+    "revenue_share_top_5pct": 36.68314587946641
+  },
+  "second_purchase_window": {
+    "share": {
+      "0-30": 35.73,
+      "31-60": 15.75,
+      "61-90": 8.32,
+      "91-120": 6.37,
+      "121-180": 10.48,
+      "181-270": 10.13,
+      "271-365": 7.09,
+      "365+": 6.13
+    },
+    "cumulative": {
+      "0-30": 35.73,
+      "31-60": 51.48,
+      "61-90": 59.8,
+      "91-120": 66.17,
+      "121-180": 76.65,
+      "181-270": 86.78,
+      "271-365": 93.87,
+      "365+": 100.0
+    }
+  },
+  "repeat_by_first_value_decile": [
+    {
+      "decile": 1,
+      "rate": 0.3214,
+      "spend": 10.77
+    },
+    {
+      "decile": 2,
+      "rate": 0.332,
+      "spend": 13.545
+    },
+    {
+      "decile": 3,
+      "rate": 0.3092,
+      "spend": 14.79
+    },
+    {
+      "decile": 4,
+      "rate": 0.3099,
+      "spend": 15.36
+    },
+    {
+      "decile": 5,
+      "rate": 0.3555,
+      "spend": 20.54
+    },
+    {
+      "decile": 6,
+      "rate": 0.3942,
+      "spend": 26.73
+    },
+    {
+      "decile": 7,
+      "rate": 0.3814,
+      "spend": 30.72
+    },
+    {
+      "decile": 8,
+      "rate": 0.4184,
+      "spend": 40.55
+    },
+    {
+      "decile": 9,
+      "rate": 0.4456,
+      "spend": 54.71
+    },
+    {
+      "decile": 10,
+      "rate": 0.4737,
+      "spend": 88.435
+    }
+  ],
+  "revenue_concentration": {
+    "5": 36.68314587946641,
+    "10": 50.9427263789091,
+    "20": 67.77738296984491,
+    "50": 89.59128772074338
+  },
+  "cohorts": [
+    {
+      "cohort_month": "1997-01",
+      "customers": 7846,
+      "repeat_rate": 0.3739,
+      "median_first_value": 24.94
+    },
+    {
+      "cohort_month": "1997-02",
+      "customers": 8476,
+      "repeat_rate": 0.3719,
+      "median_first_value": 23.97
+    },
+    {
+      "cohort_month": "1997-03",
+      "customers": 7248,
+      "repeat_rate": 0.3782,
+      "median_first_value": 23.065
+    }
+  ],
+  "model": {
+    "n_train": 16499,
+    "n_test": 7071,
+    "auc": 0.576148230924179,
+    "brier": 0.2300307799126994,
+    "base_rate": 0.3745014849384811,
+    "coefficients": [
+      {
+        "feature": "cohort_month_1997-02",
+        "coef": 0.01791685582384627,
+        "odds_ratio": 1.0180783255870909
+      },
+      {
+        "feature": "z_first_cds",
+        "coef": 0.04074897073581362,
+        "odds_ratio": 1.0415906030018023
+      },
+      {
+        "feature": "cohort_month_1997-03",
+        "coef": 0.06360805677600573,
+        "odds_ratio": 1.0656746329452473
+      },
+      {
+        "feature": "z_log_first_value",
+        "coef": 0.1946088048884123,
+        "odds_ratio": 1.2148356557523494
+      },
+      {
+        "feature": "multi_line_first",
+        "coef": 0.26460222869839783,
+        "odds_ratio": 1.3029126114446474
+      }
+    ],
+    "corr_value_cds": 0.7539787477800336,
+    "cds_coef_alone": 0.22183987315368997,
+    "cds_coef_joint": 0.04074897073581362,
+    "value_coef_alone": 0.2424868730496487,
+    "value_coef_joint": 0.1946088048884123,
+    "avg_price_coef_alone": -0.03527283837721707
+  },
+  "opportunity": [
+    {
+      "lever": "Timed second-purchase nudge to every first-time buyer",
+      "verdict": "recommended",
+      "customers": 14743,
+      "current_rate": 0.0,
+      "benchmark_rate": 0.03,
+      "uplift_pp": 3.0,
+      "capture_rate": 1.0,
+      "basis": "assumed 3pp lift, to be proven or killed by a holdout test",
+      "incremental_repeaters": 442.29,
+      "value_per_repeater": 89.8237,
+      "annual_value": 39728.1408
+    },
+    {
+      "lever": "Lift bottom-quartile first baskets toward the top quartile",
+      "verdict": "recommended",
+      "customers": 6364,
+      "current_rate": 0.324,
+      "benchmark_rate": 0.4528,
+      "uplift_pp": 12.8747,
+      "capture_rate": 0.25,
+      "basis": "first-order value keeps its sign and size when controlled",
+      "incremental_repeaters": 204.8357,
+      "value_per_repeater": 89.8237,
+      "annual_value": 18399.1089
+    },
+    {
+      "lever": "Get a 2nd and 3rd title into the first order",
+      "verdict": "rejected - confounded by basket value",
+      "customers": 11920,
+      "current_rate": 0.3148,
+      "benchmark_rate": 0.465,
+      "uplift_pp": 15.0155,
+      "capture_rate": 0.25,
+      "basis": "raw gap is real; the causal reading is not",
+      "incremental_repeaters": 447.462,
+      "value_per_repeater": 89.8237,
+      "annual_value": 40192.708
+    }
+  ]
+}

@@ -3,9 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E-commerce customer retention — Payton Nguyen</title>
-<meta name="description" content="Case study: identifying what separates one-time buyers from repeat customers, and turning that into a product recommendation.">
-<link rel="stylesheet" href="assets/style.css?v=4">
+<title>Why 62% of customers never came back — Payton Nguyen</title>
+<meta name="description" content="A retention analysis on 23,570 real CDNOW customers: what the first order predicts about repeat purchase, and why the right build was a treatment rather than a targeting model.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why 62% of customers never came back">
+<meta property="og:description" content="A retention analysis on 23,570 real CDNOW customers, and the product decision it points to.">
+<link rel="stylesheet" href="assets/style.css?v=5">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230d131d'/><text x='50' y='69' font-size='44' font-weight='bold' font-family='Helvetica,Arial,sans-serif' fill='%23ffffff' text-anchor='middle'>PN</text></svg>">
 </head>
 <body class="sub-page">
@@ -30,142 +33,258 @@
   <header class="cs-head">
     <div class="wrap">
       <a class="back" href="index.html#work">← All work</a>
-      <p class="cs-kicker">Case study · In progress</p>
-      <h1>What makes an e-commerce customer come back?</h1>
+      <p class="cs-kicker">Case study · Customer retention</p>
+      <h1>Why 62% of customers never came back — and why a prediction model was the wrong fix</h1>
       <p class="cs-lede">
-        A retention analysis on transaction-level data — separating the signals
-        a business can act on from the ones it can only observe.
+        A retention analysis on 23,570 real customers of CDNOW, an online music
+        retailer. The interesting result was a negative one: the data could not
+        identify who would return, and that finding is what determined the
+        recommendation.
       </p>
 
       <dl class="facts">
-        <div>
-          <dt>Role</dt>
-          <dd>Solo — framing, analysis, recommendation</dd>
-        </div>
-        <div>
-          <dt>Tools</dt>
-          <dd>Python, pandas, scikit-learn</dd>
-        </div>
-        <div>
-          <dt>Timeline</dt>
-          <dd>July 2026 – present</dd>
-        </div>
-        <div>
-          <dt>Repo</dt>
-          <dd><a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis" target="_blank" rel="noopener">GitHub →</a></dd>
-        </div>
+        <div><dt>Role</dt><dd>Solo — framing, analysis, recommendation</dd></div>
+        <div><dt>Tools</dt><dd>Python, pandas, scikit-learn</dd></div>
+        <div><dt>Data</dt><dd>23,570 customers · 67,591 orders</dd></div>
+        <div><dt>Code</dt><dd><a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis" target="_blank" rel="noopener">GitHub →</a></dd></div>
       </dl>
     </div>
   </header>
 
-  <!--
-    ═══ HOW TO USE THIS TEMPLATE ═══
-    Keep the section order — it's the argument structure recruiters look for.
-    Replace the placeholder text under each heading with your real work.
-    Delete the .note boxes once a section has real content.
-  -->
-
   <article class="cs-body">
+
+    <h2>The data</h2>
+    <p>
+      CDNOW was an online music retailer that operated from 1994 until its sale
+      to Bertelsmann in 2000. This is its real transaction log: every purchase
+      made by a 1-in-10 sample of the customers whose <em>first</em> order fell
+      in the first quarter of 1997, followed through to 30 June 1998. It is the
+      dataset behind Fader, Hardie and Lee's work on customer-base analysis.
+    </p>
+    <p>
+      I picked it for its cohort design rather than its subject matter. Every
+      customer was acquired inside one three-month window and then observed for
+      at least fifteen months, so a 180-day repeat window is
+      <strong>fully observed for every single customer</strong>. Most retention
+      analyses have to make a judgment call about how to treat recently-acquired
+      customers who haven't had time to come back yet; get it wrong and you
+      score them as churned for the crime of being new. Here that entire class
+      of error is absent by construction.
+    </p>
+
+    <div class="note">
+      <strong>On the vintage.</strong> This data is from 1997, and I'd rather
+      say so than have someone find out. The timing and concentration patterns
+      are structural and still hold; the specific channel tactics of 1997
+      e-commerce are not transferable, so I don't propose any.
+    </div>
 
     <h2>The question behind the question</h2>
     <p>
-      "Improve retention" isn't a question — it's a wish. The decision a
-      retention analysis is actually supposed to inform is narrower: where
-      should the next unit of effort go? Onboarding? Discounting? Product
-      breadth? Each has a different cost, and the data has to earn the choice.
+      "Improve retention" isn't a question, it's a wish. The decision this
+      analysis actually had to inform was narrower and more expensive:
+      <strong>should the next unit of effort go into a model that predicts who
+      will return, or into a treatment applied to everyone?</strong>
     </p>
     <p>
-      So I framed it as: <strong>among customers who look identical at the
-      moment of first purchase, what happens next that predicts whether they
-      buy again — and which of those things is under the company's
-      control?</strong>
+      Those are different programs with different owners and different costs.
+      One is a data science investment that pays off in targeting efficiency;
+      the other is a lifecycle investment that pays off in coverage. Framing it
+      this way meant the analysis had a way to be wrong, which is the only thing
+      that makes an analysis worth running.
     </p>
 
     <div class="callout">
-      <span class="callout-label">Why this framing matters</span>
+      <span class="callout-label">The filter I applied to every finding</span>
       <p>
-        Plenty of variables predict retention without being usable. High
-        lifetime spend predicts repeat purchase, but you can't <em>assign</em>
-        someone high lifetime spend. Splitting predictors into observable vs.
-        actionable was the decision that shaped the whole analysis.
+        Plenty of variables predict retention without being usable. Lifetime
+        spend predicts repeat purchase beautifully, but you cannot
+        <em>assign</em> a customer a high lifetime spend. So every result got
+        sorted into <strong>observable</strong> — useful for deciding who to
+        spend on — or <strong>actionable</strong> — useful for deciding what to
+        do. Only actionable findings were allowed into the recommendation.
       </p>
     </div>
 
-    <h2>Approach</h2>
+    <h2>Cleaning, and one decision that mattered</h2>
     <p>
-      Three stages, each one feeding the next. Add the specifics — which
-      dataset, how many transactions, what date range — once you've locked them.
+      The log has 69,659 rows but only 67,591 orders. The difference is 2,068
+      rows where one customer has several lines on the same date — those are
+      lines of a single basket, not separate purchase decisions. Rolling them up
+      is not cosmetic: left alone, a customer who bought three albums in one
+      checkout would count as a repeat buyer, and the headline repeat rate would
+      be inflated by an artefact of how the warehouse stored rows.
     </p>
-    <ul class="hollow">
-      <li><strong>Feature engineering</strong> — roll transaction-level data up to the customer level and build features that describe <em>behavior after the first order</em>, not just totals: time to second purchase, category breadth, order value trajectory.</li>
-      <li><strong>Logistic regression</strong> — model repeat purchase and validate it properly. I chose logistic over a black-box model on purpose: the coefficients have to be legible to a non-technical reader, because the output of this project is an argument, not a prediction service.</li>
-      <li><strong>Opportunity sizing</strong> — for each customer segment, estimate how much retention is actually available to win, so the recommendation is ranked by impact rather than by effect size.</li>
-    </ul>
-
-    <div class="callout">
-      <span class="callout-label">Deliverables</span>
-      <p>
-        A two-page product requirements document and a five-slide executive
-        deck, ranking retention initiatives by expected impact against
-        implementation cost — each with the metric that would tell you it
-        worked. The notebook is the evidence; the deck is the deliverable.
-      </p>
-    </div>
-
-    <div class="note">
-      Add your data cleaning notes here — returns, cancelled orders, guest
-      checkouts, duplicate customer IDs. Recruiters read this section to find
-      out whether you understand that real data is messy. Being specific about
-      what you threw out and why is worth more than a high accuracy score.
-    </div>
+    <p>
+      I also found 80 orders with a value of $0. They're kept as purchase events
+      — someone did transact — but they contribute nothing to revenue.
+    </p>
 
     <h2>What the data said</h2>
+
+    <h3>Most customers buy once and disappear</h3>
     <p>
-      Write your findings as claims, not as chart captions. "Customers who
-      bought a second item within 21 days retained at 3× the rate" is a claim.
-      "Here is a bar chart of retention by cohort" is not.
+      <strong>62.5%</strong> of customers never placed a second order within 180
+      days. Revenue is correspondingly top-heavy: the top 20% of customers
+      generate <strong>67.8%</strong> of all revenue and the top 5% generate
+      <strong>36.7%</strong>.
+    </p>
+    <figure class="chart chart--narrow">
+      <img src="outputs/figures/revenue_concentration.svg" alt="Cumulative revenue by share of customers: the top 20% of customers account for 68% of revenue.">
+    </figure>
+    <p>
+      That concentration is usually read as good news about whales. The more
+      useful reading is the inverse — acquisition budget is being spent on a
+      majority of customers who return nothing beyond a first basket, and
+      optimising the top of the file does nothing about it.
     </p>
 
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr><th>Finding</th><th>Evidence</th><th>Confidence</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Placeholder finding one</td><td>What in the data supports it</td><td>High / medium / low</td></tr>
-          <tr><td>Placeholder finding two</td><td>What in the data supports it</td><td>High / medium / low</td></tr>
-          <tr><td>Placeholder finding three</td><td>What in the data supports it</td><td>High / medium / low</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <h3>When customers do return, they return fast</h3>
+    <p>
+      The median gap between first and second purchase is <strong>57 days</strong>.
+      36% of second purchases happen within the first month and roughly 60%
+      inside 90 days. There is a narrow, well-defined window in which
+      intervention could plausibly matter.
+    </p>
+    <figure class="chart">
+      <img src="outputs/figures/second_purchase_window.svg" alt="Distribution of days between first and second purchase: 36% within 30 days, 60% cumulative within 90 days.">
+    </figure>
+
+    <h3>The first order barely predicts anything</h3>
+    <p>
+      This is the finding the recommendation turns on. A logistic regression on
+      everything knowable at the moment of the first order — basket value, title
+      count, whether the order split across lines, acquisition month — reaches a
+      hold-out <strong>AUC of 0.576</strong> against a base rate of 0.375.
+    </p>
+    <figure class="chart chart--narrow">
+      <img src="outputs/figures/roc.svg" alt="Hold-out ROC curve, AUC 0.576 — only slightly better than chance.">
+    </figure>
+    <p>
+      That is barely better than guessing. I chose logistic regression over a
+      boosted tree on purpose — the output of this project is an argument a
+      merchandising lead has to be able to check, and coefficients are legible
+      in a way feature importances are not — but the ceiling here isn't the
+      model. It is that a single transaction just doesn't carry much signal
+      about a person's future.
+    </p>
+    <figure class="chart">
+      <img src="outputs/figures/coefficients.svg" alt="Model coefficients: first-order value +0.20, multi-line first order +0.27, title count +0.04.">
+    </figure>
 
     <h3>What I tried to rule out</h3>
     <p>
-      State the alternative explanation you tested and couldn't dismiss. This
-      is the paragraph that separates a student project from analyst work —
-      almost nobody writes it, and everybody senior notices when you do.
+      The obvious lever was basket size: customers who bought three or more
+      titles repeated at 46.5% against 31.5% for single-title buyers, a 15
+      point gap across 11,920 customers. It is the biggest raw gap in the data
+      and it looks like a merchandising win.
     </p>
+    <p>
+      It doesn't survive control. Basket value and title count correlate at
+      <strong>0.75</strong>, and once value is held constant the title-count
+      coefficient collapses from <strong>+0.22 to +0.04</strong> — an 82%
+      attenuation, effectively nothing. Customers who buy three titles come back
+      because they <em>spent</em> more, not because they bought more items.
+    </p>
+
+    <div class="callout">
+      <span class="callout-label">Why that distinction is worth money</span>
+      <p>
+        Acting on the raw gap would push merchandising toward cheap add-ons —
+        anything to get item count up. That moves the metric the analysis was
+        measured on without moving the thing that actually drives return. It is
+        the most expensive kind of wrong answer, because it looks like it's
+        working.
+      </p>
+    </div>
+
+    <p>
+      I also checked acquisition month, since a promotion-heavy cohort would be
+      an obvious suspect. Cohort coefficients sit within 0.06 log-odds of each
+      other and the three monthly repeat rates span 37.2% to 37.8%. Not a lever.
+    </p>
+    <figure class="chart">
+      <img src="outputs/figures/repeat_by_first_basket.svg" alt="Repeat rate by first-order value decile, rising from 32% to 47% with a flattening at the top.">
+    </figure>
 
     <h2>Recommendation</h2>
     <p>
-      One recommendation. What you'd do, what it costs, and what you're
-      trading away by doing it instead of the obvious alternative.
+      <strong>Build the treatment, not the model.</strong> Ship a second-purchase
+      program timed to the 30–90 day window and send it to every first-time
+      buyer, weighted toward higher-value titles rather than cheap add-ons.
+    </p>
+    <p>
+      The two findings compose into a single argument. Because the model cannot
+      identify <em>who</em> will return, targeting has nothing to target on — a
+      propensity model would spend a quarter of engineering time to sort
+      customers barely better than a coin. Because the window is short and
+      known, a timed treatment has something concrete to act on. Low
+      predictability is normally a disappointing result; here it is the thing
+      that decides the build.
+    </p>
+    <figure class="chart">
+      <img src="outputs/figures/opportunity.svg" alt="Levers ranked by value: second-purchase nudge about $40k, lifting bottom-quartile baskets about $18k.">
+    </figure>
+
+    <div class="table-scroll">
+      <table>
+        <caption class="visually-hidden">Levers considered, with verdicts</caption>
+        <thead>
+          <tr><th>Lever</th><th>Population</th><th>Value</th><th>Verdict</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Timed second-purchase nudge</td><td>14,743</td><td>≈ $39.7k</td><td>Recommended</td></tr>
+          <tr><td>Lift bottom-quartile first baskets</td><td>6,364</td><td>≈ $18.4k</td><td>Recommended</td></tr>
+          <tr><td>Get more titles into the first order</td><td>11,920</td><td>≈ $40.2k</td><td>Rejected — confounded</td></tr>
+          <tr><td>Fix the weakest acquisition month</td><td>8,476</td><td>≈ $1.2k</td><td>Not worth pursuing</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Note that the rejected row is the <em>largest</em> number in the table.
+      Ranking levers by size alone would have picked it, which is the whole
+      reason the control step exists.
     </p>
 
     <div class="callout">
       <span class="callout-label">How you'd know it worked</span>
       <p>
-        Name the metric, the timeframe, and the number that would make you
-        admit you were wrong. Pre-committing to a disconfirming result is the
-        whole game.
+        Primary metric: 180-day repeat rate, treatment vs. a permanent holdout.
+        <strong>Ship at ≥2pp lift (p&lt;0.05) after one full 180-day cohort;
+        kill it below 1pp</strong> — the program isn't free and a sub-1pp effect
+        won't clear its own cost. Counter-metric: average value of the second
+        order, because a lift bought by discounting into cheap purchases is not
+        a win.
       </p>
     </div>
 
-    <h2>What I'd do differently</h2>
     <p>
-      Be honest here. The limitation you name yourself is a limitation nobody
-      gets to catch you on in an interview.
+      The full write-up lives in the
+      <a href="https://github.com/paytonnguyen-creator/ecommerce-customer-retention-analysis/blob/main/docs/PRD.md" target="_blank" rel="noopener">product requirements document</a>,
+      with scope, guardrails and the kill criteria.
     </p>
+
+    <h2>What I'd do differently</h2>
+    <ul class="hollow">
+      <li>
+        <strong>The 3pp lift is assumed, not measured.</strong> It's the single
+        weakest number here. I chose a deliberately modest figure and made the
+        holdout non-negotiable rather than dressing up a guess as a forecast,
+        but it is still a guess.
+      </li>
+      <li>
+        <strong>The data has no channel, category or discount fields.</strong>
+        Those are the three things I most wanted, and their absence caps how far
+        the causal story can go. With them I'd have tested whether discount-led
+        acquisition explains the low-value, low-retention segment.
+      </li>
+      <li>
+        <strong>I'd model time-to-second-purchase directly.</strong> A binary
+        "did they return within 180 days" throws away the timing information
+        that turned out to be the most useful thing in the dataset. Survival
+        analysis is the right tool and I reached for logistic regression first.
+      </li>
+    </ul>
 
     <p class="cs-foot-link">
       <a class="back" href="index.html#work">← All work</a>
@@ -180,6 +299,6 @@
   <span>Built and hosted on GitHub Pages</span>
 </footer>
 
-<script src="assets/main.js?v=4"></script>
+<script src="assets/main.js?v=5"></script>
 </body>
 </html>
