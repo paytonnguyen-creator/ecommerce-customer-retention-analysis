@@ -82,4 +82,4 @@ analysis/build_deck.js     regenerates the deck (node; needs `npm i pptxgenjs`)
 
 The write-up lives on my personal site, **[paytonnguyen-creator.github.io](https://paytonnguyen-creator.github.io/)**, which is its own repository. This repo is the analysis: pipeline, data, figures, PRD, deck and walkthrough. The charts are generated here and copied across.
 
-`index.html` and `case-study.html` here are redirect stubs, so links shared before the move still resolve.
+This repo no longer publishes a site of its own — the old project URL is retired. Everything reader-facing lives on the personal site above.
