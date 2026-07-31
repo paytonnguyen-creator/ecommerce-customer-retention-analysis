@@ -45,18 +45,20 @@
     rights to — a stock or press image of campus is someone else's copyright.
   -->
   <div class="hero-bg" aria-hidden="true">
-    <img class="hero-photo" src="assets/hero.jpg" alt="" onerror="this.remove()">
+    <!-- Uncomment once assets/hero.jpg exists (kept off so the live page
+         doesn't request a missing file on every load): -->
+    <!-- <img class="hero-photo" src="assets/hero.jpg" alt=""> -->
   </div>
 
   <div class="hero-inner">
     <div class="hero-left">
       <!--
-        PORTRAIT: reads assets/portrait.jpg. If that file is missing the image
+        PORTRAIT: reads assets/portrait.png. If that file is missing the image
         removes itself and the circle falls back to initials — no broken icon.
         Framing too high or low? Adjust object-position on .portrait img in style.css.
       -->
       <div class="portrait">
-        <img src="assets/portrait.jpg" alt="Payton Nguyen" onerror="this.remove()">
+        <img src="assets/portrait.png" alt="Payton Nguyen" onerror="this.remove()">
         <span class="portrait-fallback" aria-hidden="true">PN</span>
       </div>
 

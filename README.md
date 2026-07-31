@@ -13,7 +13,7 @@ index.html        home page — hero, about, approach, skills, work, background,
 case-study.html   case study template — copy this for each new project
 assets/style.css  all styling; colors live in :root at the top
 assets/main.js    typewriter, scroll-spy nav, mobile menu
-assets/portrait.jpg  hero photo (see below)
+assets/portrait.png  hero photo (see below)
 assets/resume.pdf linked from the hero, the skills section and contact
 ```
 
@@ -25,9 +25,9 @@ To put a real photo behind it, save a wide landscape shot as `assets/hero.jpg`; 
 
 ### Your photo
 
-The hero circle reads `assets/portrait.jpg`. If that file is missing the image removes itself and the circle falls back to your initials — nothing breaks either way. To change the picture, just overwrite that file.
+The hero circle reads `assets/portrait.png`. If that file is missing the image removes itself and the circle falls back to your initials — nothing breaks either way. To change the picture, just overwrite that file.
 
-Framing off? Adjust `object-position` on `.portrait img` in `style.css`. It's set to `50% 28%`, which biases the crop upward so a tall photo centers on the face rather than the chest.
+Framing off? Adjust `object-position` on `.portrait img` in `style.css`. It's set to `50% 22%`, which biases the crop upward so a tall photo centers on the face rather than the chest.
 
 ### Preview it locally
 
