@@ -1,0 +1,33 @@
+{
+  "source": "CLINC150 (Larson et al., EMNLP 2019)",
+  "repository": "https://github.com/clinc/oos-eval",
+  "commit": "828f8093932c8fe6ca7936c3d2e52903b1c523de",
+  "sha256": {
+    "data_full.json": "36923c3705a59e08fe9c3883d8bc2dd966ef93e22cb78ac41171782a698d56e0",
+    "domains.json": "b947b579d3b8e74b06f93b01083d8efaff2888b43a3e362533bd88a6e1211b3a"
+  },
+  "rows": 23700,
+  "in_scope_rows": 22500,
+  "out_of_scope_rows": 1200,
+  "intents": 150,
+  "domains": [
+    "auto_and_commute",
+    "banking",
+    "credit_cards",
+    "home",
+    "kitchen_and_dining",
+    "meta",
+    "small_talk",
+    "travel",
+    "utility",
+    "work"
+  ],
+  "split_counts": {
+    "test_out_of_scope": 1000,
+    "test_in_scope": 4500,
+    "train_out_of_scope": 100,
+    "train_in_scope": 15000,
+    "val_out_of_scope": 100,
+    "val_in_scope": 3000
+  }
+}

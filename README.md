@@ -1,5 +1,9 @@
 # E-commerce customer retention analysis
 
+> **Also in this repo — a second case study:** [**The 92% that wasn't**](ai-support-automation/) — an AI transformation assessment costing out a support-automation program on the CLINC150 benchmark. The finding: the abstention rule is worth 4× a flawless model, and the business-case number is unreachable in principle. Self-contained under [`ai-support-automation/`](ai-support-automation/), with its own pipeline, memo and deck.
+
+---
+
 **[Read the case study →](https://paytonnguyen-creator.github.io/case-study.html)** · **[PRD →](docs/PRD.md)** · **[Executive deck →](docs/cdnow-retention-executive-deck.pptx)** · **[Walkthrough →](docs/WALKTHROUGH.md)**
 
 A retention analysis on the real CDNOW transaction log — 23,570 customers, 67,591 orders, Q1 1997 acquisition cohort followed through June 1998.

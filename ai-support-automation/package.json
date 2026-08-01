@@ -1,0 +1,11 @@
+{
+  "name": "ai-support-automation-deck",
+  "private": true,
+  "description": "Regenerates the executive deck from outputs/metrics.json",
+  "scripts": {
+    "deck": "node analysis/build_deck.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

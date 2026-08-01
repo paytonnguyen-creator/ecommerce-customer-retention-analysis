@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node — only needed to regenerate the executive decks
+node_modules/
+
+# Cached upstream download; re-fetched and SHA-256 verified by prepare_data.py
+ai-support-automation/data/raw/

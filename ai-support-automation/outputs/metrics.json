@@ -1,0 +1,156 @@
+{
+  "inputs": {
+    "cost_human_contact": 6.0,
+    "cost_ai_contact": 0.12,
+    "cost_wrong_auto_resolution": 12.0,
+    "volume_per_period": 100000,
+    "assumed_out_of_scope_share": 0.1818
+  },
+  "data": {
+    "train_in_scope": 15000,
+    "intents": 150,
+    "test_in_scope": 4500,
+    "test_out_of_scope": 1000
+  },
+  "model": {
+    "in_scope_test_accuracy": 0.9238,
+    "blended_accuracy_no_abstention": 0.7558,
+    "out_of_scope_detection_auroc": 0.9498,
+    "oos_answered_above_threshold": 0.093
+  },
+  "policy": {
+    "threshold_selected_on_validation": 0.525,
+    "test_optimal_threshold": 0.5,
+    "value_left_by_using_validation_threshold": 1636.36,
+    "at_threshold": {
+      "threshold": 0.525,
+      "coverage": 0.7256,
+      "resolution_rate": 0.6904,
+      "automation_precision": 0.9514,
+      "silent_failure_rate": 0.0169,
+      "deferral_rate": 0.2744,
+      "cost_per_contact": 2.4011,
+      "saving_per_contact": 3.5989,
+      "value_per_period": 359890.9091
+    },
+    "automate_everything": {
+      "threshold": 0.0,
+      "coverage": 1.0,
+      "resolution_rate": 0.7558,
+      "automation_precision": 0.7558,
+      "silent_failure_rate": 0.1818,
+      "deferral_rate": 0.0,
+      "cost_per_contact": 4.5153,
+      "saving_per_contact": 1.4847,
+      "value_per_period": 148472.7273
+    }
+  },
+  "decomposition_value_per_period": {
+    "business_case_every_contact_automated": 588000.0,
+    "physical_ceiling_perfect_model_and_abstention": 478909.09,
+    "as_built_threshold_tuned": 359890.91,
+    "as_built_automate_everything": 148472.73,
+    "perfect_in_scope_classifier_only": 409527.27,
+    "perfect_unknown_traffic_detection_only": 385200.0,
+    "physical_ceiling_coverage": 0.8182
+  },
+  "leverage_value_added_per_period": {
+    "abstention_threshold_config_change": 211418.18,
+    "flawless_classifier_on_supported_traffic": 49636.36,
+    "perfect_unsupported_request_detection": 25309.09,
+    "threshold_vs_flawless_classifier_ratio": 4.26
+  },
+  "sensitivity": {
+    "error_cost_where_full_automation_breaks_even": 18.08,
+    "error_cost_where_tuned_policy_breaks_even": null,
+    "value_by_oos_share": {
+      "0.00": 467333.33,
+      "0.05": 437786.67,
+      "0.10": 408240.0,
+      "0.15": 378693.33,
+      "0.20": 349146.67,
+      "0.25": 319600.0,
+      "0.30": 290053.33,
+      "0.35": 260506.67,
+      "0.40": 230960.0
+    },
+    "optimal_threshold_by_error_cost": {
+      "0": 0.0,
+      "5": 0.31,
+      "10": 0.5,
+      "15": 0.5,
+      "20": 0.62,
+      "25": 0.62,
+      "30": 0.7,
+      "35": 0.7,
+      "40": 0.75
+    }
+  },
+  "domain_spread": {
+    "coverage_range_points": 12.4,
+    "error_rate_ratio_worst_to_best": 13.6,
+    "note": "In-scope only. Out-of-scope contacts belong to no domain, so charging them to one would invent a finding."
+  },
+  "by_domain": [
+    {
+      "domain": "utility",
+      "contacts": 450,
+      "auto_rate": 0.9333,
+      "accuracy_when_auto": 0.9905
+    },
+    {
+      "domain": "small_talk",
+      "contacts": 450,
+      "auto_rate": 0.9111,
+      "accuracy_when_auto": 0.9829
+    },
+    {
+      "domain": "work",
+      "contacts": 450,
+      "auto_rate": 0.9044,
+      "accuracy_when_auto": 0.9754
+    },
+    {
+      "domain": "credit_cards",
+      "contacts": 450,
+      "auto_rate": 0.8822,
+      "accuracy_when_auto": 0.9547
+    },
+    {
+      "domain": "travel",
+      "contacts": 450,
+      "auto_rate": 0.8778,
+      "accuracy_when_auto": 0.9949
+    },
+    {
+      "domain": "auto_and_commute",
+      "contacts": 450,
+      "auto_rate": 0.8667,
+      "accuracy_when_auto": 0.9949
+    },
+    {
+      "domain": "meta",
+      "contacts": 450,
+      "auto_rate": 0.8356,
+      "accuracy_when_auto": 0.9787
+    },
+    {
+      "domain": "banking",
+      "contacts": 450,
+      "auto_rate": 0.8289,
+      "accuracy_when_auto": 0.9705
+    },
+    {
+      "domain": "kitchen_and_dining",
+      "contacts": 450,
+      "auto_rate": 0.8133,
+      "accuracy_when_auto": 0.9617
+    },
+    {
+      "domain": "home",
+      "contacts": 450,
+      "auto_rate": 0.8089,
+      "accuracy_when_auto": 0.9313
+    }
+  ]
+}
