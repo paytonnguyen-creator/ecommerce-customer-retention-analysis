@@ -95,6 +95,16 @@ MAX_PER_ARTIST = 2     # playlist diversity cap
 SHORTLIST = 30
 SEED = 42
 
+# Long-form content breaks fractional completion. A 70-minute DJ set played for
+# twenty minutes scores 0.28 -- the same as bailing on a three-minute track
+# after fifty seconds -- and since completion is one of the model's strongest
+# features, that quietly pushes every mix and live set to the bottom of the
+# shortlist. Engagement with long-form is an ABSOLUTE amount of time, not a
+# fraction, so the denominator is capped: past the reference length, staying is
+# what counts, not finishing.
+COMPLETION_REFERENCE_MS = 8 * 60 * 1000   # a generously long "normal" track
+LONG_FORM_MS = 15 * 60 * 1000             # mixes, sets, live recordings
+
 # Validated categorical palette, slots 1-3 (checked with the dataviz validator
 # in both modes; aqua sits under 3:1 on the light surface so it is only ever
 # used with a direct label attached).
@@ -177,7 +187,9 @@ def encoding_features(streams: pd.DataFrame, tracks: pd.DataFrame,
 
     dur = tracks.set_index("track_id")["duration_ms"] if "duration_ms" in tracks else None
     if dur is not None:
-        win["completion"] = (win["ms_played"] / win["track_id"].map(dur)).clip(0, 1)
+        track_dur = win["track_id"].map(dur)
+        denom = np.minimum(track_dur, COMPLETION_REFERENCE_MS)
+        win["completion"] = (win["ms_played"] / denom).clip(0, 1)
     else:
         win["completion"] = np.nan
 
@@ -222,6 +234,12 @@ def encoding_features(streams: pd.DataFrame, tracks: pd.DataFrame,
                         "release_date", "true_world", "true_returner",
                         *psy.ACOUSTIC_FEATURES] if c in tracks.columns]
     feat = feat.merge(tracks[["track_id", *keep]], on="track_id", how="left")
+
+    # Kept as an explicit indicator rather than folded into completion, so a mix
+    # is visibly a different kind of object to the model instead of a song that
+    # nobody finishes.
+    if "duration_ms" in feat.columns:
+        feat["is_long_form"] = (feat.duration_ms >= LONG_FORM_MS).astype(float)
 
     if "release_date" in feat.columns:
         rel = pd.to_datetime(feat.release_date, format="mixed", errors="coerce")
@@ -304,6 +322,8 @@ def compare_models(feat: pd.DataFrame, acoustic: list[str],
     Xb = z(d[BEHAVIOURAL].astype(float))
     if "catalogue_age_years" in d.columns:
         Xb["catalogue_age_years"] = z(d[["catalogue_age_years"]].astype(float)).iloc[:, 0]
+    if "is_long_form" in d.columns:
+        Xb["is_long_form"] = d["is_long_form"].astype(float).to_numpy()  # already 0/1
 
     idx_tr, idx_te = train_test_split(np.arange(len(d)), test_size=0.30,
                                       random_state=SEED, stratify=y)
@@ -450,6 +470,8 @@ def score_recent(feat: pd.DataFrame, res: dict, acoustic: list[str],
     if "catalogue_age_years" in feat.columns:
         cols_b = cols_b + ["catalogue_age_years"]
     X = z(new[cols_b].astype(float), train[cols_b].astype(float))
+    if "is_long_form" in feat.columns:
+        X["is_long_form"] = new["is_long_form"].astype(float).to_numpy()
 
     if have_acoustic:
         a_new, a_ref = new[acoustic].astype(float).copy(), train[acoustic].astype(float).copy()
@@ -466,25 +488,58 @@ def score_recent(feat: pd.DataFrame, res: dict, acoustic: list[str],
     return new.sort_values("memory_lane_index", ascending=False)
 
 
-def shortlist(scored: pd.DataFrame) -> pd.DataFrame:
+def shortlist(scored: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     """
     Top N by index, but no more than MAX_PER_ARTIST per artist. A playlist that
     is eleven songs by one band is a model telling you about one band, not
     about eleven memories -- and it is the kind of failure that only shows up
     once you look at the output as a playlist rather than as a ranking.
+
+    A hard cap assumes a broad library, which is an assumption a lot of people
+    break: someone who listens to seven artists on repeat cannot fill thirty
+    slots at two apiece. So the cap RELAXES rather than silently returning a
+    short playlist, and the relaxation is reported -- a 30-track list built at
+    four per artist is a different object from one built at two, and the reader
+    should be able to see which they got.
     """
     if "artist" not in scored.columns:
-        return scored.head(SHORTLIST)
-    picked, counts = [], {}
-    for row in scored.itertuples():
-        a = getattr(row, "artist", "?")
-        if counts.get(a, 0) >= MAX_PER_ARTIST:
-            continue
-        counts[a] = counts.get(a, 0) + 1
-        picked.append(row.Index)
-        if len(picked) >= SHORTLIST:
-            break
-    return scored.loc[picked]
+        return scored.head(SHORTLIST), {"artist_cap": None,
+                                        "reason": "no artist column"}
+
+    def pick(cap: int) -> list:
+        chosen, counts = [], {}
+        for row in scored.itertuples():
+            a = getattr(row, "artist", "?")
+            if counts.get(a, 0) >= cap:
+                continue
+            counts[a] = counts.get(a, 0) + 1
+            chosen.append(row.Index)
+            if len(chosen) >= SHORTLIST:
+                break
+        return chosen
+
+    cap = MAX_PER_ARTIST
+    picked = pick(cap)
+    while len(picked) < SHORTLIST and cap < SHORTLIST:
+        cap += 1
+        picked = pick(cap)
+
+    log = {
+        "artist_cap_requested": MAX_PER_ARTIST,
+        "artist_cap_applied": cap,
+        "distinct_artists_in_scoring_set": int(scored.artist.nunique()),
+        "distinct_artists_on_shortlist": int(scored.loc[picked].artist.nunique()),
+        "tracks": len(picked),
+        "cap_relaxed": cap > MAX_PER_ARTIST,
+    }
+    if log["cap_relaxed"]:
+        log["note"] = (
+            f"Only {log['distinct_artists_in_scoring_set']} artists have "
+            f"recent tracks, so {MAX_PER_ARTIST} per artist could not fill "
+            f"{SHORTLIST} slots. The cap was raised to {cap}. A concentrated "
+            f"library gives a concentrated playlist; that is the library "
+            f"talking, not the model.")
+    return scored.loc[picked], log
 
 
 # ── 7. Figures ───────────────────────────────────────────────────────────────
@@ -568,8 +623,14 @@ def fig_worlds(feat: pd.DataFrame, info: dict):
     for ax in axes[k:]:
         ax.axis("off")
 
+    # The verdict is read off the clusters rather than asserted -- a title that
+    # states a finding has to be recomputed when the finding changes.
+    spread = (rate.max() - rate.min()) * 100 if len(rate) > 1 else 0.0
+    verdict = (f"they split {rate.min():.0%}/{rate.max():.0%} on coming back"
+               if spread >= 5 else
+               "they do not sort into keepers and forgettables")
     fig.suptitle(f"K-Means found {k} sonic worlds (silhouette {info['silhouette']:.2f}) "
-                 "— they do not sort into keepers and forgettables",
+                 f"— {verdict}",
                  color=INK, fontsize=12.5, x=0.02, ha="left", y=1.0)
     fig.tight_layout()
     _save(fig, "sonic_worlds.svg")
@@ -593,7 +654,15 @@ def fig_roc(res: dict):
                       f"{res['auc_behaviour_plus_acoustic']:.3f}")
         d = res["auc_delta"]
         lo, hi = res["auc_delta_ci95"]
-        verdict = "a real gain" if lo > 0 else "indistinguishable from nothing"
+        # Three outcomes, not two. An interval that contains zero around a
+        # visibly positive point estimate is not the same claim as one centred
+        # on nothing, and collapsing them would overstate the negative result.
+        if lo > 0:
+            verdict = "a real gain"
+        elif hi < abs(lo):
+            verdict = "indistinguishable from nothing"
+        else:
+            verdict = "positive, but the interval still contains zero"
         ax.set_title(f"Acoustics move AUC by {d:+.3f} [{lo:+.3f}, {hi:+.3f}]"
                      f" — {verdict}", color=INK, fontsize=12, loc="left", pad=12)
     else:
@@ -694,7 +763,7 @@ def main() -> None:
     res = compare_models(feat, acoustic, have_acoustic)
     conf = confound_check(feat)
     scored = score_recent(feat, res, acoustic, have_acoustic)
-    short = shortlist(scored)
+    short, short_log = shortlist(scored)
 
     bump = fig_bump(feat)
     if have_acoustic:
@@ -757,6 +826,7 @@ def main() -> None:
         "sonic_worlds": worlds,
         "concentration_deciles": conc,
         "distinctiveness_confound": conf,
+        "shortlist_selection": short_log,
         "model": res,
         "shortlist": short_out.round(4).to_dict("records") if len(short) else [],
         "blind_spots": [{"factor": a, "why": b} for a, b in psy.BLIND_SPOTS],

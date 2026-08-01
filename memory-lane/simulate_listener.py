@@ -65,16 +65,27 @@ DATA = Path(__file__).resolve().parent / "data"
 START, END = pd.Timestamp("2013-01-01"), pd.Timestamp("2026-08-01")
 N_TRACKS = 1400
 
-# The six sonic worlds: (danceability, energy, valence, acousticness,
-# speechiness, instrumentalness, tempo, loudness) centres.
+# The six sonic worlds: acoustic centres plus a duration distribution.
+#
+# The profile is shaped after a real stated taste -- a rap/trap pole and a UK
+# house / electronic pole, which is a common and awkward shape for this kind of
+# analysis because the two halves have completely different track lengths. The
+# ARTISTS are still invented; only the scene structure is borrowed. Nothing
+# here should be read as a claim about any real recording.
+#
+# The "dj sets / mixes" world exists specifically to exercise the long-form
+# path: hour-long sets where fractional completion is a meaningless number.
 WORLDS = {
-    "bedroom acoustic":  (0.42, 0.28, 0.36, 0.82, 0.04, 0.12,  92, -13.5),
-    "stadium indie":     (0.55, 0.78, 0.55, 0.11, 0.05, 0.02, 132,  -5.4),
-    "late-night pop":    (0.74, 0.62, 0.48, 0.18, 0.07, 0.01, 108,  -6.2),
-    "rap / spoken":      (0.80, 0.66, 0.44, 0.13, 0.28, 0.00,  96,  -6.8),
-    "ambient / study":   (0.30, 0.19, 0.24, 0.71, 0.03, 0.86,  84, -18.0),
-    "high-bpm dance":    (0.79, 0.90, 0.66, 0.03, 0.06, 0.35, 148,  -4.1),
+    #                      dance  energy valence acoust speech instr tempo loud     duration mean/sd (ms)
+    "trap / rage":        ((0.78, 0.72, 0.36, 0.08, 0.24, 0.00, 145.0, -5.2), (168_000, 34_000)),
+    "melodic rap":        ((0.70, 0.54, 0.32, 0.22, 0.14, 0.00, 138.0, -7.1), (205_000, 40_000)),
+    "uk house / garage":  ((0.86, 0.82, 0.62, 0.03, 0.06, 0.55, 131.0, -6.0), (330_000, 70_000)),
+    "emotive electronic": ((0.74, 0.71, 0.44, 0.13, 0.08, 0.28, 144.0, -6.4), (255_000, 55_000)),
+    "dj sets / mixes":    ((0.82, 0.79, 0.55, 0.02, 0.05, 0.78, 130.0, -7.5), (3_600_000, 1_100_000)),
+    "ambient / study":    ((0.32, 0.20, 0.25, 0.70, 0.03, 0.88,  84.0, -18.0), (240_000, 60_000)),
 }
+# A real listener has a dominant scene rather than an even split across six.
+WORLD_WEIGHTS = (0.26, 0.20, 0.19, 0.16, 0.07, 0.12)
 WORLD_SPREAD = (0.10, 0.11, 0.16, 0.14, 0.04, 0.15, 11.0, 2.4)
 BOUNDED = (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 40.0, -60.0)
 UPPER = (1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 210.0, 0.0)
@@ -117,10 +128,9 @@ def _names(rng: np.random.Generator, n: int) -> tuple[list[str], list[str]]:
 
 def build_tracks(rng: np.random.Generator, birth_year: int) -> pd.DataFrame:
     world_names = list(WORLDS)
-    # Taste drifts: world mix is re-weighted per year rather than fixed.
-    world_idx = rng.integers(0, len(world_names), N_TRACKS)
+    world_idx = rng.choice(len(world_names), N_TRACKS, p=WORLD_WEIGHTS)
 
-    centres = np.array([WORLDS[world_names[i]] for i in world_idx])
+    centres = np.array([WORLDS[world_names[i]][0] for i in world_idx])
     spread = np.array(WORLD_SPREAD)
     vals = rng.normal(centres, spread)
     vals = np.clip(vals, BOUNDED, UPPER)
@@ -136,7 +146,12 @@ def build_tracks(rng: np.random.Generator, birth_year: int) -> pd.DataFrame:
     artists, titles = _names(rng, N_TRACKS)
     df["artist"], df["name"] = artists, titles
     df["track_id"] = [f"sim{i:05d}" for i in range(N_TRACKS)]
-    df["duration_ms"] = rng.normal(215_000, 46_000, N_TRACKS).clip(80_000, 480_000).astype(int)
+    # Duration is per-world: a Boiler-Room-length set and a two-minute rage
+    # track are the same object to the schema and completely different objects
+    # to any completion metric.
+    dur_mu = np.array([WORLDS[world_names[i]][1][0] for i in world_idx])
+    dur_sd = np.array([WORLDS[world_names[i]][1][1] for i in world_idx])
+    df["duration_ms"] = rng.normal(dur_mu, dur_sd).clip(60_000, 7_800_000).astype(int)
     df["popularity"] = rng.integers(4, 92, N_TRACKS)
     df["release_date"] = (df["entered"] - pd.to_timedelta(
         rng.integers(0, 2600, N_TRACKS), unit="D")).dt.strftime("%Y-%m-%d")

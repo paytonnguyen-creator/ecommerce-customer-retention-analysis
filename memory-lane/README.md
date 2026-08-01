@@ -17,20 +17,23 @@ more and then came back for at least three more plays. That is not nostalgia —
 it is the behavioural shadow nostalgia casts in a listening log, and unlike
 nostalgia it can be held out and scored.
 
-**The answer, in short:** the psychology names the right era but does not rank
-the tracks inside it, and the acoustics barely matter. Behaviour in a song's
-first ninety days predicts return at **AUC 0.785**. Adding every acoustic
-feature Spotify exposes moves that to **0.786** — a change of **+0.0004, 95% CI
-[−0.029, +0.029]**. The fun part of the brief is the part that does not work.
+**The answer, in short:** behaviour in a song's first ninety days predicts
+return at **AUC 0.780**; every acoustic feature Spotify exposes adds **+0.019
+[95% CI −0.002, +0.042]** on top — a gain whose interval still contains zero.
+And the single largest modelling win in the project came from neither music
+psychology nor machine learning. It came from noticing that **hour-long DJ sets
+break the completion metric**, which is worth more than every acoustic feature
+combined.
 
 ## Findings
 
 | | |
 |---|---|
-| Tracks that came back after a year of silence | **17.9%** |
-| Median dormancy before a return | **1,054 days** (2.9 years) |
-| Hold-out AUC, first-90-days behaviour | **0.785** |
-| Hold-out AUC, behaviour + acoustics | **0.786** (Δ +0.0004, CI [−0.029, +0.029]) |
+| Tracks that came back after a year of silence | **19.4%** |
+| Median dormancy before a return | **898 days** (2.5 years) |
+| Hold-out AUC, first-90-days behaviour | **0.780** |
+| Hold-out AUC, behaviour + acoustics | **0.799** (Δ +0.019, CI [−0.002, +0.042]) |
+| Strongest single non-behavioural feature | **`is_long_form`**, −0.83 log-odds |
 | Library first played inside the bump window (ages 10–28) | **93%** |
 | Sonic worlds K-Means found (silhouette-selected) | **2** |
 
@@ -43,31 +46,64 @@ rather than folded in to make the model look more scientific.
 
 **The most tempting behavioural lever was rejected.** Cramming a song into a
 single fortnight looks like a strong negative signal — the top concentration
-decile returns at 5% against 18% overall. But concentration correlates −0.58
-with play count, and the coefficient falls from **−0.58 to −0.23** once volume
-is held constant: a **61% attenuation**. Songs crammed into one fortnight
+decile returns at 4% against 19% overall. But concentration correlates −0.55
+with play count, and the coefficient falls from **−0.57 to −0.25** once volume
+is held constant: a **56% attenuation**. Songs crammed into one fortnight
 mostly aren't bound to a moment, they were played four times.
+
+## The thing that mattered most was not the psychology
+
+`enc_completion` — what fraction of a track you play — is one of the model's
+strongest features. It is computed as `ms_played / duration_ms`, which is
+fine until half the library is 40–90 minute DJ sets and live mixes. Twenty
+minutes of an hour-long set scores **0.28**, indistinguishable from bailing on
+a three-minute track after fifty seconds. Since completion is a top-three
+feature, every mix in the library was being quietly pushed to the bottom of the
+shortlist for the crime of being long.
+
+The fix is one line of judgment: **engagement with long-form content is an
+absolute amount of time, not a fraction.** The denominator is capped at eight
+minutes, so past that point staying is what counts rather than finishing, and a
+`is_long_form` indicator lets the model give mixes their own baseline.
+
+That indicator immediately became the **second strongest feature in the model
+at −0.83 log-odds** — ahead of every acoustic feature, ahead of play count,
+behind only skip rate. A format problem outranked the entire CogSci hypothesis.
+That is the most useful thing this project found, and it is not a finding about
+memory at all.
 
 ## What the acoustic result actually means
 
-The acoustic coefficients are not zero and they point where the literature says
-they should. Emotional intensity — distance from neutral valence — is the
-strongest acoustic term in the joint model at **+0.40 log-odds per SD**, ahead
-of every raw Spotify feature. Arousal, fitted on its own, comes in at **+0.07**.
+The acoustic block is not worthless and the honest reading has moved as the
+library shape changed. Cluster membership is the strongest acoustic term
+(**+0.52**), emotional intensity — distance from neutral valence — comes next
+(**+0.27**), and arousal fitted alone lands at **+0.17**. The two sonic worlds
+do separate: **20.6% vs 11.2%** return rates.
 
-They just don't buy any *discrimination*. A coefficient with the right sign and
-a plausible size can still be worth nothing for ranking, and separating those
-two things is most of what this project does. The hold-out interval is 0.058
-wide, so any acoustic gain smaller than about 0.03 AUC would be invisible here
-regardless of whether it exists. **"No detectable effect" is the finding.
-"No effect" is not**, and the write-up does not claim it.
+But the hold-out gain is **+0.019 with a 95% interval of [−0.002, +0.042]**.
+That interval contains zero. A coefficient with the right sign and a plausible
+size can still fail to buy ranking power, and separating those two things is
+most of what this project does.
+
+**A caveat that matters more than the number.** The demo's simulated library
+was reshaped partway through this work — from a generic six-genre mix to a
+polarised two-pole one (rap/trap against UK house and electronic) matching a
+real stated taste. That change alone moved the acoustic delta from **+0.000 to
++0.019**. So the honest claim is conditional: *how much acoustics help depends
+on how genre-polarised the library is.* A listener split between two distant
+scenes gives the acoustic features real variance to work with; a listener deep
+in one scene does not. Anyone quoting a single number for "do audio features
+predict nostalgia" is quoting a property of their library.
+
+Across all seven label definitions in [`sensitivity.csv`](outputs/sensitivity.csv)
+the delta ranges **−0.010 to +0.019** and straddles zero throughout.
 
 ## The data
 
 **The numbers above come from a simulated listener, not from a real account.**
 A private Spotify history cannot be committed to a repository, which would make
 every number here unverifiable and the code untestable. So the pipeline ships
-with a listener it can invent — `simulate_listener.py`, 1,400 tracks and 38,761
+with a listener it can invent — `simulate_listener.py`, 1,400 tracks and 38,946
 streams over 13.4 years, deterministic from a seed.
 
 That buys two things and no more: the code is exercised end to end, and because
@@ -75,6 +111,12 @@ the simulator's true coefficients are written down, an estimate that recovers
 something the simulator never put in is a visible bug. **It does not validate
 the theory.** The generative process bakes in the effects the analysis then
 goes looking for; a good result on it proves the pipeline runs.
+
+Its six sonic worlds are shaped after a real stated taste — a rap/trap pole, a
+UK house and electronic pole, and a DJ-sets world that exists specifically to
+exercise the long-form path. **The artists are invented.** Only the scene
+structure is borrowed, and nothing in the output should be read as a claim
+about any real recording.
 
 Three real inputs are supported, best first:
 
@@ -104,8 +146,8 @@ acoustic-free result never gets to look like an acoustic one.
 `fetch_spotify.py` prints the three ways to fill the gap (skip it; supply your
 own CSV from an extractor like Essentia or librosa; get extended quota).
 
-The headline finding is a mild consolation: the acoustic features add
-approximately nothing anyway.
+Given the finding above, the acoustic-free run loses about two points of AUC,
+inside its own confidence interval.
 
 ## Running it
 
@@ -126,13 +168,16 @@ export SPOTIPY_REDIRECT_URI=http://127.0.0.1:8888/callback
 python memory-lane/fetch_spotify.py
 python memory-lane/run_memory_lane.py --birth-year 1998
 
+# how much of this depends on the definitions I chose
+python memory-lane/sensitivity.py
+
 # the playlist — dry run by default, and asks before writing
 python memory-lane/make_playlist.py
 python memory-lane/make_playlist.py --create
 ```
 
 Deterministic: same seed, same numbers, byte-identical SVGs. Verified by
-deleting `outputs/`, regenerating from `simulate_listener.py` and diffing.
+deleting `data/` and `outputs/`, regenerating and diffing.
 
 `make_playlist.py` is the only script that changes your account. It prints what
 it would create and stops; `--create` makes it ask first; playlists are private
@@ -147,9 +192,11 @@ simulate_listener.py   a synthetic 13-year history, so the pipeline is testable
 ingest_history.py      parse a Spotify Extended Streaming History export
 fetch_spotify.py       Spotipy ingest; degrades gracefully when audio features 403
 run_memory_lane.py     label -> encoding features -> K-Means -> model -> figures
+sensitivity.py         sweeps the four chosen constants and rebuilds the headline
 make_playlist.py       the shortlist, as an actual playlist (opt-in)
 docs/METHOD.md         definitions, leakage rules, and what this cannot know
 outputs/metrics.json   every number quoted above
+outputs/sensitivity.csv  the headline under seven label definitions
 outputs/core_memory_tracks.csv   the shortlist
 outputs/figures/       five SVGs, regenerated by run_memory_lane.py
 ```
@@ -164,9 +211,18 @@ outputs/figures/       five SVGs, regenerated by run_memory_lane.py
   (90 encoding + 365 dormancy + 180 to prove a return) before it can be
   labelled. Younger tracks are held out of training entirely rather than
   labelled negative — calling a six-month-old track "never came back" would be
-  scoring it for being six months old. Those 134 held-out tracks are the
+  scoring it for being six months old. Those 124 held-out tracks are the
   deliverable: the modern songs, scored by a model fitted on songs whose
   verdict is already in.
+- **Completion is capped at an eight-minute denominator,** with a separate
+  `is_long_form` indicator, so DJ sets and live mixes are not scored as songs
+  nobody finishes. See above — this was the largest single win in the project.
+- **The playlist's artist cap relaxes rather than under-filling.** Two per
+  artist assumes a broad library. Someone who listens to seven artists on
+  repeat cannot fill thirty slots at two apiece, so the cap rises until the
+  list fills and the applied value is reported in `metrics.json`. A 30-track
+  list built at five per artist is a different object from one built at two,
+  and the reader should be able to see which they got.
 - **Logistic regression over a boosted tree,** deliberately. The output is an
   argument about why a song is on a playlist, and coefficients are legible in a
   way feature importances are not.
@@ -174,14 +230,9 @@ outputs/figures/       five SVGs, regenerated by run_memory_lane.py
   0.4·loudness`, a deterministic function of two predictors already in it, and
   including all three makes the coefficients meaningless. It is fitted alone
   and reported separately.
-- **k is chosen by silhouette, not asserted.** It selected **k = 2** —
-  essentially the acoustic/electric axis — while the simulator generated six
-  worlds. On overlapping acoustic blobs, K-Means finds the dominant axis and
-  not the taxonomy. The clusters also don't separate keepers from forgettables
-  (19% vs 15% return rate), which is the same negative result the AUC gives.
-- **The playlist has an artist cap of 2.** A shortlist that is eleven songs by
-  one band is a model telling you about one band. That failure only shows up
-  when you look at the output as a playlist rather than as a ranking.
+- **k is chosen by silhouette, not asserted.** It selected **k = 2**
+  (silhouette 0.57) while the simulator generated six worlds. On overlapping
+  acoustic blobs, K-Means finds the dominant axis and not the taxonomy.
 - **Bootstrap the difference, not the two AUCs.** The interval is computed on
   the same resampled hold-out rows for both models, so it answers "did adding
   acoustics help" rather than "are these two numbers different".

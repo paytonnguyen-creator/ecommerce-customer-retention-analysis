@@ -46,28 +46,31 @@ writes [outputs/sensitivity.csv](../outputs/sensitivity.csv):
 
 | dormancy | return plays | encoding window | labelable | returner rate | AUC behaviour | AUC + acoustics | Δ |
 |---|---|---|---|---|---|---|---|
-| **365** | **3** | **90** | **1,237** | **17.9%** | **0.785** | **0.786** | **+0.000** |
-| 180 | 3 | 90 | 1,288 | 20.1% | 0.806 | 0.810 | +0.004 |
-| 548 | 3 | 90 | 1,190 | 16.1% | 0.743 | 0.762 | +0.019 |
-| 365 | 1 | 90 | 1,237 | 19.8% | 0.729 | 0.738 | +0.010 |
-| 365 | 5 | 90 | 1,237 | 16.7% | 0.819 | 0.813 | −0.007 |
-| 365 | 3 | 60 | 1,245 | 17.8% | 0.729 | 0.739 | +0.010 |
-| 365 | 3 | 120 | 1,230 | 18.1% | 0.764 | 0.778 | +0.014 |
+| **365** | **3** | **90** | **1,250** | **19.4%** | **0.780** | **0.799** | **+0.019** |
+| 180 | 3 | 90 | 1,296 | 21.5% | 0.779 | 0.794 | +0.015 |
+| 548 | 3 | 90 | 1,200 | 16.1% | 0.753 | 0.771 | +0.018 |
+| 365 | 1 | 90 | 1,250 | 21.6% | 0.740 | 0.730 | −0.010 |
+| 365 | 5 | 90 | 1,250 | 17.7% | 0.811 | 0.811 | −0.001 |
+| 365 | 3 | 60 | 1,255 | 19.3% | 0.809 | 0.820 | +0.011 |
+| 365 | 3 | 120 | 1,245 | 19.4% | 0.797 | 0.812 | +0.015 |
 
-The returner rate stays in a 16–20% band and behavioural AUC in a 0.73–0.82
+The returner rate stays in a 16–22% band and behavioural AUC in a 0.74–0.81
 band across every variant, so neither is an artefact of one arbitrary
-threshold. The acoustic delta ranges **−0.007 to +0.019** and straddles zero.
+threshold. The acoustic delta ranges **−0.010 to +0.019** and straddles zero.
 The conclusion is a property of the data, not of the definitions.
+
+What the sweep does *not* cover is the shape of the library itself, which
+turned out to matter more than any of these four constants — see §6.
 
 ## 3. Censoring: train on the old, score the new
 
 A track needs `90 + 365 + 180 = 635` days of observation before its label
 means anything. Younger tracks are marked **unlabelable** and dropped from
-training entirely.
+training entirely — 124 of 1,374 here.
 
 This is not a technicality, it is the design. Labelling a six-month-old track
 "never came back" would be labelling it for being six months old, and a model
-trained on that would learn to predict recency. The 134 held-out tracks then
+trained on that would learn to predict recency. The 124 held-out tracks then
 become the deliverable — the modern songs, scored by a model fitted on songs
 whose verdict is already in.
 
@@ -106,8 +109,8 @@ in one file so it can be argued with separately from the estimation.
 | Memory over-represents ages ~10–30, peaking in the late teens | Rubin, Wetzler & Nebes 1986; Rubin & Schulkind 1997 | `encoding_weight()` | Frames which era matters; **excluded from the per-track score** |
 | For music the peak sits at ~14–22 | Krumhansl & Zupnick 2013 | curve parameters | Same |
 | Memory attaches to songs heard *often*, not songs rated highly | Janata, Tomic & Rubin 2007 | `enc_plays`, `enc_active_days` | **Supported** — behavioural features carry the model |
-| Memory-evoking songs are more arousing and emotionally intense | Jakubowski & Eerola 2022 | `arousal_index()`, `valence_intensity()` | **Coefficients right-signed, discrimination nil** |
-| Bounded, distinctive contexts encode better | general memory research | `enc_concentration` | **Rejected** — 61% attenuation under control |
+| Memory-evoking songs are more arousing and emotionally intense | Jakubowski & Eerola 2022 | `arousal_index()`, `valence_intensity()` | **Coefficients right-signed; hold-out interval still contains zero** |
+| Bounded, distinctive contexts encode better | general memory research | `enc_concentration` | **Rejected** — 56% attenuation under control |
 
 ### Why the bump does not rank tracks
 
@@ -125,30 +128,98 @@ alongside the score and kept out of it.
 `arousal = 0.6·energy + 0.4·loudness_norm` — a deterministic function of two
 predictors already in the block. Fitting all three makes them fight over one
 signal and leaves none of the coefficients readable. Arousal is fitted alone
-(**+0.07 log-odds per SD**) and reported separately.
+(**+0.17 log-odds per SD**) and reported separately.
 
 `valence_intensity = |valence − 0.5|·2` is a *non-linear* transform of valence,
-so that pair is not collinear and both stay in. It is the strongest acoustic
-term at **+0.40**.
+so that pair is not collinear and both stay in. It sits at **+0.27**, second among
+acoustic terms behind cluster membership at **+0.52**.
 
 ## 6. Clustering
 
 K-Means over z-scored acoustic features, `k` chosen by silhouette across 2–8
-rather than asserted. It selected **k = 2** (silhouette 0.47) — essentially the
-acoustic/electric axis. The demo's simulator generated **six** worlds, so this
-is a real limitation on display: on overlapping acoustic blobs, K-Means
-recovers the dominant axis and not the taxonomy. Silhouette monotonically
-prefers the coarser split (0.47 → 0.27 from k=2 to k=8).
+rather than asserted. It selected **k = 2** (silhouette 0.57) while the demo's
+simulator generated **six** worlds — a real limitation on display. On
+overlapping acoustic blobs K-Means recovers the dominant axis, not the
+taxonomy, and silhouette monotonically prefers the coarser split (0.57 → 0.20
+from k=2 to k=8). Six genres in, two clusters out.
 
-The clusters also fail to separate keepers from forgettables — 19% vs 15%
-return rate. The same negative result the AUC comparison gives, from a
-different direction.
+Those two clusters *do* separate on the outcome — **20.6% vs 11.2%** return
+rate — and cluster membership is the strongest acoustic term in the model at
+**+0.52**. That is a change from an earlier run of this project, and the reason
+for it is worth stating plainly.
+
+### The library's shape mattered more than any constant
+
+The simulated library was reshaped partway through this work: from a generic
+six-genre spread to a **polarised two-pole** one — a rap/trap pole against a UK
+house and electronic pole — matching a real stated taste. Nothing about the
+model, the label or the four constants changed. The acoustic hold-out delta
+moved from **+0.000 to +0.019**.
+
+That is the most important sensitivity in the project and it is not in
+`sensitivity.csv`, because it is not a parameter. **How much acoustic features
+help depends on how genre-polarised the library is.** Two distant scenes give
+the acoustic block real variance to exploit; one scene, however deep, does not.
+
+The practical consequence: a single published number for "do audio features
+predict musical nostalgia" is reporting a property of whoever's library it was
+computed on. This project's number is +0.019, CI [−0.002, +0.042], on a
+two-pole library, and it should not be lifted out of that sentence.
 
 Clusters are named from their own centroids (the two features furthest from the
 global mean, with direction) so the labels are derived rather than imposed by
 someone who already knows what they want the answer to be.
 
-## 7. Charts
+## 7. Long-form content, and why it outranked the psychology
+
+`enc_completion` is `ms_played / duration_ms` and it is one of the model's
+strongest features. That is fine until the library contains 40–90 minute DJ
+sets, live mixes and Boiler-Room-style recordings, where the metric stops
+meaning anything: twenty minutes of an hour-long set scores **0.28**, the same
+as abandoning a three-minute track after fifty seconds.
+
+Because completion is a top-three feature, every mix in the library was being
+pushed to the bottom of the shortlist for being long. Not a modelling subtlety
+— a format bug with a large, systematic, one-directional effect.
+
+The fix is a judgment, stated rather than tuned: **engagement with long-form is
+an absolute amount of time, not a fraction.**
+
+| Change | Value | Effect |
+|---|---|---|
+| `COMPLETION_REFERENCE_MS` | 8 min | Denominator cap. Past this, staying counts rather than finishing. |
+| `LONG_FORM_MS` | 15 min | Threshold for the `is_long_form` indicator. |
+| `is_long_form` | model feature | Lets mixes carry their own baseline instead of distorting everyone's. |
+
+`is_long_form` immediately became the **second strongest feature in the model
+at −0.83 log-odds** — ahead of every acoustic feature, ahead of play count,
+behind only skip rate.
+
+Two honest notes on it. First, with a capped denominator nearly every long-form
+play saturates at completion 1.0, so the indicator is partly *absorbing* an
+inflated completion signal rather than measuring a property of mixes. That is
+what it is for, but it means the −0.83 should not be read as "mixes are
+forgettable". Second, the eight-minute cap is arbitrary in exactly the way the
+four constants are, and unlike them it is not swept. It should be.
+
+The wider point is uncomfortable and worth keeping: the largest single
+improvement in a project about music psychology came from noticing a units
+problem in a denominator.
+
+## 8. The playlist's artist cap
+
+`MAX_PER_ARTIST = 2` assumes a broad library. Someone whose listening is
+concentrated in a handful of artists cannot fill thirty slots at two apiece,
+and the failure mode is silent — a short playlist that looks like the model
+found nothing.
+
+So the cap **relaxes** until the list fills, and the applied value is written
+to `metrics.json` under `shortlist_selection`. On a seven-artist library the
+cap lands at 5 and the note says so. A thirty-track list built at five per
+artist is a different object from one built at two, and which one you got
+should not be something you reverse-engineer from the output.
+
+## 9. Charts
 
 Five SVGs, regenerated by `run_memory_lane.py`. Fixed `svg.hashsalt` and
 `metadata={"Date": None}` strip the sources of run-to-run variation, so
@@ -166,27 +237,28 @@ mode. Two constraints shaped the figures:
   deficiency at scatter density, so identity is carried by facet position with
   a single highlight hue.
 
-## 8. Hard questions
+## 10. Hard questions
 
 **Isn't "comes back after a year" just "songs I like"?**
 Partly, and the model says so — completion rate and skip rate are its two
-strongest features. But 17.9% of tracks return while far more than 17.9% were
+strongest features. But 19.4% of tracks return while far more than 19.4% were
 liked, so preference is necessary and not sufficient. What the model is really
 ranking is *durable* preference, which is the closest observable thing to the
 question asked.
 
-**The AUC is 0.79. Isn't that suspiciously good for a hard problem?**
+**The AUC is 0.78. Isn't that suspiciously good for a hard problem?**
 It is good because the problem got easier when it was restated. Predicting
 whether someone replays a song is much easier than predicting an emotional
 response twenty years out. The AUC is honest about the restated question and
 says nothing about the original one.
 
 **On simulated data, doesn't the model just recover the simulator?**
-Partly, and that is the only claim made for it. The simulator put a real
-acoustic effect in (`+0.35` arousal, `+0.25` valence intensity) and the
-analysis **failed to detect it in hold-out AUC** while recovering it in the
-coefficients. That is a demonstration of the pipeline's honesty rather than its
-power: it did not report a gain it could not measure.
+Partly, and that is the only claim made for it. The simulator puts a real but
+small acoustic effect in (`+0.35` arousal, `+0.25` valence intensity). The
+analysis recovers it in the coefficients and still cannot clear zero in
+hold-out AUC — an interval of [−0.002, +0.042] around an effect that is
+genuinely there. That is the pipeline being honest rather than powerful: it
+declines to report a gain it cannot measure, even when the gain exists.
 
 **Why not gradient boosting?**
 It would likely add a couple of points of AUC and remove the ability to say
@@ -195,12 +267,13 @@ playlist. That trade goes the other way here.
 
 **What would change the conclusion?**
 A real account with acoustic features available and ≥ 3,000 labelable tracks.
-The hold-out interval here is 0.058 wide; roughly four times the labelable
-sample would halve it, and an acoustic effect of the size the literature
-implies would become visible if it is there. Until then the claim is bounded:
-*no detectable effect at this sample size*, not *no effect*.
+The hold-out interval here is 0.044 wide around +0.019; roughly four times the
+labelable sample would halve it, and an acoustic effect of the size the
+literature implies would resolve one way or the other. Until then the claim is
+bounded: *not distinguishable from zero at this sample size, on this library
+shape*, not *no effect*.
 
-## 9. What this cannot know
+## 11. What this cannot know
 
 - **Social context.** Who you heard it with is a first-order driver of musical
   nostalgia and leaves no trace in a listening log.
