@@ -1,6 +1,12 @@
 """
-Generate a synthetic 13-year listening history, so the pipeline can be run and
-checked by someone who is not me.
+Generate a synthetic listening history, so the pipeline can be run and checked
+by someone who is not me.
+
+Its length is derived from --birth-year: the account opens around age 11 and
+runs to the present. A younger listener therefore gets a SHORTER history, which
+is the honest constraint rather than a cosmetic detail -- the returner label
+needs 635 days of observation per track, so a shorter history means fewer
+labelable tracks and wider intervals on everything downstream.
 
 WHY A SIMULATOR IS PART OF THE DELIVERABLE
 ------------------------------------------
@@ -24,8 +30,8 @@ never put in, that is a bug and it is visible.
 
 THE GENERATIVE STORY
 --------------------
-  * ~1,400 tracks enter the library across 2013-2026, at a rate that rises
-    through the teens and settles in the twenties.
+  * ~1,400 tracks enter the library between the account opening and today, at
+    a rate that is front-loaded and long-tailed.
   * Each track belongs to one of six latent "sonic worlds" — correlated blobs
     in acoustic space. K-Means is supposed to find these; that is the check.
   * Each track has a private `affinity`, which is idiosyncratic and NOT a
@@ -47,7 +53,7 @@ THE GENERATIVE STORY
 Names are combinatorially generated and deliberately do not correspond to real
 artists or recordings. Every row carries `simulated = True`.
 
-Usage:  python memory-lane/simulate_listener.py [--seed 7] [--birth-year 2005]
+Usage:  python memory-lane/simulate_listener.py [--seed 7] [--birth-year 2007]
 Writes: memory-lane/data/{tracks,streams}.csv, memory-lane/data/source.json
 """
 
@@ -62,8 +68,16 @@ import pandas as pd
 
 DATA = Path(__file__).resolve().parent / "data"
 
-START, END = pd.Timestamp("2013-01-01"), pd.Timestamp("2026-08-01")
+END = pd.Timestamp("2026-08-01")
 N_TRACKS = 1400
+
+# A listening history starts when the account does, not at birth. Hardcoding a
+# start date implies whatever age the arithmetic happens to produce -- the
+# previous fixed 2013 start had a 2005-born listener streaming at eight. The
+# start is derived from age instead, so changing --birth-year moves the whole
+# history rather than silently making the listener a toddler with a Spotify
+# account.
+ACCOUNT_OPENS_AT_AGE = 11.5
 
 # The six sonic worlds: acoustic centres plus a duration distribution.
 #
@@ -126,7 +140,13 @@ def _names(rng: np.random.Generator, n: int) -> tuple[list[str], list[str]]:
     return list(a), out
 
 
+def account_start(birth_year: int) -> pd.Timestamp:
+    return (pd.Timestamp(year=birth_year, month=6, day=1)
+            + pd.Timedelta(days=int(ACCOUNT_OPENS_AT_AGE * 365.25)))
+
+
 def build_tracks(rng: np.random.Generator, birth_year: int) -> pd.DataFrame:
+    start = account_start(birth_year)
     world_names = list(WORLDS)
     world_idx = rng.choice(len(world_names), N_TRACKS, p=WORLD_WEIGHTS)
 
@@ -139,9 +159,9 @@ def build_tracks(rng: np.random.Generator, birth_year: int) -> pd.DataFrame:
     df["true_world"] = [world_names[i] for i in world_idx]
 
     # Entry dates: library growth accelerates through the teens, then plateaus.
-    span_days = (END - START).days
+    span_days = (END - start).days
     u = rng.beta(1.7, 1.5, N_TRACKS)          # front-loaded but long-tailed
-    df["entered"] = START + pd.to_timedelta((u * span_days).astype(int), unit="D")
+    df["entered"] = start + pd.to_timedelta((u * span_days).astype(int), unit="D")
 
     artists, titles = _names(rng, N_TRACKS)
     df["artist"], df["name"] = artists, titles
@@ -225,7 +245,7 @@ def build_streams(df: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=7)
-    ap.add_argument("--birth-year", type=int, default=2005)
+    ap.add_argument("--birth-year", type=int, default=2007)
     args = ap.parse_args()
 
     rng = np.random.default_rng(args.seed)
@@ -244,6 +264,9 @@ def main() -> None:
         "simulated": True,
         "seed": args.seed,
         "birth_year": args.birth_year,
+        "account_opens_at_age": ACCOUNT_OPENS_AT_AGE,
+        "age_at_end_of_history": round(
+            (END - pd.Timestamp(year=args.birth_year, month=6, day=1)).days / 365.25, 1),
         "streams": int(len(streams)),
         "unique_tracks": int(len(tracks)),
         "first_play": str(streams.played_at.min().date()),
