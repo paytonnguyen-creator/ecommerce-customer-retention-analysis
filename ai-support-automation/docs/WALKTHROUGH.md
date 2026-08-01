@@ -52,6 +52,12 @@ It's the blend CLINC's authors built into their own test split, not a number I p
 
 The threshold is selected on the validation split and reported on test. If I'd picked it on test, every number downstream would be inflated. The test-optimal threshold would have been 0.500 versus the 0.525 I selected — a $1,636 difference on $360k. That gap is small on purpose: it's the evidence the choice is stable rather than tuned.
 
+**"Your whole policy is a confidence threshold. Is that score even calibrated?"**
+
+Not as a probability, no — and I checked rather than assuming. On supported traffic the router is under-confident in every bin: when it claims 15% it's right 54% of the time. That's the safe direction to be wrong in, and it's why a 0.53 threshold delivers 95.1% actual accuracy. The score works as a *ranking* — AUROC 0.95 for separating supported from unsupported traffic — which is all the policy needs.
+
+The more interesting bit is what it does to monitoring. Expected calibration error is 0.098 on supported traffic and *improves* to 0.050 on the live queue, because out-of-scope contacts are always wrong and pile into the low-confidence bins, cancelling the under-confidence. So the calibration metric gets better as the queue gets worse. If a client monitors pooled calibration as a health signal, rising unknown traffic reads as an improvement. I'd track the signed gap separately for supported and unsupported traffic, never pooled.
+
 **"Isn't 'automate everything is bad' obvious?"**
 
 The direction is. The magnitude isn't, and the magnitude is the decision. Full automation is still *positive* here — $148k. It's not a disaster, which is precisely why it survives review meetings. The finding is that it captures only 41% of what's available, and that the fix is a routing rule rather than a model. Nobody argues against confidence thresholds in the abstract; plenty of programs ship without one because deflection rate is the metric on the dashboard.

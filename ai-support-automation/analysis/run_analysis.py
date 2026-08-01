@@ -219,6 +219,56 @@ def policy(
     }
 
 
+def calibration(in_scope, oos, oos_share: float, bins: int = 10) -> tuple[pd.DataFrame, float]:
+    """
+    Is the confidence score meaningful as a probability, or only as a ranking?
+
+    This matters more here than in a normal model write-up. The whole policy is
+    "act when confidence clears X", which quietly assumes confidence means
+    something. A score can rank perfectly (high AUROC) while being badly
+    miscalibrated -- and if 0.7 does not mean roughly a 70% chance of being
+    right, the threshold cannot be reasoned about in business terms at all.
+
+    Returns per-bin reliability plus the Expected Calibration Error: the
+    average gap between claimed confidence and observed accuracy, weighted by
+    how much traffic sits in each bin.
+
+    Pass oos_share=0 to measure calibration on supported traffic alone -- the
+    number a vendor would quote -- and the deployment share to measure it on
+    the queue that actually arrives.
+    """
+    edges = np.linspace(0, 1, bins + 1)
+    w_is, w_oos = 1.0 - oos_share, oos_share
+    n_is, n_oos = len(in_scope), max(len(oos), 1)
+
+    rows, ece = [], 0.0
+    for lo, hi in zip(edges[:-1], edges[1:]):
+        # Last bin is closed on the right so confidence == 1.0 is not dropped.
+        sel_is = (in_scope.confidence >= lo) & (
+            (in_scope.confidence < hi) if hi < 1.0 else (in_scope.confidence <= hi))
+        sel_oos = (oos.confidence >= lo) & (
+            (oos.confidence < hi) if hi < 1.0 else (oos.confidence <= hi))
+
+        share = w_is * sel_is.sum() / n_is + w_oos * sel_oos.sum() / n_oos
+        if share <= 0:
+            continue
+
+        # Out-of-scope contacts are wrong by construction, so they contribute
+        # traffic to the bin but never accuracy.
+        correct = w_is * (sel_is & in_scope.correct).sum() / n_is
+        accuracy = correct / share
+        conf = (
+            w_is * in_scope.loc[sel_is, "confidence"].sum() / n_is
+            + w_oos * oos.loc[sel_oos, "confidence"].sum() / n_oos
+        ) / share
+
+        rows.append({"bin_lo": float(lo), "bin_hi": float(hi), "traffic_share": float(share),
+                     "mean_confidence": float(conf), "observed_accuracy": float(accuracy)})
+        ece += share * abs(accuracy - conf)
+
+    return pd.DataFrame(rows), float(ece)
+
+
 def sweep(in_scope, oos, **kw) -> pd.DataFrame:
     return pd.DataFrame([policy(in_scope, oos, t, **kw) for t in THRESHOLDS])
 
@@ -256,6 +306,35 @@ def fig_confidence(is_test, oos_test, tau, leak, auc) -> None:
     ax.grid(axis="y", color=GRID, lw=0.8)
     ax.set_axisbelow(True)
     save(fig, "confidence_distributions.svg")
+
+
+def fig_calibration(clean, blended, ece_clean, ece_blended, tau) -> None:
+    """
+    Two reliability curves: the one a vendor would show, and the one the queue
+    produces. The gap between them is not a modelling defect -- it is the cost
+    of scoring traffic the model has no concept for.
+    """
+    fig, ax = plt.subplots(figsize=(7.6, 4.6))
+    ax.plot([0, 1], [0, 1], color=MUTED, ls=":", lw=1.4, label="Perfectly calibrated")
+    ax.plot(clean.mean_confidence, clean.observed_accuracy, "o-", color=BLUE, lw=2.0,
+            ms=5, label=f"Supported traffic only (ECE {ece_clean:.3f})")
+    ax.plot(blended.mean_confidence, blended.observed_accuracy, "s--", color=ORANGE, lw=2.0,
+            ms=5, label=f"The live queue (ECE {ece_blended:.3f})")
+    ax.axvline(tau, color=INK, ls="--", lw=1.1)
+    ax.annotate(f"threshold {tau:.2f}", xy=(tau, 0.06), xytext=(5, 0),
+                textcoords="offset points", fontsize=9.5, color=INK)
+    ax.set_xlabel("What the router claimed")
+    ax.set_ylabel("How often it was actually right")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_title("The score is not a probability — and it errs safe\n"
+                 "Under-confident on supported traffic; unknown traffic pulls the other way, "
+                 "so the blend scores better than either part",
+                 loc="left", fontsize=12.5, color=INK, pad=12)
+    ax.legend(frameon=False, fontsize=9.5, loc="upper left")
+    ax.grid(color=GRID, lw=0.8)
+    ax.set_axisbelow(True)
+    save(fig, "calibration.svg")
 
 
 def fig_value_curve(curve, tau, naive, opt) -> None:
@@ -449,7 +528,23 @@ def main() -> None:
         np.r_[np.zeros(len(is_test)), np.ones(len(oos_test))],
         np.r_[-is_test.confidence, -oos_test.confidence],
     ))
+    cal_clean, ece_clean = calibration(is_test, oos_test, 0.0)
+    cal_blended, ece_blended = calibration(is_test, oos_test, OOS_SHARE)
+
+    # ECE is an absolute value, so it hides direction -- and direction is the
+    # whole story here. A signed gap says whether the router is claiming more
+    # than it delivers (dangerous) or less (merely wasteful).
+    def signed_gap(cal: pd.DataFrame) -> float:
+        return float(
+            (cal.traffic_share * (cal.observed_accuracy - cal.mean_confidence)).sum()
+            / cal.traffic_share.sum()
+        )
+
+    gap_clean, gap_blended = signed_gap(cal_clean), signed_gap(cal_blended)
+
     print(f"\nIn-scope test accuracy (the demo number): {demo_accuracy:.3f}")
+    print(f"Calibration error, supported traffic only: {ece_clean:.3f}")
+    print(f"Calibration error, blended live traffic:   {ece_blended:.3f}")
     print(f"Accuracy on blended live traffic, no abstention: {blended_accuracy:.3f}")
     print(f"Confidence as an unknown-traffic detector, AUROC: {oos_auc:.3f}")
 
@@ -526,6 +621,7 @@ def main() -> None:
         (1 - dom.accuracy_when_auto).max() / (1 - dom.accuracy_when_auto).min()
     )
     fig_confidence(is_test, oos_test, tau, oos_leak, oos_auc)
+    fig_calibration(cal_clean, cal_blended, ece_clean, ece_blended, tau)
     fig_value_curve(test_curve, tau, naive, opt)
     fig_frontier(test_curve, opt)
     fig_decomposition([
@@ -561,6 +657,11 @@ def main() -> None:
             "in_scope_test_accuracy": round(demo_accuracy, 4),
             "blended_accuracy_no_abstention": round(blended_accuracy, 4),
             "out_of_scope_detection_auroc": round(oos_auc, 4),
+            "calibration_error_supported_traffic": round(ece_clean, 4),
+            "calibration_error_live_queue": round(ece_blended, 4),
+            # Positive = right more often than it claims (under-confident).
+            "signed_calibration_gap_supported_traffic": round(gap_clean, 4),
+            "signed_calibration_gap_live_queue": round(gap_blended, 4),
             "oos_answered_above_threshold": round(float((oos_test.confidence >= tau).mean()), 4),
         },
         "policy": {
@@ -599,6 +700,14 @@ def main() -> None:
                 f"{r.cost_error:.0f}": round(r.threshold, 3)
                 for r in err_curve.itertuples() if r.cost_error % 5 == 0
             },
+        },
+        "calibration": {
+            "supported_traffic": [
+                {k: round(v, 4) for k, v in r.items()} for r in cal_clean.to_dict("records")
+            ],
+            "live_queue": [
+                {k: round(v, 4) for k, v in r.items()} for r in cal_blended.to_dict("records")
+            ],
         },
         "domain_spread": {
             "coverage_range_points": round(

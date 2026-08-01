@@ -158,8 +158,10 @@ s.addNotes(
 // ── 4. Rank the interventions ───────────────────────────────────────────────
 s = pres.addSlide();
 s.background = { color: WHITE };
-title(s, "Rank the interventions before buying any of them",
-  "The instinct in an AI program is to spend on model quality. Here it is the fourth-best use of the next dollar.");
+// Titles are kept under ~44 characters so they stay on one line at 38pt —
+// a second line runs into the subtitle. analysis/check_deck.py enforces this.
+title(s, "Rank the interventions before buying",
+  "The instinct is to spend on model quality. Here that is the fourth-best use of the next dollar.");
 
 const levers = [
   ["Set an abstention threshold", "routing rule — no model work", LEV.abstention_threshold_config_change, TEAL],
@@ -190,7 +192,7 @@ s.addNotes(
 // ── 5. The business case is unreachable ─────────────────────────────────────
 s = pres.addSlide();
 s.background = { color: WHITE };
-title(s, "The business-case number is unreachable in principle",
+title(s, "The business case is unreachable",
   "Requests outside the supported set have to reach a human. That is not a model problem.");
 
 const bars = [
@@ -224,7 +226,7 @@ s.addNotes(
 // ── 6. What the answer depends on ───────────────────────────────────────────
 s = pres.addSlide();
 s.background = { color: WHITE };
-title(s, "What we assumed, and what would change the answer",
+title(s, "What we assumed, and what would change it",
   "Three inputs are not in the data. They are declared and swept, not buried.");
 
 const inputs = [

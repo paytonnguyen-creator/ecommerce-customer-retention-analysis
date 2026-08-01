@@ -16,6 +16,10 @@
     "in_scope_test_accuracy": 0.9238,
     "blended_accuracy_no_abstention": 0.7558,
     "out_of_scope_detection_auroc": 0.9498,
+    "calibration_error_supported_traffic": 0.0984,
+    "calibration_error_live_queue": 0.0503,
+    "signed_calibration_gap_supported_traffic": 0.0984,
+    "signed_calibration_gap_live_queue": 0.0447,
     "oos_answered_above_threshold": 0.093
   },
   "policy": {
@@ -85,6 +89,152 @@
       "35": 0.7,
       "40": 0.75
     }
+  },
+  "calibration": {
+    "supported_traffic": [
+      {
+        "bin_lo": 0.0,
+        "bin_hi": 0.1,
+        "traffic_share": 0.0147,
+        "mean_confidence": 0.0666,
+        "observed_accuracy": 0.2273
+      },
+      {
+        "bin_lo": 0.1,
+        "bin_hi": 0.2,
+        "traffic_share": 0.0233,
+        "mean_confidence": 0.1546,
+        "observed_accuracy": 0.5429
+      },
+      {
+        "bin_lo": 0.2,
+        "bin_hi": 0.3,
+        "traffic_share": 0.0249,
+        "mean_confidence": 0.2508,
+        "observed_accuracy": 0.5625
+      },
+      {
+        "bin_lo": 0.3,
+        "bin_hi": 0.4,
+        "traffic_share": 0.0258,
+        "mean_confidence": 0.3497,
+        "observed_accuracy": 0.7069
+      },
+      {
+        "bin_lo": 0.4,
+        "bin_hi": 0.5,
+        "traffic_share": 0.0358,
+        "mean_confidence": 0.4497,
+        "observed_accuracy": 0.6708
+      },
+      {
+        "bin_lo": 0.5,
+        "bin_hi": 0.6,
+        "traffic_share": 0.0431,
+        "mean_confidence": 0.5509,
+        "observed_accuracy": 0.8454
+      },
+      {
+        "bin_lo": 0.6,
+        "bin_hi": 0.7,
+        "traffic_share": 0.0449,
+        "mean_confidence": 0.6528,
+        "observed_accuracy": 0.8713
+      },
+      {
+        "bin_lo": 0.7,
+        "bin_hi": 0.8,
+        "traffic_share": 0.0611,
+        "mean_confidence": 0.7531,
+        "observed_accuracy": 0.9455
+      },
+      {
+        "bin_lo": 0.8,
+        "bin_hi": 0.9,
+        "traffic_share": 0.1262,
+        "mean_confidence": 0.8541,
+        "observed_accuracy": 0.9665
+      },
+      {
+        "bin_lo": 0.9,
+        "bin_hi": 1.0,
+        "traffic_share": 0.6002,
+        "mean_confidence": 0.9706,
+        "observed_accuracy": 0.9933
+      }
+    ],
+    "live_queue": [
+      {
+        "bin_lo": 0.0,
+        "bin_hi": 0.1,
+        "traffic_share": 0.0895,
+        "mean_confidence": 0.0617,
+        "observed_accuracy": 0.0305
+      },
+      {
+        "bin_lo": 0.1,
+        "bin_hi": 0.2,
+        "traffic_share": 0.0667,
+        "mean_confidence": 0.1431,
+        "observed_accuracy": 0.1553
+      },
+      {
+        "bin_lo": 0.2,
+        "bin_hi": 0.3,
+        "traffic_share": 0.0444,
+        "mean_confidence": 0.2454,
+        "observed_accuracy": 0.2582
+      },
+      {
+        "bin_lo": 0.3,
+        "bin_hi": 0.4,
+        "traffic_share": 0.0287,
+        "mean_confidence": 0.3486,
+        "observed_accuracy": 0.519
+      },
+      {
+        "bin_lo": 0.4,
+        "bin_hi": 0.5,
+        "traffic_share": 0.0369,
+        "mean_confidence": 0.4494,
+        "observed_accuracy": 0.532
+      },
+      {
+        "bin_lo": 0.5,
+        "bin_hi": 0.6,
+        "traffic_share": 0.0402,
+        "mean_confidence": 0.5522,
+        "observed_accuracy": 0.7421
+      },
+      {
+        "bin_lo": 0.6,
+        "bin_hi": 0.7,
+        "traffic_share": 0.0409,
+        "mean_confidence": 0.6517,
+        "observed_accuracy": 0.7822
+      },
+      {
+        "bin_lo": 0.7,
+        "bin_hi": 0.8,
+        "traffic_share": 0.0529,
+        "mean_confidence": 0.7528,
+        "observed_accuracy": 0.8935
+      },
+      {
+        "bin_lo": 0.8,
+        "bin_hi": 0.9,
+        "traffic_share": 0.1055,
+        "mean_confidence": 0.854,
+        "observed_accuracy": 0.9466
+      },
+      {
+        "bin_lo": 0.9,
+        "bin_hi": 1.0,
+        "traffic_share": 0.4944,
+        "mean_confidence": 0.9705,
+        "observed_accuracy": 0.9868
+      }
+    ]
   },
   "domain_spread": {
     "coverage_range_points": 12.4,

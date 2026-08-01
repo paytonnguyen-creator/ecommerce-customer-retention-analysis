@@ -19,12 +19,15 @@ An AI transformation assessment on the CLINC150 benchmark — 23,700 real custom
 | Value of a *flawless* classifier | **+$49,636** |
 | Business case overstates the physical ceiling by | **23%** |
 | Full automation turns value-destroying at | **$18.08** per bad answer |
+| Calibration error — supported traffic vs the live queue | **0.098 → 0.050** (it *improves* as the queue gets worse) |
 
 Three results drive the recommendation:
 
 **The business case is unreachable in principle.** Its $588k assumes every contact is automatable. Requests outside the supported set have to reach a human at any model quality, so the physical ceiling is $478,909 — 23% lower, before a line of code is written.
 
 **The dial beats the model.** Same classifier, same traffic: automate everything and the program is worth $148,473; abstain below 0.53 confidence and it is worth $359,891. Full automation is not a disaster — it is positive, which is why it survives review meetings — but it captures only 41% of what is available.
+
+**A monitoring trap sits in the obvious health metric.** The router is under-confident on supported traffic — right more often than it claims, in every bin. Unknown traffic errs the other way. Pooled, they cancel, so expected calibration error *improves* from 0.098 to 0.050 as unknown traffic rises. Anyone watching pooled calibration would read a degrading queue as an improving model.
 
 **Sequence by error rate, not coverage.** I expected coverage to vary across workflow domains and drive the rollout order. It doesn't: 12 points of spread, every domain above 80%. Error rate varies **14×** at the same threshold (0.5% in travel, 6.9% in home automation), which is a different and better sequencing variable.
 
@@ -65,7 +68,8 @@ The pipeline pins BLAS to a single thread. Multi-threaded matrix products sum in
 
 ```
 analysis/prepare_data.py   fetch + verify CLINC150, build the contact log
-analysis/run_analysis.py   router -> threshold sweep -> economics -> sensitivity -> figures
+analysis/run_analysis.py   router -> calibration -> threshold sweep -> economics -> figures
+analysis/check_deck.py     geometry check on the deck: off-slide shapes, text overflow
 data/contacts.csv          23,700 queries, labelled in-scope / out-of-scope
 outputs/metrics.json       every number the write-ups quote
 outputs/threshold_curve.csv  the full coverage/precision/value sweep

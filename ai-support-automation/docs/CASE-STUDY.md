@@ -42,6 +42,20 @@ That is the failure mode worth instrumenting for, and it is invisible to every d
 
 ---
 
+## Finding 1b — The confidence score is not a probability, and the aggregate metric lies about it
+
+The entire policy is "act when confidence clears X," which assumes the score means something. So it is worth checking whether it does.
+
+![Calibration](../outputs/figures/calibration.svg)
+
+On supported traffic the router is **under-confident in every single bin** — it is right more often than it claims. When it says 15% it is right 54% of the time; when it says 85% it is right 97%. That is a useful direction to err in: a threshold set on this score is more conservative than it looks, which is why 0.53 confidence buys 95.1% actual accuracy.
+
+The part worth showing a client is what happens to the *summary statistic*. Expected calibration error on supported traffic is **0.098**. On the live queue, with unknown requests mixed in, it **improves to 0.050** — because out-of-scope contacts are always wrong and pile into the low-confidence bins, dragging observed accuracy down toward the claimed numbers. Two opposite biases partially cancel.
+
+So the calibration metric gets *better* as the queue gets *worse*. Anyone monitoring aggregate calibration as a health metric would read rising unknown traffic as an improvement. That is the second silent failure in this system, and it is a monitoring-design problem rather than a modelling one: track the signed gap on supported and unsupported traffic separately, never pooled.
+
+---
+
 ## Finding 2 — The routing rule is worth 4× a flawless model
 
 This is the finding I would lead with in a steering committee.
