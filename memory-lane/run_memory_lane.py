@@ -711,11 +711,26 @@ def fig_distinctiveness(feat: pd.DataFrame, conf: dict) -> list[dict]:
     return g.round(4).to_dict("records")
 
 
-def fig_shortlist(short: pd.DataFrame):
+def fig_shortlist(short: pd.DataFrame, simulated: bool = False):
+    """
+    The one figure that names things. A chart of track titles reads as real
+    whatever the surrounding page says, and it is the figure most likely to be
+    screenshotted away from its caveat -- so when the data is synthetic the
+    figure carries that on its own face rather than relying on the prose.
+    """
     n = min(15, len(short))
     d = short.head(n).iloc[::-1]
-    labels = [f"{r.name_}  ·  {r.artist}"[:46] if hasattr(r, "artist") else str(r.Index)
-              for r in d.rename(columns={"name": "name_"}).itertuples()]
+
+    if simulated:
+        # Never print invented track titles. On real data these labels are real
+        # recordings and naming them is the whole point; on simulated data they
+        # are strings from a word list, and a bar chart makes any label look
+        # like a finding. Rank plus sonic world says everything the figure is
+        # actually entitled to say.
+        labels = [f"#{n - i}" for i in range(n)]
+    else:
+        labels = [f"{r.name_}  ·  {r.artist}"[:46] if hasattr(r, "artist") else str(r.Index)
+                  for r in d.rename(columns={"name": "name_"}).itertuples()]
 
     fig, ax = plt.subplots(figsize=(8.4, 0.34 * n + 1.2))
     bars = ax.barh(labels, d.memory_lane_index, color=BLUE, height=0.62)
@@ -728,7 +743,13 @@ def fig_shortlist(short: pd.DataFrame):
     ax.tick_params(axis="y", labelsize=9)
     ax.set_title("The shortlist: recent tracks scored by a model fitted on "
                  "songs whose verdict is already in", color=INK, fontsize=12.5,
-                 loc="left", pad=12)
+                 loc="left", pad=30 if simulated else 12)
+    if simulated:
+        ax.annotate("Simulated listener — bars are ranked positions, not real "
+                    "recordings. Run it on a real account to get named tracks.",
+                    xy=(0, 1.0), xycoords="axes fraction", xytext=(0, 12),
+                    textcoords="offset points", ha="left", va="bottom",
+                    color=MUTED, fontsize=10)
     _save(fig, "shortlist.svg")
 
 
@@ -775,7 +796,7 @@ def main() -> None:
     fig_roc(res)
     conc = fig_distinctiveness(feat, conf)
     if len(short):
-        fig_shortlist(short)
+        fig_shortlist(short, simulated=bool(source.get("simulated")))
 
     OUT.mkdir(parents=True, exist_ok=True)
     cols = [c for c in ["track_id", "name", "artist", "memory_lane_index",

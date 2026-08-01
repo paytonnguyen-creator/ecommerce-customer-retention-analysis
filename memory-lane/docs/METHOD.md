@@ -268,6 +268,12 @@ mode. Two constraints shaped the figures:
 - **The bump figure is two stacked panels sharing an x-axis, not one panel with
   two y-scales.** Encoding weight and share-of-library are different measures;
   putting them on one axis would invent a relationship between their units.
+- **The shortlist prints track names only when the data is real.** A bar
+  chart makes any label look like a finding, and the figure is the thing most
+  likely to be screenshotted away from its caveat. On simulated data the bars
+  are labelled by rank; naming invented strings next to modelled probabilities
+  would manufacture a result about recordings that do not exist. Naming real
+  ones is the entire point, so on a real account the names come back.
 - **Sonic worlds are small multiples, not a multi-colour scatter.** Categorical
   hues past the third cannot be told apart pairwise under colour-vision
   deficiency at scatter density, so identity is carried by facet position with
