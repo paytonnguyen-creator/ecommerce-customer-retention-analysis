@@ -1,0 +1,743 @@
+{
+  "source": {
+    "ingest": "SIMULATED",
+    "simulated": true,
+    "seed": 7,
+    "birth_year": 2005,
+    "streams": 38761,
+    "unique_tracks": 1400,
+    "first_play": "2013-02-18",
+    "last_play": "2026-08-01",
+    "span_days": 4912,
+    "span_years": 13.45,
+    "audio_features": "simulated",
+    "audio_feature_columns": [
+      "danceability",
+      "energy",
+      "valence",
+      "acousticness",
+      "speechiness",
+      "instrumentalness",
+      "tempo",
+      "loudness"
+    ],
+    "audio_feature_coverage": 1.0,
+    "history_depth": "full_export",
+    "true_parameters": {
+      "intercept": -1.35,
+      "affinity": 1.5,
+      "arousal": 0.35,
+      "valence_intensity": 0.25
+    },
+    "true_worlds": [
+      "bedroom acoustic",
+      "stadium indie",
+      "late-night pop",
+      "rap / spoken",
+      "ambient / study",
+      "high-bpm dance"
+    ],
+    "warning": "Synthetic data. Every finding computed from it describes the simulator, not a person. It exists so the pipeline can be run and checked without access to a private account."
+  },
+  "definitions": {
+    "returner": "dormant >= 365d, then >= 3 more plays",
+    "encoding_window_days": 90,
+    "labelable_after_days": 635,
+    "play_floor_ms": 30000,
+    "note": "Returning after a year is not nostalgia. It is the behaviour nostalgia leaves behind in a log, and unlike nostalgia it can be held out and scored."
+  },
+  "headline": {
+    "tracks": 1371,
+    "labelable": 1237,
+    "too_new_to_label": 134,
+    "returner_rate": 0.17946645109135004,
+    "median_days_to_return": 1053.5,
+    "auc_behaviour": 0.7854661120626377,
+    "auc_with_acoustics": 0.7859065329092243,
+    "auc_delta": 0.00044042084658657554,
+    "auc_delta_ci95": [
+      -0.028940336397554355,
+      0.0292329985484503
+    ]
+  },
+  "reminiscence_bump": {
+    "bump_window": [
+      10.25,
+      27.55
+    ],
+    "share_of_library_in_bump": 0.9285193289569658,
+    "median_age_at_first_play": 15.265571526351813,
+    "parameters": {
+      "onset": 8.0,
+      "offset": 32.0,
+      "adult_floor": 0.25
+    },
+    "caveat": "Bump weight is near-constant within one year of one person's listening, so it frames which era matters and ranks nothing inside it. It is deliberately not part of the per-track index."
+  },
+  "sonic_worlds": {
+    "k": 2,
+    "silhouette_by_k": {
+      "2": 0.4652,
+      "3": 0.4035,
+      "4": 0.3837,
+      "5": 0.3278,
+      "6": 0.3072,
+      "7": 0.2962,
+      "8": 0.2723
+    },
+    "silhouette": 0.4652,
+    "explained_variance_pc1_pc2": [
+      0.5776652618192404,
+      0.16462563113993214
+    ],
+    "profiles": [
+      {
+        "cluster": 0,
+        "label": "low acousticness \u00b7 high energy",
+        "tracks": 907,
+        "mean_danceability": 0.7213990712235948,
+        "mean_energy": 0.7387916087866491,
+        "mean_valence": 0.5364116851042563,
+        "mean_acousticness": 0.1276533959054277,
+        "mean_speechiness": 0.11165737779942451,
+        "mean_instrumentalness": 0.13926631271387907,
+        "mean_tempo": 120.82574425762019,
+        "mean_loudness": -5.804261146987017
+      },
+      {
+        "cluster": 1,
+        "label": "high acousticness \u00b7 low energy",
+        "tracks": 464,
+        "mean_danceability": 0.3566020529657325,
+        "mean_energy": 0.2335772620925143,
+        "mean_valence": 0.3137386380945218,
+        "mean_acousticness": 0.7661086907913618,
+        "mean_speechiness": 0.03974716246298121,
+        "mean_instrumentalness": 0.5121552858451145,
+        "mean_tempo": 86.74613828861982,
+        "mean_loudness": -15.784911833774895
+      }
+    ]
+  },
+  "concentration_deciles": [
+    {
+      "decile": 1,
+      "rate": 0.2661,
+      "conc": 0.2222,
+      "n": 124
+    },
+    {
+      "decile": 2,
+      "rate": 0.2016,
+      "conc": 0.25,
+      "n": 124
+    },
+    {
+      "decile": 3,
+      "rate": 0.187,
+      "conc": 0.2857,
+      "n": 123
+    },
+    {
+      "decile": 4,
+      "rate": 0.2742,
+      "conc": 0.3125,
+      "n": 124
+    },
+    {
+      "decile": 5,
+      "rate": 0.2097,
+      "conc": 0.3333,
+      "n": 124
+    },
+    {
+      "decile": 6,
+      "rate": 0.187,
+      "conc": 0.375,
+      "n": 123
+    },
+    {
+      "decile": 7,
+      "rate": 0.2177,
+      "conc": 0.4286,
+      "n": 124
+    },
+    {
+      "decile": 8,
+      "rate": 0.0813,
+      "conc": 0.5,
+      "n": 123
+    },
+    {
+      "decile": 9,
+      "rate": 0.121,
+      "conc": 0.6,
+      "n": 124
+    },
+    {
+      "decile": 10,
+      "rate": 0.0484,
+      "conc": 1.0,
+      "n": 124
+    }
+  ],
+  "distinctiveness_confound": {
+    "feature": "enc_concentration",
+    "control": "log_enc_plays",
+    "correlation": -0.5803579348321932,
+    "coef_alone": -0.5822,
+    "coef_controlled": -0.2293,
+    "attenuation_pct": 60.6,
+    "survives_control": false
+  },
+  "model": {
+    "n_labelable": 1237,
+    "n_train": 865,
+    "n_test": 372,
+    "base_rate": 0.17946645109135004,
+    "behavioural_features": [
+      "log_enc_plays",
+      "enc_active_days",
+      "enc_span_days",
+      "enc_completion",
+      "enc_skip_rate",
+      "enc_concentration",
+      "enc_peak_day_share",
+      "age_at_first_play",
+      "catalogue_age_years"
+    ],
+    "auc_behaviour": 0.7854661120626377,
+    "have_acoustic": true,
+    "acoustic_features": [
+      "danceability",
+      "energy",
+      "valence",
+      "acousticness",
+      "speechiness",
+      "instrumentalness",
+      "tempo",
+      "loudness",
+      "valence_intensity",
+      "world_1"
+    ],
+    "arousal_coef_alone": 0.07248226371680604,
+    "arousal_note": "Excluded from the joint model: it is a deterministic function of energy and loudness, which are both in it. Reported here on its own.",
+    "auc_behaviour_plus_acoustic": 0.7859065329092243,
+    "auc_delta": 0.00044042084658657554,
+    "auc_delta_ci95": [
+      -0.028940336397554355,
+      0.0292329985484503
+    ],
+    "auc_delta_bootstrap_n": 2000,
+    "acoustic_helps": false,
+    "smallest_detectable_gain": 0.0292329985484503,
+    "power_note": "With 372 hold-out tracks the interval is 0.058 wide, so any acoustic gain smaller than about +0.029 AUC would be invisible to this test. 'No detectable effect' is the correct reading; 'no effect' is not.",
+    "coefficients": [
+      {
+        "feature": "enc_skip_rate",
+        "coef": -1.0614,
+        "odds_ratio": 0.346
+      },
+      {
+        "feature": "enc_completion",
+        "coef": 0.9762,
+        "odds_ratio": 2.6543
+      },
+      {
+        "feature": "enc_peak_day_share",
+        "coef": -0.6906,
+        "odds_ratio": 0.5013
+      },
+      {
+        "feature": "age_at_first_play",
+        "coef": -0.4977,
+        "odds_ratio": 0.6079
+      },
+      {
+        "feature": "enc_span_days",
+        "coef": -0.4422,
+        "odds_ratio": 0.6427
+      },
+      {
+        "feature": "valence_intensity",
+        "coef": 0.3976,
+        "odds_ratio": 1.4882
+      },
+      {
+        "feature": "energy",
+        "coef": -0.3342,
+        "odds_ratio": 0.7159
+      },
+      {
+        "feature": "acousticness",
+        "coef": -0.3279,
+        "odds_ratio": 0.7204
+      },
+      {
+        "feature": "loudness",
+        "coef": 0.2481,
+        "odds_ratio": 1.2816
+      },
+      {
+        "feature": "speechiness",
+        "coef": 0.2164,
+        "odds_ratio": 1.2416
+      },
+      {
+        "feature": "enc_concentration",
+        "coef": -0.19,
+        "odds_ratio": 0.827
+      },
+      {
+        "feature": "danceability",
+        "coef": -0.1733,
+        "odds_ratio": 0.8409
+      },
+      {
+        "feature": "enc_active_days",
+        "coef": 0.1641,
+        "odds_ratio": 1.1783
+      },
+      {
+        "feature": "world_1",
+        "coef": -0.1471,
+        "odds_ratio": 0.8632
+      },
+      {
+        "feature": "log_enc_plays",
+        "coef": -0.146,
+        "odds_ratio": 0.8641
+      },
+      {
+        "feature": "tempo",
+        "coef": 0.1258,
+        "odds_ratio": 1.1341
+      },
+      {
+        "feature": "valence",
+        "coef": -0.0426,
+        "odds_ratio": 0.9583
+      },
+      {
+        "feature": "instrumentalness",
+        "coef": 0.0056,
+        "odds_ratio": 1.0056
+      },
+      {
+        "feature": "catalogue_age_years",
+        "coef": 0.0002,
+        "odds_ratio": 1.0002
+      }
+    ]
+  },
+  "shortlist": [
+    {
+      "track_id": "sim01132",
+      "name": "Blue Hour on Repeat",
+      "artist": "Paper Weather",
+      "memory_lane_index": 32.6442,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2024-12-13",
+      "enc_plays": 109,
+      "enc_concentration": 0.2294,
+      "enc_completion": 0.8543,
+      "age_at_first_play": 19.9528,
+      "bump_weight": 0.9826
+    },
+    {
+      "track_id": "sim01248",
+      "name": "Almost in Reverse",
+      "artist": "Neon Avenue",
+      "memory_lane_index": 27.5728,
+      "world": "high acousticness \u00b7 low energy",
+      "first_play": "2026-05-23",
+      "enc_plays": 29,
+      "enc_concentration": 0.3103,
+      "enc_completion": 0.8409,
+      "age_at_first_play": 21.3915,
+      "bump_weight": 0.9735
+    },
+    {
+      "track_id": "sim01085",
+      "name": "Blue Hour in Reverse",
+      "artist": "Quiet Lantern",
+      "memory_lane_index": 27.1897,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-05-03",
+      "enc_plays": 13,
+      "enc_concentration": 0.3077,
+      "enc_completion": 0.8058,
+      "age_at_first_play": 20.3368,
+      "bump_weight": 0.9806
+    },
+    {
+      "track_id": "sim00953",
+      "name": "All the Same Out Loud",
+      "artist": "Midnight Rivers",
+      "memory_lane_index": 23.6632,
+      "world": "high acousticness \u00b7 low energy",
+      "first_play": "2025-08-23",
+      "enc_plays": 11,
+      "enc_concentration": 0.2727,
+      "enc_completion": 0.7824,
+      "age_at_first_play": 20.6434,
+      "bump_weight": 0.9788
+    },
+    {
+      "track_id": "sim00085",
+      "name": "Everything Out Loud",
+      "artist": "Distant Telegraph",
+      "memory_lane_index": 22.3818,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-01-02",
+      "enc_plays": 62,
+      "enc_concentration": 0.2903,
+      "enc_completion": 0.857,
+      "age_at_first_play": 20.0055,
+      "bump_weight": 0.9823
+    },
+    {
+      "track_id": "sim00311",
+      "name": "Homework",
+      "artist": "Hollow Season",
+      "memory_lane_index": 20.831,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2026-06-04",
+      "enc_plays": 23,
+      "enc_concentration": 0.3913,
+      "enc_completion": 0.7532,
+      "age_at_first_play": 21.4244,
+      "bump_weight": 0.9733
+    },
+    {
+      "track_id": "sim00785",
+      "name": "Almost for Free",
+      "artist": "Paper Avenue",
+      "memory_lane_index": 20.6351,
+      "world": "high acousticness \u00b7 low energy",
+      "first_play": "2025-02-25",
+      "enc_plays": 35,
+      "enc_concentration": 0.2286,
+      "enc_completion": 0.7724,
+      "age_at_first_play": 20.1533,
+      "bump_weight": 0.9816
+    },
+    {
+      "track_id": "sim00758",
+      "name": "Homework Out Loud",
+      "artist": "Velvet Motel",
+      "memory_lane_index": 20.5875,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2026-01-18",
+      "enc_plays": 29,
+      "enc_concentration": 0.2759,
+      "enc_completion": 0.7986,
+      "age_at_first_play": 21.0493,
+      "bump_weight": 0.9761
+    },
+    {
+      "track_id": "sim00987",
+      "name": "Blue Hour in June",
+      "artist": "Iron Machines",
+      "memory_lane_index": 19.6242,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-01-17",
+      "enc_plays": 9,
+      "enc_concentration": 0.4444,
+      "enc_completion": 0.8182,
+      "age_at_first_play": 20.0465,
+      "bump_weight": 0.9821
+    },
+    {
+      "track_id": "sim01348",
+      "name": "Radio Forever",
+      "artist": "Glass Season",
+      "memory_lane_index": 19.4188,
+      "world": "high acousticness \u00b7 low energy",
+      "first_play": "2025-05-29",
+      "enc_plays": 41,
+      "enc_concentration": 0.2439,
+      "enc_completion": 0.8121,
+      "age_at_first_play": 20.4079,
+      "bump_weight": 0.9802
+    },
+    {
+      "track_id": "sim00007",
+      "name": "Second Again",
+      "artist": "Wild Rivers",
+      "memory_lane_index": 19.0789,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2026-03-14",
+      "enc_plays": 15,
+      "enc_concentration": 0.2667,
+      "enc_completion": 0.7777,
+      "age_at_first_play": 21.1999,
+      "bump_weight": 0.975
+    },
+    {
+      "track_id": "sim00138",
+      "name": "Slow Dancing Downhill",
+      "artist": "Iron Machines",
+      "memory_lane_index": 18.9463,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-10-29",
+      "enc_plays": 51,
+      "enc_concentration": 0.2353,
+      "enc_completion": 0.8368,
+      "age_at_first_play": 20.8268,
+      "bump_weight": 0.9776
+    },
+    {
+      "track_id": "sim00533",
+      "name": "Almost Forever",
+      "artist": "Amber Foxes",
+      "memory_lane_index": 18.1875,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2026-01-21",
+      "enc_plays": 25,
+      "enc_concentration": 0.36,
+      "enc_completion": 0.7794,
+      "age_at_first_play": 21.0575,
+      "bump_weight": 0.976
+    },
+    {
+      "track_id": "sim00633",
+      "name": "Ninety Miles Again",
+      "artist": "Salt Garden",
+      "memory_lane_index": 18.0993,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2024-12-15",
+      "enc_plays": 36,
+      "enc_concentration": 0.2222,
+      "enc_completion": 0.795,
+      "age_at_first_play": 19.9582,
+      "bump_weight": 0.9826
+    },
+    {
+      "track_id": "sim00841",
+      "name": "Slow Dancing for Free",
+      "artist": "Velvet Ceiling",
+      "memory_lane_index": 17.6444,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-09-07",
+      "enc_plays": 16,
+      "enc_concentration": 0.25,
+      "enc_completion": 0.7944,
+      "age_at_first_play": 20.6845,
+      "bump_weight": 0.9785
+    },
+    {
+      "track_id": "sim00946",
+      "name": "Slow Dancing Out Loud",
+      "artist": "Hollow Static",
+      "memory_lane_index": 16.3468,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-08-11",
+      "enc_plays": 46,
+      "enc_concentration": 0.2609,
+      "enc_completion": 0.8182,
+      "age_at_first_play": 20.6105,
+      "bump_weight": 0.979
+    },
+    {
+      "track_id": "sim00382",
+      "name": "The Long Way by Morning",
+      "artist": "Velvet Static",
+      "memory_lane_index": 16.1161,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-10-16",
+      "enc_plays": 8,
+      "enc_concentration": 0.875,
+      "enc_completion": 0.6133,
+      "age_at_first_play": 20.7912,
+      "bump_weight": 0.9778
+    },
+    {
+      "track_id": "sim00962",
+      "name": "Half by Morning",
+      "artist": "Neon Weather",
+      "memory_lane_index": 16.0259,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2024-12-12",
+      "enc_plays": 29,
+      "enc_concentration": 0.2414,
+      "enc_completion": 0.7515,
+      "age_at_first_play": 19.95,
+      "bump_weight": 0.9826
+    },
+    {
+      "track_id": "sim01028",
+      "name": "Homework on Repeat",
+      "artist": "Iron Foxes",
+      "memory_lane_index": 15.9176,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-09-01",
+      "enc_plays": 54,
+      "enc_concentration": 0.2593,
+      "enc_completion": 0.743,
+      "age_at_first_play": 20.668,
+      "bump_weight": 0.9786
+    },
+    {
+      "track_id": "sim01374",
+      "name": "Cold Open at the End (v2)",
+      "artist": "Neon Machines",
+      "memory_lane_index": 15.6174,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-09-02",
+      "enc_plays": 10,
+      "enc_concentration": 0.7,
+      "enc_completion": 0.7167,
+      "age_at_first_play": 20.6708,
+      "bump_weight": 0.9786
+    },
+    {
+      "track_id": "sim00273",
+      "name": "Faultline in Colour",
+      "artist": "Neon Weather",
+      "memory_lane_index": 15.3218,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2024-12-28",
+      "enc_plays": 21,
+      "enc_concentration": 0.1905,
+      "enc_completion": 0.756,
+      "age_at_first_play": 19.9938,
+      "bump_weight": 0.9824
+    },
+    {
+      "track_id": "sim00568",
+      "name": "Faultline Tonight",
+      "artist": "Golden Season",
+      "memory_lane_index": 14.5607,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-03-30",
+      "enc_plays": 17,
+      "enc_concentration": 0.2941,
+      "enc_completion": 0.8407,
+      "age_at_first_play": 20.2437,
+      "bump_weight": 0.9811
+    },
+    {
+      "track_id": "sim00577",
+      "name": "Faultline on Repeat",
+      "artist": "Iron Weather",
+      "memory_lane_index": 13.8232,
+      "world": "high acousticness \u00b7 low energy",
+      "first_play": "2025-02-23",
+      "enc_plays": 19,
+      "enc_concentration": 0.3158,
+      "enc_completion": 0.7858,
+      "age_at_first_play": 20.1478,
+      "bump_weight": 0.9816
+    },
+    {
+      "track_id": "sim01242",
+      "name": "Homework in Reverse",
+      "artist": "Slow Telegraph",
+      "memory_lane_index": 13.596,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2024-12-01",
+      "enc_plays": 24,
+      "enc_concentration": 0.25,
+      "enc_completion": 0.8015,
+      "age_at_first_play": 19.9199,
+      "bump_weight": 0.9828
+    },
+    {
+      "track_id": "sim00727",
+      "name": "Half Without You",
+      "artist": "Hollow Static",
+      "memory_lane_index": 13.329,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-09-07",
+      "enc_plays": 17,
+      "enc_concentration": 0.2941,
+      "enc_completion": 0.7515,
+      "age_at_first_play": 20.6845,
+      "bump_weight": 0.9785
+    },
+    {
+      "track_id": "sim01307",
+      "name": "Second on Repeat",
+      "artist": "Copper Lantern",
+      "memory_lane_index": 12.9389,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2024-12-05",
+      "enc_plays": 4,
+      "enc_concentration": 0.5,
+      "enc_completion": 0.6304,
+      "age_at_first_play": 19.9309,
+      "bump_weight": 0.9827
+    },
+    {
+      "track_id": "sim01191",
+      "name": "Backseat in Colour",
+      "artist": "Velvet Lantern",
+      "memory_lane_index": 12.0271,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-10-19",
+      "enc_plays": 7,
+      "enc_concentration": 0.2857,
+      "enc_completion": 0.6468,
+      "age_at_first_play": 20.7995,
+      "bump_weight": 0.9778
+    },
+    {
+      "track_id": "sim00325",
+      "name": "Everything on Repeat",
+      "artist": "Northern Harbour",
+      "memory_lane_index": 12.0013,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-11-06",
+      "enc_plays": 6,
+      "enc_concentration": 0.5,
+      "enc_completion": 0.7203,
+      "age_at_first_play": 20.8487,
+      "bump_weight": 0.9775
+    },
+    {
+      "track_id": "sim01176",
+      "name": "Cold Open Downhill (v2)",
+      "artist": "Amber Avenue",
+      "memory_lane_index": 11.6013,
+      "world": "low acousticness \u00b7 high energy",
+      "first_play": "2025-07-03",
+      "enc_plays": 21,
+      "enc_concentration": 0.2857,
+      "enc_completion": 0.7912,
+      "age_at_first_play": 20.5038,
+      "bump_weight": 0.9796
+    },
+    {
+      "track_id": "sim00884",
+      "name": "All the Same on Repeat",
+      "artist": "Amber Foxes",
+      "memory_lane_index": 11.5458,
+      "world": "high acousticness \u00b7 low energy",
+      "first_play": "2025-12-23",
+      "enc_plays": 58,
+      "enc_concentration": 0.4138,
+      "enc_completion": 0.8029,
+      "age_at_first_play": 20.9774,
+      "bump_weight": 0.9766
+    }
+  ],
+  "blind_spots": [
+    {
+      "factor": "Social context",
+      "why": "Who you heard it with is a first-order driver of musical nostalgia and leaves no trace in a listening log."
+    },
+    {
+      "factor": "Lyrical self-relevance",
+      "why": "`speechiness` detects spoken words, not whether the words meant anything. No proxy is used."
+    },
+    {
+      "factor": "Life events",
+      "why": "The bump is about developmental period, but a move, a breakup or a loss binds music at any age. Unobservable here."
+    },
+    {
+      "factor": "Off-platform listening",
+      "why": "Radio, live shows, a friend's playlist and anything played before the account existed are invisible."
+    }
+  ]
+}

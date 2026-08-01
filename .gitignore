@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Memory Lane — listening data is either private (a real Spotify account) or
+# regenerable (simulate_listener.py is deterministic). Neither belongs in git.
+memory-lane/data/
+memory-lane/outputs/playlist.json
+memory-lane/outputs/figures/*.png
