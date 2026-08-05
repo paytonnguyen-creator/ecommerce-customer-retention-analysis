@@ -104,8 +104,32 @@ def read_export(folder: Path) -> tuple[pd.DataFrame, dict]:
         log["format"] = "extended" if "extended" in (log["format"], fmt) else fmt
 
     if not frames:
+        # The commonest failure by far: Spotify offers several exports and the
+        # obvious one is the wrong one. Name it precisely instead of saying
+        # "no match" and leaving the user to guess which of four checkboxes
+        # they should have ticked.
+        names = {f.name for f in files}
+        account_bundle = {"YourLibrary.json", "UserAttributes.json",
+                          "Identifiers.json", "Payments.json"} & names
+        if account_bundle:
+            sys.exit(
+                "This is the 'Account data' bundle, not streaming history.\n"
+                f"  Found: {', '.join(sorted(account_bundle))}\n\n"
+                "It contains your saved library, playlists and profile, but NO\n"
+                "record of anything you played -- no timestamps, no ms_played,\n"
+                "no play counts. This analysis is built entirely on when and how\n"
+                "often tracks were played, so it cannot run on this bundle. There\n"
+                "is no partial version of the result to salvage.\n\n"
+                "What to request instead:\n"
+                "  Spotify -> Account -> Privacy settings\n"
+                "  -> tick 'Extended streaming history'  (a SEPARATE checkbox\n"
+                "     from 'Account data', further down the page)\n"
+                "  -> Request. It can take a few weeks to arrive.\n\n"
+                "You are looking for files named Streaming_History_Audio_*.json.")
         sys.exit("Found JSON files, but none matched a Spotify streaming-history "
-                 "layout. Point this at the unzipped export folder.")
+                 "layout. Point this at the unzipped export folder.\n"
+                 "Expected: Streaming_History_Audio_*.json (extended export) or "
+                 "StreamingHistory*.json (12-month export).")
 
     return pd.concat(frames, ignore_index=True), log
 
