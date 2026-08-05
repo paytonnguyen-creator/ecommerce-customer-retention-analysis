@@ -18,8 +18,8 @@ it is the behavioural shadow nostalgia casts in a listening log, and unlike
 nostalgia it can be held out and scored.
 
 **The answer, in short:** behaviour in a song's first ninety days predicts
-return at **AUC 0.784**; every acoustic feature Spotify exposes adds **+0.023
-[95% CI −0.007, +0.053]** on top — a gain whose interval still contains zero.
+return at **AUC 0.760**; every acoustic feature Spotify exposes adds **+0.012
+[95% CI −0.019, +0.042]** on top — a gain whose interval still contains zero.
 And the single largest modelling win in the project came from neither music
 psychology nor machine learning. It came from noticing that **hour-long DJ sets
 break the completion metric**, which is worth more than every acoustic feature
@@ -29,21 +29,24 @@ combined.
 
 | | |
 |---|---|
-| Tracks that came back after a year of silence | **13.7%** |
-| Median dormancy before a return | **799 days** (2.2 years) |
-| Hold-out AUC, first-90-days behaviour | **0.784** |
-| Hold-out AUC, behaviour + acoustics | **0.807** (Δ +0.023, CI [−0.007, +0.053]) |
-| Strongest feature in the whole model | **`is_long_form`**, −1.41 log-odds |
-| Library first played inside the bump window (ages 10–28) | **100%** |
-| Tracks too new to be labelled at all | **265 of 1,371** (19%) |
+| Tracks that came back after a year of silence | **16.9%** |
+| Median dormancy before a return | **852 days** (2.3 years) |
+| Hold-out AUC, first-90-days behaviour | **0.760** |
+| Hold-out AUC, behaviour + acoustics | **0.772** (Δ +0.012, CI [−0.019, +0.042]) |
+| Second strongest feature in the model | **`is_long_form`**, −1.00 log-odds |
+| Library first played inside the bump window (ages 10–28) | **96.6%** |
+| Tracks too new to be labelled at all | **176 of 1,380** (12.8%) |
 
 **The reminiscence bump is a claim about eras, not tracks.** It says music
-encoded between roughly 10 and 28 binds hardest. For a 19-year-old with an
-account opened at 11, **100% of the library sits inside that window** — which
-is *why the project is worth doing now* and also exactly why the bump weight
-ranks nothing. A variable that takes one value cannot order anything. It is
-deliberately excluded from the per-track score rather than folded in to make
-the model look more scientific.
+encoded between roughly 10 and 28 binds hardest. This account opened at **age
+8.7**, so **96.6% of the library sits inside that window** and the remaining
+3.4% is listening that happened *before the bump properly starts* — the only
+part of the history the literature expects to bind weakly.
+
+That near-constancy is exactly why the bump weight ranks nothing. A variable
+that is 0.85+ for 24 tracks out of 25 cannot order them. It is deliberately
+excluded from the per-track score rather than folded in to make the model look
+more scientific.
 
 The corollary is the more interesting half: at 19 the bump is **not finished**.
 Roughly a third of the window is still ahead, so this is a measurement taken
@@ -51,9 +54,9 @@ mid-event, not after it.
 
 **The most tempting behavioural lever was rejected.** Cramming a song into a
 single fortnight looks like a strong negative signal — the top concentration
-decile returns at 2% against 14% overall. But concentration correlates −0.59
-with play count, and the coefficient falls from **−0.71 to −0.33** once volume
-is held constant: a **53% attenuation**. Songs crammed into one fortnight
+decile returns at 1.7% against 16.9% overall. But concentration correlates
+−0.59 with play count, and the coefficient falls from **−0.57 to −0.17** once
+volume is held constant: a **70% attenuation**. Songs crammed into one fortnight
 mostly aren't bound to a moment, they were played four times.
 
 ## The thing that mattered most was not the psychology
@@ -71,31 +74,31 @@ absolute amount of time, not a fraction.** The denominator is capped at eight
 minutes, so past that point staying is what counts rather than finishing, and a
 `is_long_form` indicator lets the model give mixes their own baseline.
 
-That indicator became the **strongest feature in the entire model at −1.41
-log-odds** — ahead of every acoustic feature, ahead of play count, ahead of
-skip rate. A format problem outranked the entire CogSci hypothesis. That is the
-most useful thing this project found, and it is not a finding about memory at
-all.
+That indicator became the **second strongest feature in the model at −1.00
+log-odds** — ahead of every acoustic feature, ahead of play count and
+completion, behind only skip rate. A format problem outranked the entire CogSci
+hypothesis. That is the most useful thing this project found, and it is not a
+finding about memory at all.
 
 ## What the acoustic result actually means
 
 The acoustic block is not worthless. Cluster membership is the strongest
-acoustic term (**+0.54**), then emotional intensity — distance from neutral
-valence — at **+0.19**, with arousal fitted alone also at **+0.19**. The two
-sonic worlds do separate: **14.8% vs 6.3%** return rates.
+acoustic term at **−0.49**, and arousal fitted alone lands at **+0.16**. The
+two sonic worlds do separate on the outcome: **18.2% vs 8.9%** return rates.
 
-But the hold-out gain is **+0.023 with a 95% interval of [−0.007, +0.053]**.
+But the hold-out gain is **+0.012 with a 95% interval of [−0.019, +0.042]**.
 That interval contains zero. A coefficient with the right sign and a plausible
 size can still fail to buy ranking power, and separating those two things is
 most of what this project does.
 
 ### Read the interval, not the point estimate
 
-The demo's simulated listener was reconfigured twice as the profile sharpened —
-first from a generic six-genre library to a polarised two-pole one, then from a
-13-year history to the 7.6 years a 19-year-old actually has. **The acoustic
-point estimate moved +0.000 → +0.019 → +0.023 across those three runs, and its
-interval contained zero in all three.**
+The demo's simulated listener was reconfigured three times as the profile
+sharpened — from a generic six-genre library to a polarised two-pole one, then
+from a 13-year history to an age-derived one, then to the account's **real
+creation date** read from a Spotify export. **The acoustic point estimate moved
++0.000 → +0.019 → +0.023 → +0.012 across those four runs, and its interval
+contained zero in all four.**
 
 Two things follow, and they are the most transferable findings here:
 
@@ -103,21 +106,22 @@ Two things follow, and they are the most transferable findings here:
   distant scenes give the acoustic block real variance to exploit; one scene,
   however deep, does not. A single published number for "do audio features
   predict musical nostalgia" is reporting a property of somebody's library.
-- *A shorter history widens everything.* Dropping from 13.4 to 7.6 years took
-  the labelable set from 1,250 to 1,106, pushed 265 tracks (19% of the library)
-  into the unlabelable bucket, and widened the interval from 0.044 to 0.060.
-  Being 19 is the binding constraint on this analysis, not the model.
+- *History length moves everything downstream.* Across 13.4, 7.6 and 10.4-year
+  histories the unlabelable share ran 9% → 19% → 12.8% and the returner rate
+  19.4% → 13.7% → 16.9%, purely because a fixed 635-day labelling cost is a
+  different fraction of each. Getting the account's real start date right
+  mattered more than any modelling choice made here.
 
 Across all seven label definitions in [`sensitivity.csv`](outputs/sensitivity.csv)
-the delta ranges **−0.013 to +0.023** and straddles zero throughout.
+the delta ranges **−0.012 to +0.015** and straddles zero throughout.
 
 ### What has been stable across every configuration
 
 | | |
 |---|---|
-| Behavioural AUC | 0.78–0.79 in all three runs |
-| Acoustic interval | contains zero in all three |
-| Concentration under control | rejected every time (53–61% attenuation) |
+| Behavioural AUC | 0.76–0.79 across all four runs |
+| Acoustic interval | contains zero in all four |
+| Concentration under control | rejected every time (53–70% attenuation) |
 | Library inside the bump window | 93–100%, and never ranks within it |
 | `k` chosen by silhouette | 2, every time |
 
@@ -129,11 +133,15 @@ are not.
 **The numbers above come from a simulated listener, not from a real account.**
 A private Spotify history cannot be committed to a repository, which would make
 every number here unverifiable and the code untestable. So the pipeline ships
-with a listener it can invent — `simulate_listener.py`, 1,400 tracks and 37,410
-streams over 7.6 years, deterministic from a seed. The history length is
-derived from `--birth-year` (the account opens around age 11), so a younger
-listener correctly gets a shorter and harder-to-label history rather than a
-cosmetically identical one.
+with a listener it can invent — `simulate_listener.py`, 1,400 tracks and 38,258
+streams over 10.4 years, deterministic from a seed.
+
+**One number in it is real.** The account creation date, `2016-02-05`, is read
+from `UserAttributes.json` in a Spotify "Account data" export. That bundle
+carries no streaming history at all — no timestamps, no play counts — so it
+cannot drive the analysis, but it does say when the account opened, and history
+length turned out to be the binding constraint on everything downstream.
+Override it with `--account-start`.
 
 That buys two things and no more: the code is exercised end to end, and because
 the simulator's true coefficients are written down, an estimate that recovers
@@ -242,8 +250,8 @@ outputs/figures/       five SVGs, regenerated by run_memory_lane.py
   labelled negative — calling a six-month-old track "never came back" would be
   scoring it for being six months old. Those 124 held-out tracks are the
   deliverable: the modern songs, scored by a model fitted on songs whose
-  verdict is already in. At 7.6 years of history that bucket holds 265 tracks —
-  19% of the library, against 9% on a 13-year history.
+  verdict is already in. At 10.4 years of history that bucket holds 176 tracks,
+  12.8% of the library.
 - **Completion is capped at an eight-minute denominator,** with a separate
   `is_long_form` indicator, so DJ sets and live mixes are not scored as songs
   nobody finishes. See above — this was the largest single win in the project.

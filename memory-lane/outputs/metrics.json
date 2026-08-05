@@ -4,14 +4,16 @@
     "simulated": true,
     "seed": 7,
     "birth_year": 2007,
-    "account_opens_at_age": 11.5,
+    "account_start": "2016-02-05",
+    "account_start_is_real": true,
+    "age_at_account_start": 8.7,
     "age_at_end_of_history": 19.2,
-    "streams": 37410,
+    "streams": 38258,
     "unique_tracks": 1400,
-    "first_play": "2018-12-29",
+    "first_play": "2016-03-19",
     "last_play": "2026-08-01",
-    "span_days": 2772,
-    "span_years": 7.59,
+    "span_days": 3787,
+    "span_years": 10.37,
     "audio_features": "simulated",
     "audio_feature_columns": [
       "danceability",
@@ -49,17 +51,17 @@
     "note": "Returning after a year is not nostalgia. It is the behaviour nostalgia leaves behind in a log, and unlike nostalgia it can be held out and scored."
   },
   "headline": {
-    "tracks": 1371,
-    "labelable": 1106,
-    "too_new_to_label": 265,
-    "returner_rate": 0.13743218806509946,
-    "median_days_to_return": 799.0,
-    "auc_behaviour": 0.784052903618121,
-    "auc_with_acoustics": 0.8073122529644269,
-    "auc_delta": 0.023259349346305913,
+    "tracks": 1380,
+    "labelable": 1204,
+    "too_new_to_label": 176,
+    "returner_rate": 0.16943521594684385,
+    "median_days_to_return": 852.0,
+    "auc_behaviour": 0.7597625401666576,
+    "auc_with_acoustics": 0.7716355318337781,
+    "auc_delta": 0.011872991667120525,
     "auc_delta_ci95": [
-      -0.006708145726572084,
-      0.053123586454793564
+      -0.018733497822904045,
+      0.04168898717128193
     ]
   },
   "reminiscence_bump": {
@@ -67,8 +69,8 @@
       10.25,
       27.55
     ],
-    "share_of_library_in_bump": 1.0,
-    "median_age_at_first_play": 15.966461327857632,
+    "share_of_library_in_bump": 0.9659420289855073,
+    "median_age_at_first_play": 14.642026009582477,
     "parameters": {
       "onset": 8.0,
       "offset": 32.0,
@@ -79,132 +81,132 @@
   "sonic_worlds": {
     "k": 2,
     "silhouette_by_k": {
-      "2": 0.5722,
-      "3": 0.3513,
-      "4": 0.297,
-      "5": 0.253,
-      "6": 0.229,
-      "7": 0.202,
-      "8": 0.1976
+      "2": 0.5717,
+      "3": 0.3516,
+      "4": 0.2944,
+      "5": 0.2518,
+      "6": 0.2273,
+      "7": 0.2044,
+      "8": 0.1981
     },
-    "silhouette": 0.5722,
+    "silhouette": 0.5717,
     "explained_variance_pc1_pc2": [
-      0.5412146036464345,
-      0.2177702971479439
+      0.5430351414467959,
+      0.21678932796759426
     ],
     "profiles": [
       {
         "cluster": 0,
-        "label": "low loudness \u00b7 low tempo",
-        "tracks": 167,
-        "mean_danceability": 0.3130822814573739,
-        "mean_energy": 0.1989623780397508,
-        "mean_valence": 0.26568571879428604,
-        "mean_acousticness": 0.6876393566260599,
-        "mean_speechiness": 0.038713478415939646,
-        "mean_instrumentalness": 0.8822681984061111,
-        "mean_tempo": 84.10178991948821,
-        "mean_loudness": -17.694963726260635
+        "label": "high loudness \u00b7 high tempo",
+        "tracks": 1209,
+        "mean_danceability": 0.7667168011485008,
+        "mean_energy": 0.6986464777281381,
+        "mean_valence": 0.4387503799054425,
+        "mean_acousticness": 0.1313857693320557,
+        "mean_speechiness": 0.1354012962356478,
+        "mean_instrumentalness": 0.2591386521607439,
+        "mean_tempo": 138.79970609330067,
+        "mean_loudness": -6.1846378679126985
       },
       {
         "cluster": 1,
-        "label": "high loudness \u00b7 high tempo",
-        "tracks": 1204,
-        "mean_danceability": 0.7674991307027619,
-        "mean_energy": 0.6991363343231285,
-        "mean_valence": 0.44010022821455447,
-        "mean_acousticness": 0.13060933037356295,
-        "mean_speechiness": 0.1351601445289244,
-        "mean_instrumentalness": 0.2608080583958747,
-        "mean_tempo": 138.7707628279684,
-        "mean_loudness": -6.212021940845779
+        "label": "low loudness \u00b7 low tempo",
+        "tracks": 171,
+        "mean_danceability": 0.31394410629495356,
+        "mean_energy": 0.19908900770793675,
+        "mean_valence": 0.26575415980482514,
+        "mean_acousticness": 0.6857136709593616,
+        "mean_speechiness": 0.0390680762613542,
+        "mean_instrumentalness": 0.8804582527020404,
+        "mean_tempo": 84.02096176937026,
+        "mean_loudness": -17.711390562067713
       }
     ]
   },
   "concentration_deciles": [
     {
       "decile": 1,
-      "rate": 0.1802,
-      "conc": 0.2195,
-      "n": 111
+      "rate": 0.2645,
+      "conc": 0.2222,
+      "n": 121
     },
     {
       "decile": 2,
-      "rate": 0.2162,
+      "rate": 0.175,
       "conc": 0.25,
-      "n": 111
+      "n": 120
     },
     {
       "decile": 3,
-      "rate": 0.1636,
-      "conc": 0.2837,
-      "n": 110
+      "rate": 0.2083,
+      "conc": 0.2857,
+      "n": 120
     },
     {
       "decile": 4,
-      "rate": 0.1622,
+      "rate": 0.2479,
       "conc": 0.3077,
-      "n": 111
+      "n": 121
     },
     {
       "decile": 5,
-      "rate": 0.1727,
+      "rate": 0.1333,
       "conc": 0.3333,
-      "n": 110
+      "n": 120
     },
     {
       "decile": 6,
-      "rate": 0.1712,
+      "rate": 0.2167,
       "conc": 0.375,
-      "n": 111
+      "n": 120
     },
     {
       "decile": 7,
-      "rate": 0.1091,
-      "conc": 0.4271,
-      "n": 110
+      "rate": 0.1653,
+      "conc": 0.4167,
+      "n": 121
     },
     {
       "decile": 8,
-      "rate": 0.1351,
+      "rate": 0.0917,
       "conc": 0.5,
-      "n": 111
+      "n": 120
     },
     {
       "decile": 9,
-      "rate": 0.0455,
-      "conc": 0.5714,
-      "n": 110
+      "rate": 0.175,
+      "conc": 0.6,
+      "n": 120
     },
     {
       "decile": 10,
-      "rate": 0.018,
+      "rate": 0.0165,
       "conc": 1.0,
-      "n": 111
+      "n": 121
     }
   ],
   "distinctiveness_confound": {
     "feature": "enc_concentration",
     "control": "log_enc_plays",
-    "correlation": -0.5919523158475976,
-    "coef_alone": -0.7084,
-    "coef_controlled": -0.3342,
-    "attenuation_pct": 52.8,
+    "correlation": -0.592226087001344,
+    "coef_alone": -0.5683,
+    "coef_controlled": -0.1729,
+    "attenuation_pct": 69.6,
     "survives_control": false
   },
   "shortlist_selection": {
     "artist_cap_requested": 2,
     "artist_cap_applied": 2,
-    "distinct_artists_in_scoring_set": 93,
-    "distinct_artists_on_shortlist": 26,
+    "distinct_artists_in_scoring_set": 81,
+    "distinct_artists_on_shortlist": 24,
     "tracks": 30,
     "cap_relaxed": false
   },
   "model": {
-    "n_labelable": 1106,
-    "n_train": 774,
-    "n_test": 332,
-    "base_rate": 0.13743218806509946,
+    "n_labelable": 1204,
+    "n_train": 842,
+    "n_test": 362,
+    "base_rate": 0.16943521594684385,
     "behavioural_features": [
       "log_enc_plays",
       "enc_active_days",
@@ -217,7 +219,7 @@
       "catalogue_age_years",
       "is_long_form"
     ],
-    "auc_behaviour": 0.784052903618121,
+    "auc_behaviour": 0.7597625401666576,
     "have_acoustic": true,
     "acoustic_features": [
       "danceability",
@@ -231,511 +233,511 @@
       "valence_intensity",
       "world_1"
     ],
-    "arousal_coef_alone": 0.18733239415983968,
+    "arousal_coef_alone": 0.15699677628221193,
     "arousal_note": "Excluded from the joint model: it is a deterministic function of energy and loudness, which are both in it. Reported here on its own.",
-    "auc_behaviour_plus_acoustic": 0.8073122529644269,
-    "auc_delta": 0.023259349346305913,
+    "auc_behaviour_plus_acoustic": 0.7716355318337781,
+    "auc_delta": 0.011872991667120525,
     "auc_delta_ci95": [
-      -0.006708145726572084,
-      0.053123586454793564
+      -0.018733497822904045,
+      0.04168898717128193
     ],
     "auc_delta_bootstrap_n": 2000,
     "acoustic_helps": false,
-    "smallest_detectable_gain": 0.053123586454793564,
-    "power_note": "With 332 hold-out tracks the interval is 0.060 wide, so any acoustic gain smaller than about +0.053 AUC would be invisible to this test. 'No detectable effect' is the correct reading; 'no effect' is not.",
+    "smallest_detectable_gain": 0.04168898717128193,
+    "power_note": "With 362 hold-out tracks the interval is 0.060 wide, so any acoustic gain smaller than about +0.042 AUC would be invisible to this test. 'No detectable effect' is the correct reading; 'no effect' is not.",
     "coefficients": [
       {
-        "feature": "is_long_form",
-        "coef": -1.4076,
-        "odds_ratio": 0.2447
-      },
-      {
-        "feature": "enc_completion",
-        "coef": 1.1563,
-        "odds_ratio": 3.178
-      },
-      {
-        "feature": "age_at_first_play",
-        "coef": -0.6618,
-        "odds_ratio": 0.5159
-      },
-      {
-        "feature": "world_1",
-        "coef": 0.5428,
-        "odds_ratio": 1.7209
-      },
-      {
-        "feature": "enc_active_days",
-        "coef": -0.4092,
-        "odds_ratio": 0.6642
-      },
-      {
-        "feature": "enc_peak_day_share",
-        "coef": -0.4074,
-        "odds_ratio": 0.6654
-      },
-      {
         "feature": "enc_skip_rate",
-        "coef": -0.354,
-        "odds_ratio": 0.7019
+        "coef": -1.2476,
+        "odds_ratio": 0.2872
       },
       {
-        "feature": "tempo",
-        "coef": 0.3493,
-        "odds_ratio": 1.4181
-      },
-      {
-        "feature": "enc_concentration",
-        "coef": -0.3369,
-        "odds_ratio": 0.714
+        "feature": "is_long_form",
+        "coef": -0.9974,
+        "odds_ratio": 0.3688
       },
       {
         "feature": "log_enc_plays",
-        "coef": 0.3362,
-        "odds_ratio": 1.3997
+        "coef": 0.84,
+        "odds_ratio": 2.3164
+      },
+      {
+        "feature": "enc_completion",
+        "coef": 0.6376,
+        "odds_ratio": 1.8919
+      },
+      {
+        "feature": "world_1",
+        "coef": -0.4902,
+        "odds_ratio": 0.6125
+      },
+      {
+        "feature": "age_at_first_play",
+        "coef": -0.4559,
+        "odds_ratio": 0.6339
+      },
+      {
+        "feature": "enc_active_days",
+        "coef": -0.382,
+        "odds_ratio": 0.6825
+      },
+      {
+        "feature": "tempo",
+        "coef": 0.2871,
+        "odds_ratio": 1.3326
       },
       {
         "feature": "valence_intensity",
-        "coef": 0.1916,
-        "odds_ratio": 1.2112
-      },
-      {
-        "feature": "speechiness",
-        "coef": -0.1694,
-        "odds_ratio": 0.8442
-      },
-      {
-        "feature": "catalogue_age_years",
-        "coef": -0.1341,
-        "odds_ratio": 0.8745
+        "coef": 0.2072,
+        "odds_ratio": 1.2302
       },
       {
         "feature": "enc_span_days",
-        "coef": -0.111,
-        "odds_ratio": 0.8949
+        "coef": -0.2057,
+        "odds_ratio": 0.8141
       },
       {
-        "feature": "instrumentalness",
-        "coef": 0.1002,
-        "odds_ratio": 1.1054
+        "feature": "speechiness",
+        "coef": -0.1673,
+        "odds_ratio": 0.846
+      },
+      {
+        "feature": "danceability",
+        "coef": -0.1625,
+        "odds_ratio": 0.85
+      },
+      {
+        "feature": "loudness",
+        "coef": 0.105,
+        "odds_ratio": 1.1107
+      },
+      {
+        "feature": "enc_peak_day_share",
+        "coef": -0.0846,
+        "odds_ratio": 0.9189
       },
       {
         "feature": "acousticness",
-        "coef": -0.0804,
-        "odds_ratio": 0.9228
+        "coef": -0.0814,
+        "odds_ratio": 0.9218
       },
       {
         "feature": "energy",
+        "coef": -0.0709,
+        "odds_ratio": 0.9315
+      },
+      {
+        "feature": "catalogue_age_years",
         "coef": -0.0708,
         "odds_ratio": 0.9316
       },
       {
-        "feature": "danceability",
-        "coef": -0.0695,
-        "odds_ratio": 0.9329
-      },
-      {
-        "feature": "loudness",
-        "coef": -0.0668,
-        "odds_ratio": 0.9354
+        "feature": "enc_concentration",
+        "coef": -0.065,
+        "odds_ratio": 0.937
       },
       {
         "feature": "valence",
-        "coef": 0.0019,
-        "odds_ratio": 1.0019
+        "coef": -0.037,
+        "odds_ratio": 0.9637
+      },
+      {
+        "feature": "instrumentalness",
+        "coef": -0.0345,
+        "odds_ratio": 0.9661
       }
     ]
   },
   "shortlist": [
     {
-      "track_id": "sim00170",
-      "name": "All the Same in June",
-      "artist": "Static Telegraph",
-      "memory_lane_index": 21.6,
+      "track_id": "sim00321",
+      "name": "The Long Way Downhill",
+      "artist": "Static Foxes",
+      "memory_lane_index": 31.4538,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-02-26",
-      "enc_plays": 23,
-      "enc_concentration": 0.2174,
-      "enc_completion": 0.8373,
-      "age_at_first_play": 18.1561,
-      "bump_weight": 0.9889
+      "first_play": "2025-11-24",
+      "enc_plays": 119,
+      "enc_concentration": 0.479,
+      "enc_completion": 0.8529,
+      "age_at_first_play": 18.898,
+      "bump_weight": 0.9869
     },
     {
-      "track_id": "sim00226",
-      "name": "Radio on Repeat",
-      "artist": "Glass Cassette",
-      "memory_lane_index": 19.86,
+      "track_id": "sim01340",
+      "name": "Nothing at the End (v2)",
+      "artist": "Hollow Lantern",
+      "memory_lane_index": 28.9741,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-01-22",
-      "enc_plays": 85,
-      "enc_concentration": 0.4588,
-      "enc_completion": 0.8653,
-      "age_at_first_play": 18.0602,
+      "first_play": "2025-01-20",
+      "enc_plays": 29,
+      "enc_concentration": 0.2759,
+      "enc_completion": 0.8366,
+      "age_at_first_play": 18.0548,
       "bump_weight": 0.9891
     },
     {
-      "track_id": "sim00832",
-      "name": "Some Nights for Free",
-      "artist": "Iron Garden",
-      "memory_lane_index": 17.8195,
+      "track_id": "sim00142",
+      "name": "Homework at the End",
+      "artist": "Distant Kingdom",
+      "memory_lane_index": 27.2848,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-10-20",
-      "enc_plays": 12,
-      "enc_concentration": 0.25,
-      "enc_completion": 0.8579,
-      "age_at_first_play": 18.8022,
-      "bump_weight": 0.9872
-    },
-    {
-      "track_id": "sim00292",
-      "name": "Nothing Forever",
-      "artist": "Velvet Harbour",
-      "memory_lane_index": 14.2842,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-03-26",
-      "enc_plays": 4,
-      "enc_concentration": 0.5,
-      "enc_completion": 0.9145,
-      "age_at_first_play": 18.2327,
-      "bump_weight": 0.9887
-    },
-    {
-      "track_id": "sim00713",
-      "name": "Slow Dancing Again",
-      "artist": "Wild Telegraph",
-      "memory_lane_index": 13.9242,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-06-12",
+      "first_play": "2026-06-17",
       "enc_plays": 30,
-      "enc_concentration": 0.2333,
-      "enc_completion": 0.7941,
-      "age_at_first_play": 18.4463,
-      "bump_weight": 0.9882
+      "enc_concentration": 0.5333,
+      "enc_completion": 0.8227,
+      "age_at_first_play": 19.46,
+      "bump_weight": 0.9848
     },
     {
-      "track_id": "sim00883",
-      "name": "Slow Dancing Without You",
-      "artist": "Wild Rivers",
-      "memory_lane_index": 13.7778,
+      "track_id": "sim00124",
+      "name": "Blue Hour by Morning",
+      "artist": "Hollow Lantern",
+      "memory_lane_index": 26.6565,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-07-16",
-      "enc_plays": 20,
-      "enc_concentration": 0.25,
-      "enc_completion": 0.8229,
-      "age_at_first_play": 18.5394,
-      "bump_weight": 0.988
+      "first_play": "2024-11-21",
+      "enc_plays": 62,
+      "enc_concentration": 0.7097,
+      "enc_completion": 0.8261,
+      "age_at_first_play": 17.8925,
+      "bump_weight": 0.9895
     },
     {
-      "track_id": "sim01370",
-      "name": "All the Same Out Loud",
-      "artist": "Quiet Harbour",
-      "memory_lane_index": 12.9839,
+      "track_id": "sim00497",
+      "name": "Faultline on Repeat",
+      "artist": "Blue Static",
+      "memory_lane_index": 25.7042,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2024-11-29",
-      "enc_plays": 4,
-      "enc_concentration": 0.25,
-      "enc_completion": 1.0,
-      "age_at_first_play": 17.9144,
-      "bump_weight": 0.9894
-    },
-    {
-      "track_id": "sim00541",
-      "name": "Second in Reverse (v2)",
-      "artist": "Midnight Garden",
-      "memory_lane_index": 11.8067,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2024-12-25",
-      "enc_plays": 16,
-      "enc_concentration": 0.25,
-      "enc_completion": 0.7694,
-      "age_at_first_play": 17.9856,
-      "bump_weight": 0.9893
-    },
-    {
-      "track_id": "sim00578",
-      "name": "Almost Again",
-      "artist": "Hollow Static",
-      "memory_lane_index": 11.2412,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-03-02",
-      "enc_plays": 23,
-      "enc_concentration": 0.2609,
-      "enc_completion": 0.7424,
-      "age_at_first_play": 18.167,
-      "bump_weight": 0.9889
-    },
-    {
-      "track_id": "sim00455",
-      "name": "Faultline by Morning",
-      "artist": "Neon Weather",
-      "memory_lane_index": 11.0025,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-06-22",
-      "enc_plays": 28,
-      "enc_concentration": 0.2857,
-      "enc_completion": 0.8643,
-      "age_at_first_play": 18.4736,
-      "bump_weight": 0.9882
-    },
-    {
-      "track_id": "sim00051",
-      "name": "Backseat",
-      "artist": "Blue Harbour",
-      "memory_lane_index": 10.8667,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-03-26",
-      "enc_plays": 13,
-      "enc_concentration": 0.2308,
-      "enc_completion": 0.7759,
-      "age_at_first_play": 18.2327,
-      "bump_weight": 0.9887
-    },
-    {
-      "track_id": "sim00615",
-      "name": "Faultline Tonight",
-      "artist": "Paper Telegraph",
-      "memory_lane_index": 10.6711,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-01-23",
-      "enc_plays": 14,
-      "enc_concentration": 0.2143,
-      "enc_completion": 0.7979,
-      "age_at_first_play": 18.063,
+      "first_play": "2025-02-04",
+      "enc_plays": 54,
+      "enc_concentration": 0.2593,
+      "enc_completion": 0.8124,
+      "age_at_first_play": 18.0958,
       "bump_weight": 0.9891
-    },
-    {
-      "track_id": "sim00501",
-      "name": "The Long Way for Free",
-      "artist": "Iron Weather",
-      "memory_lane_index": 10.6248,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2024-12-08",
-      "enc_plays": 16,
-      "enc_concentration": 0.25,
-      "enc_completion": 1.0,
-      "age_at_first_play": 17.9391,
-      "bump_weight": 0.9894
     },
     {
       "track_id": "sim01077",
       "name": "Radio Again",
       "artist": "Copper Static",
-      "memory_lane_index": 10.4848,
+      "memory_lane_index": 24.9112,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2026-01-09",
-      "enc_plays": 48,
-      "enc_concentration": 0.2083,
-      "enc_completion": 0.8426,
-      "age_at_first_play": 19.0246,
-      "bump_weight": 0.9865
+      "first_play": "2025-10-26",
+      "enc_plays": 50,
+      "enc_concentration": 0.2,
+      "enc_completion": 0.8299,
+      "age_at_first_play": 18.8186,
+      "bump_weight": 0.9871
     },
     {
-      "track_id": "sim00072",
-      "name": "Nothing Tonight",
-      "artist": "Quiet Static",
-      "memory_lane_index": 10.4638,
+      "track_id": "sim00455",
+      "name": "Faultline by Morning",
+      "artist": "Neon Weather",
+      "memory_lane_index": 24.4852,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2024-11-26",
-      "enc_plays": 12,
-      "enc_concentration": 0.25,
-      "enc_completion": 1.0,
-      "age_at_first_play": 17.9062,
-      "bump_weight": 0.9894
-    },
-    {
-      "track_id": "sim01166",
-      "name": "Faultline in June",
-      "artist": "Pale Ceiling",
-      "memory_lane_index": 10.0828,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2024-12-16",
-      "enc_plays": 16,
-      "enc_concentration": 0.375,
-      "enc_completion": 0.8021,
-      "age_at_first_play": 17.961,
-      "bump_weight": 0.9893
-    },
-    {
-      "track_id": "sim01230",
-      "name": "Second Forever",
-      "artist": "Neon Kingdom",
-      "memory_lane_index": 9.8149,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-04-07",
-      "enc_plays": 16,
-      "enc_concentration": 0.3125,
-      "enc_completion": 0.8303,
-      "age_at_first_play": 18.2656,
-      "bump_weight": 0.9887
-    },
-    {
-      "track_id": "sim00824",
-      "name": "Cold Open in June",
-      "artist": "Wild Signal",
-      "memory_lane_index": 9.7939,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2024-12-22",
-      "enc_plays": 30,
-      "enc_concentration": 0.8,
-      "enc_completion": 0.8026,
-      "age_at_first_play": 17.9774,
-      "bump_weight": 0.9893
-    },
-    {
-      "track_id": "sim01256",
-      "name": "Radio in Reverse",
-      "artist": "Neon Kingdom",
-      "memory_lane_index": 9.7411,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-01-19",
-      "enc_plays": 5,
-      "enc_concentration": 0.4,
-      "enc_completion": 0.8002,
-      "age_at_first_play": 18.052,
+      "first_play": "2025-01-24",
+      "enc_plays": 26,
+      "enc_concentration": 0.2692,
+      "enc_completion": 0.8571,
+      "age_at_first_play": 18.0657,
       "bump_weight": 0.9891
     },
     {
-      "track_id": "sim00075",
-      "name": "Half Again",
-      "artist": "Glass Lantern",
-      "memory_lane_index": 9.2292,
+      "track_id": "sim00883",
+      "name": "Slow Dancing Without You",
+      "artist": "Wild Rivers",
+      "memory_lane_index": 22.1233,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-07-12",
-      "enc_plays": 14,
-      "enc_concentration": 0.2857,
-      "enc_completion": 1.0,
-      "age_at_first_play": 18.5284,
+      "first_play": "2025-03-06",
+      "enc_plays": 20,
+      "enc_concentration": 0.4,
+      "enc_completion": 0.7776,
+      "age_at_first_play": 18.178,
+      "bump_weight": 0.9889
+    },
+    {
+      "track_id": "sim00801",
+      "name": "Homework Downhill",
+      "artist": "Salt Weather",
+      "memory_lane_index": 20.1689,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2026-01-21",
+      "enc_plays": 39,
+      "enc_concentration": 0.2821,
+      "enc_completion": 0.8122,
+      "age_at_first_play": 19.0575,
+      "bump_weight": 0.9864
+    },
+    {
+      "track_id": "sim00832",
+      "name": "Some Nights for Free",
+      "artist": "Iron Garden",
+      "memory_lane_index": 20.0718,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-07-14",
+      "enc_plays": 16,
+      "enc_concentration": 0.375,
+      "enc_completion": 0.7713,
+      "age_at_first_play": 18.5339,
       "bump_weight": 0.988
     },
     {
-      "track_id": "sim00641",
-      "name": "Backseat by Morning",
-      "artist": "Salt Avenue",
-      "memory_lane_index": 8.8413,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2026-02-16",
-      "enc_plays": 21,
-      "enc_concentration": 0.2857,
-      "enc_completion": 0.8198,
-      "age_at_first_play": 19.1287,
-      "bump_weight": 0.9861
-    },
-    {
-      "track_id": "sim00903",
-      "name": "Ninety Miles in Reverse",
-      "artist": "Neon Telegraph",
-      "memory_lane_index": 8.8067,
-      "world": "high loudness \u00b7 high tempo",
-      "first_play": "2026-01-07",
-      "enc_plays": 13,
-      "enc_concentration": 0.4615,
-      "enc_completion": 1.0,
-      "age_at_first_play": 19.0192,
-      "bump_weight": 0.9865
-    },
-    {
-      "track_id": "sim01161",
-      "name": "Almost in Reverse",
+      "track_id": "sim00818",
+      "name": "All the Same for Free",
       "artist": "Copper Static",
-      "memory_lane_index": 8.5551,
+      "memory_lane_index": 19.2225,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-05-27",
-      "enc_plays": 34,
-      "enc_concentration": 0.2941,
-      "enc_completion": 0.7718,
-      "age_at_first_play": 18.4025,
-      "bump_weight": 0.9883
+      "first_play": "2025-04-16",
+      "enc_plays": 23,
+      "enc_concentration": 0.3043,
+      "enc_completion": 0.7457,
+      "age_at_first_play": 18.2902,
+      "bump_weight": 0.9886
     },
     {
-      "track_id": "sim00188",
-      "name": "All the Same in June",
-      "artist": "Northern Harbour",
-      "memory_lane_index": 8.327,
+      "track_id": "sim00122",
+      "name": "Radio for Free",
+      "artist": "Static Kingdom",
+      "memory_lane_index": 19.0465,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-01-09",
-      "enc_plays": 35,
-      "enc_concentration": 0.3143,
-      "enc_completion": 0.8128,
-      "age_at_first_play": 18.0246,
+      "first_play": "2025-05-09",
+      "enc_plays": 27,
+      "enc_concentration": 0.3333,
+      "enc_completion": 0.7214,
+      "age_at_first_play": 18.3532,
+      "bump_weight": 0.9885
+    },
+    {
+      "track_id": "sim00219",
+      "name": "Faultline Forever",
+      "artist": "Lonesome Orchard",
+      "memory_lane_index": 18.5593,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2026-06-16",
+      "enc_plays": 43,
+      "enc_concentration": 0.3721,
+      "enc_completion": 0.8597,
+      "age_at_first_play": 19.4572,
+      "bump_weight": 0.9848
+    },
+    {
+      "track_id": "sim00940",
+      "name": "The Long Way Tonight",
+      "artist": "Electric Avenue",
+      "memory_lane_index": 18.5435,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-08-13",
+      "enc_plays": 38,
+      "enc_concentration": 0.5,
+      "enc_completion": 0.7794,
+      "age_at_first_play": 18.616,
+      "bump_weight": 0.9878
+    },
+    {
+      "track_id": "sim00842",
+      "name": "Ninety Miles Without You",
+      "artist": "Blue Static",
+      "memory_lane_index": 18.4439,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-05-06",
+      "enc_plays": 22,
+      "enc_concentration": 0.5455,
+      "enc_completion": 0.7206,
+      "age_at_first_play": 18.345,
+      "bump_weight": 0.9885
+    },
+    {
+      "track_id": "sim00713",
+      "name": "Slow Dancing Again",
+      "artist": "Wild Telegraph",
+      "memory_lane_index": 18.3035,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-01-11",
+      "enc_plays": 19,
+      "enc_concentration": 0.2632,
+      "enc_completion": 0.6728,
+      "age_at_first_play": 18.0301,
       "bump_weight": 0.9892
     },
     {
-      "track_id": "sim01323",
-      "name": "All the Same",
+      "track_id": "sim00627",
+      "name": "Backseat Again",
       "artist": "Northern Static",
-      "memory_lane_index": 8.3236,
+      "memory_lane_index": 17.1683,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-11-25",
-      "enc_plays": 22,
-      "enc_concentration": 0.3182,
-      "enc_completion": 0.8672,
-      "age_at_first_play": 18.9008,
+      "first_play": "2026-02-27",
+      "enc_plays": 29,
+      "enc_concentration": 0.3448,
+      "enc_completion": 0.8007,
+      "age_at_first_play": 19.1588,
+      "bump_weight": 0.986
+    },
+    {
+      "track_id": "sim00543",
+      "name": "Faultline Again",
+      "artist": "Soft Cassette",
+      "memory_lane_index": 17.1017,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-02-08",
+      "enc_plays": 17,
+      "enc_concentration": 0.2353,
+      "enc_completion": 0.8414,
+      "age_at_first_play": 18.1068,
+      "bump_weight": 0.989
+    },
+    {
+      "track_id": "sim01388",
+      "name": "Half in June",
+      "artist": "Blue Season",
+      "memory_lane_index": 17.0422,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2026-01-18",
+      "enc_plays": 62,
+      "enc_concentration": 0.3548,
+      "enc_completion": 0.8281,
+      "age_at_first_play": 19.0493,
+      "bump_weight": 0.9864
+    },
+    {
+      "track_id": "sim00133",
+      "name": "Everything in June",
+      "artist": "Blue Season",
+      "memory_lane_index": 16.5856,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-01-29",
+      "enc_plays": 34,
+      "enc_concentration": 0.5,
+      "enc_completion": 0.744,
+      "age_at_first_play": 18.0794,
+      "bump_weight": 0.9891
+    },
+    {
+      "track_id": "sim01337",
+      "name": "Nothing Again",
+      "artist": "Pale Cathedral",
+      "memory_lane_index": 16.1511,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-08-08",
+      "enc_plays": 27,
+      "enc_concentration": 0.3704,
+      "enc_completion": 0.6643,
+      "age_at_first_play": 18.6023,
+      "bump_weight": 0.9878
+    },
+    {
+      "track_id": "sim01309",
+      "name": "Almost at the End",
+      "artist": "Quiet Orchard",
+      "memory_lane_index": 15.8747,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-11-23",
+      "enc_plays": 21,
+      "enc_concentration": 0.2381,
+      "enc_completion": 0.787,
+      "age_at_first_play": 18.8953,
       "bump_weight": 0.9869
+    },
+    {
+      "track_id": "sim01218",
+      "name": "All the Same Out Loud",
+      "artist": "Amber Foxes",
+      "memory_lane_index": 15.5143,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2024-11-06",
+      "enc_plays": 11,
+      "enc_concentration": 0.4545,
+      "enc_completion": 0.7621,
+      "age_at_first_play": 17.8515,
+      "bump_weight": 0.9895
+    },
+    {
+      "track_id": "sim00461",
+      "name": "Everything Again",
+      "artist": "Soft Cassette",
+      "memory_lane_index": 15.1438,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-05-24",
+      "enc_plays": 50,
+      "enc_concentration": 0.32,
+      "enc_completion": 0.7836,
+      "age_at_first_play": 18.3943,
+      "bump_weight": 0.9884
     },
     {
       "track_id": "sim00071",
       "name": "Second Again",
       "artist": "Glass Lantern",
-      "memory_lane_index": 8.1809,
+      "memory_lane_index": 15.0505,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2026-02-25",
-      "enc_plays": 24,
-      "enc_concentration": 0.25,
-      "enc_completion": 0.8324,
-      "age_at_first_play": 19.1533,
-      "bump_weight": 0.986
+      "first_play": "2025-12-26",
+      "enc_plays": 20,
+      "enc_concentration": 0.3,
+      "enc_completion": 0.7798,
+      "age_at_first_play": 18.9856,
+      "bump_weight": 0.9866
     },
     {
-      "track_id": "sim00934",
-      "name": "The Long Way by Morning",
-      "artist": "Lonesome Static",
-      "memory_lane_index": 8.1356,
+      "track_id": "sim00641",
+      "name": "Backseat by Morning",
+      "artist": "Salt Avenue",
+      "memory_lane_index": 15.0145,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-03-06",
-      "enc_plays": 13,
-      "enc_concentration": 0.3077,
-      "enc_completion": 0.8286,
-      "age_at_first_play": 18.178,
-      "bump_weight": 0.9889
+      "first_play": "2025-12-14",
+      "enc_plays": 14,
+      "enc_concentration": 0.2857,
+      "enc_completion": 0.8631,
+      "age_at_first_play": 18.9528,
+      "bump_weight": 0.9867
     },
     {
-      "track_id": "sim00245",
-      "name": "Second Out Loud",
-      "artist": "Soft Motel",
-      "memory_lane_index": 8.115,
+      "track_id": "sim01022",
+      "name": "Slow Dancing in June (v2)",
+      "artist": "Soft Static",
+      "memory_lane_index": 14.995,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-08-08",
-      "enc_plays": 10,
-      "enc_concentration": 0.5,
-      "enc_completion": 0.8217,
-      "age_at_first_play": 18.6023,
-      "bump_weight": 0.9878
+      "first_play": "2025-12-18",
+      "enc_plays": 17,
+      "enc_concentration": 0.2941,
+      "enc_completion": 0.7656,
+      "age_at_first_play": 18.9637,
+      "bump_weight": 0.9867
     },
     {
-      "track_id": "sim01304",
-      "name": "Slow Dancing in Colour",
-      "artist": "Wild Signal",
-      "memory_lane_index": 8.028,
+      "track_id": "sim00963",
+      "name": "Homework Again",
+      "artist": "Velvet Motel",
+      "memory_lane_index": 14.246,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-01-26",
-      "enc_plays": 6,
-      "enc_concentration": 0.1667,
-      "enc_completion": 0.7353,
-      "age_at_first_play": 18.0712,
-      "bump_weight": 0.9891
+      "first_play": "2025-04-28",
+      "enc_plays": 16,
+      "enc_concentration": 0.3125,
+      "enc_completion": 0.7097,
+      "age_at_first_play": 18.3231,
+      "bump_weight": 0.9885
     },
     {
-      "track_id": "sim01164",
-      "name": "Half Anyway (v2)",
-      "artist": "Copper Motel",
-      "memory_lane_index": 8.0003,
+      "track_id": "sim01180",
+      "name": "Everything in Reverse",
+      "artist": "Hollow Harbour",
+      "memory_lane_index": 14.1724,
       "world": "high loudness \u00b7 high tempo",
-      "first_play": "2025-04-14",
-      "enc_plays": 9,
-      "enc_concentration": 0.2222,
-      "enc_completion": 0.7706,
-      "age_at_first_play": 18.2847,
-      "bump_weight": 0.9886
+      "first_play": "2025-08-24",
+      "enc_plays": 19,
+      "enc_concentration": 0.5789,
+      "enc_completion": 0.7333,
+      "age_at_first_play": 18.6461,
+      "bump_weight": 0.9877
+    },
+    {
+      "track_id": "sim01364",
+      "name": "Everything for Free",
+      "artist": "Salt Avenue",
+      "memory_lane_index": 13.9821,
+      "world": "high loudness \u00b7 high tempo",
+      "first_play": "2025-08-27",
+      "enc_plays": 28,
+      "enc_concentration": 0.3214,
+      "enc_completion": 0.7008,
+      "age_at_first_play": 18.6543,
+      "bump_weight": 0.9876
     }
   ],
   "blind_spots": [

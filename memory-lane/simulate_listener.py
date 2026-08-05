@@ -2,11 +2,14 @@
 Generate a synthetic listening history, so the pipeline can be run and checked
 by someone who is not me.
 
-Its length is derived from --birth-year: the account opens around age 11 and
-runs to the present. A younger listener therefore gets a SHORTER history, which
-is the honest constraint rather than a cosmetic detail -- the returner label
-needs 635 days of observation per track, so a shorter history means fewer
-labelable tracks and wider intervals on everything downstream.
+Its length runs from the account's creation date to the present. That date
+defaults to a REAL one read from a Spotify "Account data" export -- the single
+usable fact in a bundle that carries no streaming history -- and can be
+overridden with --account-start.
+
+History length is the honest constraint rather than a cosmetic detail: the
+returner label needs 635 days of observation per track, so a shorter history
+means fewer labelable tracks and wider intervals on everything downstream.
 
 WHY A SIMULATOR IS PART OF THE DELIVERABLE
 ------------------------------------------
@@ -71,12 +74,18 @@ DATA = Path(__file__).resolve().parent / "data"
 END = pd.Timestamp("2026-08-01")
 N_TRACKS = 1400
 
-# A listening history starts when the account does, not at birth. Hardcoding a
-# start date implies whatever age the arithmetic happens to produce -- the
-# previous fixed 2013 start had a 2005-born listener streaming at eight. The
-# start is derived from age instead, so changing --birth-year moves the whole
-# history rather than silently making the listener a toddler with a Spotify
-# account.
+# A listening history starts when the account does, not at birth.
+#
+# ACCOUNT_CREATED is a REAL date, read from `UserAttributes.json` in a Spotify
+# "Account data" export. It is the one fact in that bundle this project can
+# use: the export carries no streaming history, but it does say when the
+# account opened, and history length turned out to be the binding constraint
+# on the whole analysis (see docs/METHOD.md §3). Everything else about the
+# simulated listener is invented; this date is not.
+#
+# Pass --account-start to override, or --account-start "" to fall back to
+# deriving it from --birth-year at ACCOUNT_OPENS_AT_AGE.
+ACCOUNT_CREATED = "2016-02-05"
 ACCOUNT_OPENS_AT_AGE = 11.5
 
 # The six sonic worlds: acoustic centres plus a duration distribution.
@@ -140,13 +149,16 @@ def _names(rng: np.random.Generator, n: int) -> tuple[list[str], list[str]]:
     return list(a), out
 
 
-def account_start(birth_year: int) -> pd.Timestamp:
+def account_start(birth_year: int, override: str | None = ACCOUNT_CREATED) -> pd.Timestamp:
+    if override:
+        return pd.Timestamp(override)
     return (pd.Timestamp(year=birth_year, month=6, day=1)
             + pd.Timedelta(days=int(ACCOUNT_OPENS_AT_AGE * 365.25)))
 
 
-def build_tracks(rng: np.random.Generator, birth_year: int) -> pd.DataFrame:
-    start = account_start(birth_year)
+def build_tracks(rng: np.random.Generator, birth_year: int,
+                 start_override: str | None = ACCOUNT_CREATED) -> pd.DataFrame:
+    start = account_start(birth_year, start_override)
     world_names = list(WORLDS)
     world_idx = rng.choice(len(world_names), N_TRACKS, p=WORLD_WEIGHTS)
 
@@ -246,12 +258,15 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--birth-year", type=int, default=2007)
+    ap.add_argument("--account-start", default=ACCOUNT_CREATED,
+                    help="account creation date; pass '' to derive it from age")
     args = ap.parse_args()
 
     rng = np.random.default_rng(args.seed)
     DATA.mkdir(parents=True, exist_ok=True)
 
-    tracks = assign_returners(build_tracks(rng, args.birth_year), rng)
+    tracks = assign_returners(
+        build_tracks(rng, args.birth_year, args.account_start or None), rng)
     streams = build_streams(tracks, rng)
 
     tracks["simulated"] = True
@@ -264,7 +279,12 @@ def main() -> None:
         "simulated": True,
         "seed": args.seed,
         "birth_year": args.birth_year,
-        "account_opens_at_age": ACCOUNT_OPENS_AT_AGE,
+        "account_start": str(account_start(
+            args.birth_year, args.account_start or None).date()),
+        "account_start_is_real": bool(args.account_start),
+        "age_at_account_start": round(
+            (account_start(args.birth_year, args.account_start or None)
+             - pd.Timestamp(year=args.birth_year, month=6, day=1)).days / 365.25, 1),
         "age_at_end_of_history": round(
             (END - pd.Timestamp(year=args.birth_year, month=6, day=1)).days / 365.25, 1),
         "streams": int(len(streams)),
