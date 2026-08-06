@@ -1,0 +1,5 @@
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+matplotlib>=3.7
+vega_datasets>=0.9      # ships the NOAA Seattle weather files used by prepare_weather.py

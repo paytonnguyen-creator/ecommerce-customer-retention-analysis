@@ -2,6 +2,12 @@
 
 **[Read the case study →](https://paytonnguyen-creator.github.io/case-study.html)** · **[PRD →](docs/PRD.md)** · **[Executive deck →](docs/cdnow-retention-executive-deck.pptx)** · **[Walkthrough →](docs/WALKTHROUGH.md)**
 
+> **Also in this repo:** [**The Pickleball Bottleneck →**](pickleball/) — predicting
+> open-play court congestion, and finding that a two-hour-ahead forecast is worth a
+> lot to a player and almost nothing to a parks department. Separate project,
+> separate pipeline, same standard of evidence. *(It lives here for now; it wants
+> its own repository.)*
+
 A retention analysis on the real CDNOW transaction log — 23,570 customers, 67,591 orders, Q1 1997 acquisition cohort followed through June 1998.
 
 **The question:** among customers acquired in the same quarter, what about their first purchase predicts whether they come back — and which of those things could the business actually change?

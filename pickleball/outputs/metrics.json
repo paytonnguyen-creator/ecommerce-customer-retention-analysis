@@ -1,0 +1,319 @@
+{
+  "weather_provenance": {
+    "source": "NOAA via vega_datasets: seattle-weather (daily 2012-2015), seattle-temps (hourly 2010)",
+    "days": 1461,
+    "hours": 35064,
+    "date_min": "2012-01-01",
+    "date_max": "2015-12-31",
+    "wet_day_share": 0.3621,
+    "temp_f_min": 19.22,
+    "temp_f_max": 96.08,
+    "playable_hours_per_day": 11.0,
+    "playable_hours_june": 13.91,
+    "playable_hours_december": 8.0
+  },
+  "declared_assumptions": {
+    "peak_groups_per_hour": 24.0,
+    "park_pull": {
+      "Park A": 1.0,
+      "Park B": 0.84,
+      "Park C": 0.7,
+      "Park D": 0.55,
+      "Park E": 0.42
+    },
+    "courts_per_park": 8,
+    "group_size_probs": {
+      "1": 0.16,
+      "2": 0.44,
+      "3": 0.14,
+      "4": 0.26
+    },
+    "temp_peak_f": 71.0,
+    "temp_sigma_cold_f": 13.0,
+    "temp_sigma_hot_f": 11.0,
+    "temp_floor": 0.04,
+    "wet_multiplier": 0.1,
+    "wind_penalty_per_ms_above_5": 0.07,
+    "annual_growth": 0.22,
+    "growth_centre_years": 1.5,
+    "game_minutes_mean": 12.5,
+    "game_minutes_sd": 3.0,
+    "game_minutes_clip": [
+      7.0,
+      25.0
+    ],
+    "patience_first_game_median_min": 28.0,
+    "patience_sigma_log": 0.6,
+    "patience_multiplier_after_first_game": 2.2,
+    "session_minutes_mean": 85.0,
+    "session_minutes_sd": 28.0,
+    "min_session_remaining_min": 15.0,
+    "_notes": [
+      "The temperature curve is the project's central hypothesis, not a finding.",
+      "Growth is included so the forecast faces real non-stationarity: the model trains on 2012-2014 and is scored on a 2015 that is materially busier.",
+      "The calendar belongs to the weather record (real Seattle, 2012-2015). It is not a claim about when pickleball grew."
+    ]
+  },
+  "cost_of_waiting": {
+    "player_visits": 843581,
+    "wait_share_all_hours": 0.2874,
+    "wait_share_peak": 0.3598,
+    "peak_mean_wait_min": 7.74,
+    "peak_p90_wait_min": 11.47,
+    "peak_mean_wait_min_2015": 10.03,
+    "peak_arrivals": 221687,
+    "peak_share_waiting_over_20min": 0.059,
+    "peak_share_waiting_over_30min": 0.0028,
+    "peak_share_waiting_over_45min": 0.0006,
+    "mean_games_per_visit": 4.67,
+    "peak_never_played_rate_all": 0.1682,
+    "never_played_congestion_only": 0.0768,
+    "never_played_last_hour_of_light": 0.388,
+    "arrivals_in_last_hour_of_light": 77467,
+    "share_of_all_arrivals_in_last_hour": 0.0918
+  },
+  "bottleneck": {
+    "curve": [
+      {
+        "arrivals": 2.96,
+        "wait": 11.05,
+        "never": 0.2679,
+        "n": 13989.0
+      },
+      {
+        "arrivals": 7.79,
+        "wait": 2.86,
+        "never": 0.0194,
+        "n": 8246.0
+      },
+      {
+        "arrivals": 12.91,
+        "wait": 1.84,
+        "never": 0.0049,
+        "n": 5878.0
+      },
+      {
+        "arrivals": 17.91,
+        "wait": 1.99,
+        "never": 0.0044,
+        "n": 4647.0
+      },
+      {
+        "arrivals": 22.91,
+        "wait": 2.55,
+        "never": 0.0064,
+        "n": 3647.0
+      },
+      {
+        "arrivals": 27.87,
+        "wait": 3.76,
+        "never": 0.0136,
+        "n": 2932.0
+      },
+      {
+        "arrivals": 32.92,
+        "wait": 5.17,
+        "never": 0.0244,
+        "n": 2045.0
+      },
+      {
+        "arrivals": 37.9,
+        "wait": 6.76,
+        "never": 0.039,
+        "n": 1545.0
+      },
+      {
+        "arrivals": 42.95,
+        "wait": 8.37,
+        "never": 0.058,
+        "n": 1132.0
+      },
+      {
+        "arrivals": 47.79,
+        "wait": 10.02,
+        "never": 0.0848,
+        "n": 809.0
+      },
+      {
+        "arrivals": 52.82,
+        "wait": 11.43,
+        "never": 0.1136,
+        "n": 627.0
+      },
+      {
+        "arrivals": 57.84,
+        "wait": 12.64,
+        "never": 0.1381,
+        "n": 420.0
+      },
+      {
+        "arrivals": 62.89,
+        "wait": 14.17,
+        "never": 0.1731,
+        "n": 304.0
+      },
+      {
+        "arrivals": 67.67,
+        "wait": 15.01,
+        "never": 0.2044,
+        "n": 195.0
+      },
+      {
+        "arrivals": 72.7,
+        "wait": 15.83,
+        "never": 0.2256,
+        "n": 136.0
+      },
+      {
+        "arrivals": 77.83,
+        "wait": 17.0,
+        "never": 0.2543,
+        "n": 87.0
+      }
+    ],
+    "sweet_spot_arrivals": 12.91,
+    "sweet_spot_wait_min": 1.84,
+    "wait_when_nearly_empty_min": 11.05,
+    "busiest_arrivals": 77.83,
+    "busiest_wait_min": 17.0,
+    "demand_ratio_busiest_vs_sweet": 6.03,
+    "wait_ratio_busiest_vs_sweet": 9.24,
+    "wait_convexity": 1.53,
+    "abandonment_ratio_busiest_vs_sweet": 51.9,
+    "abandonment_convexity": 8.6
+  },
+  "forecast": {
+    "train_rows": 26622,
+    "test_rows": 14338,
+    "scored_rows": 11208,
+    "test_mean_wait_min": 5.12,
+    "train_mean_wait_min": 3.71,
+    "scores": {
+      "seasonal_mean": {
+        "mae": 3.458,
+        "rmse": 4.856,
+        "r2": 0.133,
+        "mean_bias": -1.459
+      },
+      "ridge": {
+        "mae": 3.857,
+        "rmse": 4.863,
+        "r2": 0.13,
+        "mean_bias": -0.018
+      },
+      "gbm": {
+        "mae": 2.543,
+        "rmse": 3.519,
+        "r2": 0.544,
+        "mean_bias": -0.771
+      },
+      "gbm_detrended": {
+        "mae": 3.085,
+        "rmse": 3.876,
+        "r2": 0.447,
+        "mean_bias": -0.134
+      },
+      "oracle_true_demand": {
+        "mae": 2.178,
+        "rmse": 3.071,
+        "r2": 0.653,
+        "mean_bias": -0.163
+      }
+    },
+    "selection_rule": "lowest |bias| among models within 1.25x of the best MAE; under-promising costs trust asymmetrically",
+    "lowest_mae_model": "gbm",
+    "best_deployable_model": "gbm_detrended",
+    "noise_floor_mae": 2.178,
+    "share_of_gap_to_floor_closed": 0.291,
+    "ridge_coefficients": {
+      "hour": 2.516,
+      "hour_sin": 2.477,
+      "park_Park E": -1.098,
+      "park_Park D": -1.004,
+      "park_Park C": -0.702,
+      "t_index": 0.62,
+      "is_weekend": 0.41,
+      "park_Park B": -0.394,
+      "temp_f": 0.125,
+      "is_wet": 0.087,
+      "hour_cos": 0.068,
+      "wind": -0.056,
+      "month": 0.043,
+      "precipitation": -0.041,
+      "dow": 0.005
+    },
+    "advice_model": "gbm_detrended"
+  },
+  "advice_value": {
+    "decisions_evaluated": 2509,
+    "wait_if_you_just_turn_up_min": 7.26,
+    "wait_following_model_advice_min": 4.11,
+    "wait_following_perfect_advice_min": 2.72,
+    "minutes_saved_by_model": 3.15,
+    "minutes_saved_by_perfect": 4.54,
+    "share_of_available_saving_captured": 0.694,
+    "pct_reduction_in_wait": 43.4,
+    "never_played_if_you_just_turn_up": 0.175,
+    "never_played_following_model_advice": 0.0891,
+    "never_played_with_daylight_guardrail": 0.05,
+    "wait_with_daylight_guardrail_min": 4.72
+  },
+  "policies": {
+    "scenarios": {
+      "baseline": {
+        "label": "Today: 8 courts, all four off",
+        "peak_mean_wait_min": 10.03,
+        "peak_never_played_rate": 0.2204,
+        "wait_share_of_court_time": 0.4353,
+        "effort": "n/a -- this is the status quo",
+        "minutes_vs_today": 0.0,
+        "pct_vs_today": 0.0
+      },
+      "shift_15pct_off_peak": {
+        "label": "App shifts 15% off peak",
+        "peak_mean_wait_min": 9.71,
+        "peak_never_played_rate": 0.2114,
+        "wait_share_of_court_time": 0.423,
+        "effort": "Medium -- build and market an app, then earn 15% adoption",
+        "minutes_vs_today": -0.32,
+        "pct_vs_today": -3.2
+      },
+      "two_more_courts": {
+        "label": "Build 2 more courts (+25%)",
+        "peak_mean_wait_min": 7.46,
+        "peak_never_played_rate": 0.1625,
+        "wait_share_of_court_time": 0.352,
+        "effort": "High -- capital budget, land, 12-18 months",
+        "minutes_vs_today": -2.57,
+        "pct_vs_today": -25.6
+      },
+      "winners_stay": {
+        "label": "Winners stay on",
+        "peak_mean_wait_min": 11.95,
+        "peak_never_played_rate": 0.2786,
+        "wait_share_of_court_time": 0.4093,
+        "effort": "None -- it is a sign on the fence and a word from the ambassador",
+        "minutes_vs_today": 1.92,
+        "pct_vs_today": 19.1
+      }
+    },
+    "capex_saving_min": 2.57,
+    "rotation_rule_saving_min": 1.92,
+    "rule_change_as_share_of_capex": 0.747
+  },
+  "config": {
+    "train_years": [
+      2012,
+      2013,
+      2014
+    ],
+    "test_year": 2015,
+    "peak_hours": [
+      17,
+      18,
+      19
+    ],
+    "min_arrivals_for_model": 5,
+    "lookahead_hours": 2
+  }
+}

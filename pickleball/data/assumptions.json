@@ -1,0 +1,82 @@
+{
+  "assumptions": {
+    "peak_groups_per_hour": 24.0,
+    "park_pull": {
+      "Park A": 1.0,
+      "Park B": 0.84,
+      "Park C": 0.7,
+      "Park D": 0.55,
+      "Park E": 0.42
+    },
+    "courts_per_park": 8,
+    "group_size_probs": {
+      "1": 0.16,
+      "2": 0.44,
+      "3": 0.14,
+      "4": 0.26
+    },
+    "temp_peak_f": 71.0,
+    "temp_sigma_cold_f": 13.0,
+    "temp_sigma_hot_f": 11.0,
+    "temp_floor": 0.04,
+    "wet_multiplier": 0.1,
+    "wind_penalty_per_ms_above_5": 0.07,
+    "annual_growth": 0.22,
+    "growth_centre_years": 1.5,
+    "game_minutes_mean": 12.5,
+    "game_minutes_sd": 3.0,
+    "game_minutes_clip": [
+      7.0,
+      25.0
+    ],
+    "patience_first_game_median_min": 28.0,
+    "patience_sigma_log": 0.6,
+    "patience_multiplier_after_first_game": 2.2,
+    "session_minutes_mean": 85.0,
+    "session_minutes_sd": 28.0,
+    "min_session_remaining_min": 15.0,
+    "_notes": [
+      "The temperature curve is the project's central hypothesis, not a finding.",
+      "Growth is included so the forecast faces real non-stationarity: the model trains on 2012-2014 and is scored on a 2015 that is materially busier.",
+      "The calendar belongs to the weather record (real Seattle, 2012-2015). It is not a claim about when pickleball grew."
+    ]
+  },
+  "hourly_shape": {
+    "weekday": {
+      "6": 0.18,
+      "7": 0.34,
+      "8": 0.55,
+      "9": 0.78,
+      "10": 0.72,
+      "11": 0.55,
+      "12": 0.44,
+      "13": 0.34,
+      "14": 0.32,
+      "15": 0.4,
+      "16": 0.62,
+      "17": 0.92,
+      "18": 1.0,
+      "19": 0.74,
+      "20": 0.4
+    },
+    "weekend": {
+      "6": 0.1,
+      "7": 0.28,
+      "8": 0.62,
+      "9": 0.88,
+      "10": 1.0,
+      "11": 0.96,
+      "12": 0.82,
+      "13": 0.7,
+      "14": 0.66,
+      "15": 0.68,
+      "16": 0.7,
+      "17": 0.64,
+      "18": 0.52,
+      "19": 0.34,
+      "20": 0.18
+    }
+  },
+  "wait_bin_minutes": 2,
+  "wait_bins": 46
+}
